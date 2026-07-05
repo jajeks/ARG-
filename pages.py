@@ -1,69 +1,80 @@
-# pages.py - پنل عقاب (نسخه کامل با تم آتشین، اتصالات زنده، تنظیمات)
+# pages.py - پنل عقاب (نسخه کامل با تم آتشین + تمام قابلیت‌ها)
 
 LOGIN_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦅 ورود · پنل عقاب</title>
+<title>🔥 ورود · پنل عقاب</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0a1a;--card:rgba(20,20,50,0.85);--accent:#8B5CF6;--accent2:#A78BFA;--text:#F0EEFF;--dim:#5A4A7A;--mid:#8A7AAA;--border:rgba(139,92,246,0.2)}
-[data-theme="white"]{--bg:#F0EEFF;--card:rgba(255,255,255,0.85);--accent:#7C3AED;--accent2:#6D28D9;--text:#1A0A2E;--dim:#7A6A9A;--mid:#5A4A7A;--border:rgba(124,58,237,0.2)}
-@keyframes gradientBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes fireBG{0%{background-position:0% 50%}25%{background-position:50% 0%}50%{background-position:100% 50%}75%{background-position:50% 100%}100%{background-position:0% 50%}}
+@keyframes flameFlicker{0%{opacity:0.6;transform:scale(1)}50%{opacity:1;transform:scale(1.02)}100%{opacity:0.6;transform:scale(1)}}
+:root{--bg:#0a0a1a;--card:rgba(20,10,10,0.85);--accent:#FF6B35;--accent2:#FF8C00;--text:#F0EEFF;--dim:#8A4A3A;--mid:#A06040;--border:rgba(255,100,50,0.2)}
+[data-theme="white"]{--bg:#F5E6E0;--card:rgba(255,245,240,0.85);--accent:#E05A2A;--accent2:#CC5500;--text:#2A0A05;--dim:#8A5A4A;--mid:#6A3A2A;--border:rgba(200,80,40,0.2)}
 html,body{height:100%;overflow:hidden}
-body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#0a0a1a,#1a0a2e,#2a0a4a);background-size:400% 400%;animation:gradientBG 15s ease infinite;display:flex;align-items:center;justify-content:center;padding:20px;transition:background .3s}
-[data-theme="white"] body{background:linear-gradient(135deg,#F0EEFF,#E4E0F5,#D5D0E8)}
-.bg-particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,0.3),transparent);width:4px;height:4px;animation:floatParticle 20s ease-in-out infinite}
-@keyframes floatParticle{0%{transform:translateY(100vh) scale(0)}50%{transform:translateY(50vh) scale(1)}100%{transform:translateY(-10vh) scale(0)}}
-.glow-orb{position:fixed;border-radius:50%;filter:blur(120px);z-index:0;animation:orbFloat 10s ease-in-out infinite}
-.orb1{width:400px;height:400px;background:rgba(139,92,246,0.08);top:-150px;right:-100px}
-.orb2{width:300px;height:300px;background:rgba(236,72,153,0.06);bottom:-100px;left:-80px;animation-delay:5s}
-.orb3{width:200px;height:200px;background:rgba(79,70,229,0.04);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:8s}
-@keyframes orbFloat{0%,100%{transform:translate(0,0)}33%{transform:translate(30px,-30px)}66%{transform:translate(-20px,20px)}}
+body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#1a0505,#2a0a0a,#3d0f0a,#2a0505,#1a0a0a);background-size:400% 400%;animation:fireBG 8s ease infinite;display:flex;align-items:center;justify-content:center;padding:20px;transition:background .3s}
+[data-theme="white"] body{background:linear-gradient(135deg,#F5E6E0,#E8D5CC,#F0D5C8)}
+.fire-particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.fire-particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,120,50,0.4),rgba(255,50,0,0));width:6px;height:6px;animation:floatFire 12s ease-in-out infinite}
+@keyframes floatFire{0%{transform:translateY(100vh) scale(0) rotate(0deg);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateY(-10vh) scale(1.5) rotate(720deg);opacity:0}}
+.glow-orb{position:fixed;border-radius:50%;filter:blur(150px);z-index:0;animation:flameFlicker 3s ease-in-out infinite;pointer-events:none}
+.orb1{width:500px;height:500px;background:rgba(255,80,20,0.05);top:-200px;right:-100px}
+.orb2{width:400px;height:400px;background:rgba(255,150,50,0.04);bottom:-100px;left:-80px;animation-delay:2s}
+.orb3{width:300px;height:300px;background:rgba(200,50,0,0.03);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:4s}
 .wrap{position:relative;z-index:10;width:100%;max-width:420px}
-.card{background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:28px;padding:44px 38px 38px;box-shadow:0 0 60px rgba(139,92,246,0.08),0 25px 70px rgba(0,0,0,0.6);animation:cardIn 0.6s ease;transition:background .3s}
+.card{background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid rgba(255,100,50,0.15);border-radius:28px;padding:44px 38px 38px;box-shadow:0 0 100px rgba(255,80,20,0.04),0 25px 70px rgba(0,0,0,0.6);animation:cardIn 0.6s ease;transition:background .3s}
 @keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 .brand{display:flex;align-items:center;gap:16px;margin-bottom:30px}
-.brand-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#8B5CF6,#EC4899);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 0 50px rgba(139,92,246,0.2),0 8px 30px rgba(139,92,246,0.15)}
-.brand-name{font-size:20px;font-weight:800;background:linear-gradient(135deg,#A78BFA,#EC4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#FF6B35,#FF4500);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 0 60px rgba(255,80,20,0.15),0 8px 30px rgba(255,80,20,0.2);animation:flameFlicker 2s ease-in-out infinite}
+.brand-name{font-size:20px;font-weight:800;background:linear-gradient(135deg,#FF8C00,#FF4500,#FF6B35);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .brand-sub{font-size:11px;color:var(--dim);margin-top:2px;-webkit-text-fill-color:var(--dim)}
 h1{font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px}
 .sub{font-size:12.5px;color:var(--mid);margin-bottom:26px;line-height:1.7}
-.hint{display:flex;align-items:center;gap:10px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.12);border-radius:12px;padding:10px 16px;margin-bottom:22px}
+.hint{display:flex;align-items:center;gap:10px;background:rgba(255,80,20,0.06);border:1px solid rgba(255,80,20,0.12);border-radius:12px;padding:10px 16px;margin-bottom:22px}
 .hint-label{font-size:11px;color:var(--dim);flex:1}
-.hint-val{font-family:ui-monospace,monospace;font-size:14px;font-weight:700;color:#A78BFA;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);padding:3px 13px;border-radius:8px;cursor:pointer;transition:.2s}
-.hint-val:hover{background:rgba(139,92,246,0.2);box-shadow:0 0 30px rgba(139,92,246,0.1)}
+.hint-val{font-family:ui-monospace,monospace;font-size:14px;font-weight:700;color:#FF8C00;background:rgba(255,80,20,0.1);border:1px solid rgba(255,80,20,0.2);padding:3px 13px;border-radius:8px;cursor:pointer;transition:.2s}
+.hint-val:hover{background:rgba(255,80,20,0.2);box-shadow:0 0 30px rgba(255,80,20,0.1)}
 .field{margin-bottom:20px}
 .field label{display:block;font-size:10.5px;font-weight:600;color:var(--mid);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em}
 .inp-wrap{position:relative}
-input[type=password]{width:100%;padding:14px 48px 14px 18px;border-radius:12px;border:1px solid var(--border);background:rgba(0,0,0,.3);color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:.3s}
-input[type=password]:focus{border-color:rgba(139,92,246,.5);background:rgba(0,0,0,.4);box-shadow:0 0 0 4px rgba(139,92,246,.06),0 0 40px rgba(139,92,246,.03)}
+input[type=password]{width:100%;padding:14px 48px 14px 18px;border-radius:12px;border:1px solid rgba(255,100,50,0.15);background:rgba(0,0,0,.3);color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:.3s}
+input[type=password]:focus{border-color:rgba(255,100,50,.5);background:rgba(0,0,0,.4);box-shadow:0 0 0 4px rgba(255,80,20,.06),0 0 40px rgba(255,80,20,.03)}
 .ic{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:18px;transition:.3s}
-input:focus+.ic{color:#A78BFA}
+input:focus+.ic{color:#FF8C00}
 .err{display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#F87171;align-items:center;gap:8px}
 .err.show{display:flex}
-.btn{width:100%;padding:14px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#8B5CF6,#EC4899);background-size:200% 200%;animation:btnGradient 4s ease infinite;color:#fff;font-family:inherit;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 30px rgba(139,92,246,.3);transition:all .3s;position:relative;overflow:hidden}
-@keyframes btnGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#FF6B35,#FF4500,#FF8C00);background-size:200% 200%;animation:btnFire 3s ease infinite;color:#fff;font-family:inherit;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 30px rgba(255,80,20,.25);transition:all .3s;position:relative;overflow:hidden}
+@keyframes btnFire{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.08);opacity:0;transition:.3s}
 .btn:hover::before{opacity:1}
-.btn:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(139,92,246,.4)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 40px rgba(255,80,20,.35)}
 .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.footer{margin-top:24px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:var(--dim)}
+.footer{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,100,50,0.08);display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:var(--dim)}
 .footer button{background:none;border:none;color:var(--accent);cursor:pointer;font-weight:600;font-family:inherit;font-size:11px;display:flex;align-items:center;gap:4px;transition:.3s}
-.footer button:hover{color:#EC4899}
+.footer button:hover{color:#FF4500}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-<div class="bg-particles"><div class="particle" style="left:10%;animation-delay:0s;width:6px;height:6px"></div><div class="particle" style="left:20%;animation-delay:3s;width:3px;height:3px"></div><div class="particle" style="left:35%;animation-delay:6s;width:5px;height:5px"></div><div class="particle" style="left:50%;animation-delay:2s;width:4px;height:4px"></div><div class="particle" style="left:65%;animation-delay:7s;width:7px;height:7px"></div><div class="particle" style="left:75%;animation-delay:4s;width:3px;height:3px"></div><div class="particle" style="left:88%;animation-delay:9s;width:5px;height:5px"></div></div>
+<div class="fire-particles">
+    <div class="fire-particle" style="left:5%;animation-delay:0s;width:8px;height:8px"></div>
+    <div class="fire-particle" style="left:15%;animation-delay:2s;width:5px;height:5px"></div>
+    <div class="fire-particle" style="left:25%;animation-delay:4s;width:10px;height:10px"></div>
+    <div class="fire-particle" style="left:35%;animation-delay:1s;width:6px;height:6px"></div>
+    <div class="fire-particle" style="left:45%;animation-delay:5s;width:7px;height:7px"></div>
+    <div class="fire-particle" style="left:55%;animation-delay:3s;width:9px;height:9px"></div>
+    <div class="fire-particle" style="left:65%;animation-delay:6s;width:5px;height:5px"></div>
+    <div class="fire-particle" style="left:75%;animation-delay:2s;width:8px;height:8px"></div>
+    <div class="fire-particle" style="left:85%;animation-delay:4s;width:6px;height:6px"></div>
+    <div class="fire-particle" style="left:95%;animation-delay:7s;width:7px;height:7px"></div>
+</div>
 <div class="glow-orb orb1"></div><div class="glow-orb orb2"></div><div class="glow-orb orb3"></div>
 <div class="wrap">
   <div class="card">
-    <div class="brand"><div class="brand-icon">🦅</div><div><div class="brand-name">پنل عقاب</div><div class="brand-sub">مدیریت کاربران</div></div></div>
+    <div class="brand"><div class="brand-icon">🔥</div><div><div class="brand-name">پنل عقاب</div><div class="brand-sub">مدیریت کاربران</div></div></div>
     <h1>ورود به پنل عقاب</h1>
     <p class="sub">رمز عبور را برای دسترسی به داشبورد وارد کنید</p>
     <div class="err" id="err"><i class="ti ti-alert-circle"></i><span id="err-text"></span></div>
@@ -72,7 +83,7 @@ input:focus+.ic{color:#A78BFA}
       <div class="field"><label>رمز عبور</label><div class="inp-wrap"><input type="password" id="pw" placeholder="رمز عبور را وارد کنید" autofocus required><i class="ti ti-lock ic"></i></div></div>
       <button class="btn" type="submit" id="btn"><i class="ti ti-login-2"></i> ورود به پنل</button>
     </form>
-    <div class="footer">🦅 پنل عقاب · v9.2 · <button onclick="toggleTheme()"><i class="ti ti-palette"></i> تغییر تم</button></div>
+    <div class="footer">🔥 پنل عقاب · v10.0 · <button onclick="toggleTheme()"><i class="ti ti-palette"></i> تغییر تم</button></div>
   </div>
 </div>
 <script>
@@ -101,7 +112,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦅 پنل عقاب · مدیریت کاربران</title>
+<title>🔥 پنل عقاب · مدیریت کاربران</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -109,61 +120,62 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#0a0a1a;--bg2:#12122a;--bg3:#1a1a3a;
-  --card:rgba(20,20,50,0.7);--card-b:rgba(139,92,246,0.12);--card-bh:rgba(139,92,246,0.28);
-  --accent:#8B5CF6;--accent2:#A78BFA;--accent-d:rgba(139,92,246,0.08);
+  --card:rgba(20,10,10,0.7);--card-b:rgba(255,100,50,0.12);--card-bh:rgba(255,100,50,0.28);
+  --accent:#FF6B35;--accent2:#FF8C00;--accent-d:rgba(255,80,20,0.08);
   --green:#10B981;--green-bg:rgba(16,185,129,0.08);--green-t:#34D399;
   --red:#EF4444;--red-bg:rgba(239,68,68,0.08);--red-t:#F87171;
   --amber:#F59E0B;--amber-bg:rgba(245,158,11,0.08);--amber-t:#FCD34D;
   --pink:#EC4899;--pink-bg:rgba(236,72,153,0.08);
   --purple:#8B5CF6;--purple-bg:rgba(139,92,246,0.08);
-  --t1:#F0EEFF;--t2:#8A7AAA;--t3:#5A4A7A;
+  --t1:#F0EEFF;--t2:#A07050;--t3:#7A4A3A;
   --sidebar-w:240px;--radius:16px;
-  --shadow:0 8px 32px rgba(0,0,0,0.4),0 0 60px rgba(139,92,246,0.03);
+  --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(255,80,20,0.03);
 }
 [data-theme="white"]{
-  --bg:#F0EEFF;--bg2:#E4E0F5;--bg3:#D5D0E8;
-  --card:rgba(255,255,255,0.7);--card-b:rgba(139,92,246,0.14);--card-bh:rgba(139,92,246,0.3);
-  --accent:#7C3AED;--accent2:#6D28D9;--accent-d:rgba(124,58,237,0.06);
+  --bg:#F5E6E0;--bg2:#E8D5CC;--bg3:#F0D5C8;
+  --card:rgba(255,245,240,0.7);--card-b:rgba(200,80,40,0.14);--card-bh:rgba(200,80,40,0.3);
+  --accent:#E05A2A;--accent2:#CC5500;--accent-d:rgba(200,80,40,0.06);
   --green:#059669;--green-bg:rgba(5,150,105,0.06);--green-t:#065F46;
   --red:#DC2626;--red-bg:rgba(220,38,38,0.06);--red-t:#991B1B;
   --amber:#D97706;--amber-bg:rgba(217,119,6,0.06);--amber-t:#92400E;
   --pink:#DB2777;--pink-bg:rgba(219,39,119,0.06);
   --purple:#7C3AED;--purple-bg:rgba(124,58,237,0.06);
-  --t1:#0F0A1A;--t2:#4A3A6A;--t3:#7A6A9A;
+  --t1:#2A0A05;--t2:#6A3A2A;--t3:#8A5A4A;
   --shadow:0 8px 32px rgba(0,0,0,0.06);
 }
-@keyframes bgGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes fireBG{0%{background-position:0% 50%}25%{background-position:50% 0%}50%{background-position:100% 50%}75%{background-position:50% 100%}100%{background-position:0% 50%}}
+@keyframes flamePulse{0%,100%{opacity:0.4}50%{opacity:0.8}}
 html,body{height:100%}
-body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#0a0a1a,#1a0a2e,#2a0a4a);background-size:300% 300%;animation:bgGradient 20s ease infinite;color:var(--t1);min-height:100vh;display:flex;font-size:14px;transition:background .3s,color .3s}
-[data-theme="white"] body{background:linear-gradient(135deg,#F0EEFF,#E4E0F5,#D5D0E8)}
-.glow-orb{position:fixed;border-radius:50%;filter:blur(150px);z-index:0;animation:orbFloat 15s ease-in-out infinite;pointer-events:none}
-.orb1{width:500px;height:500px;background:rgba(139,92,246,0.04);top:-200px;right:-150px}
-.orb2{width:350px;height:350px;background:rgba(236,72,153,0.03);bottom:-120px;left:-100px;animation-delay:7s}
-.orb3{width:250px;height:250px;background:rgba(79,70,229,0.03);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:12s}
+body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#1a0505,#2a0a0a,#3d0f0a,#2a0505,#1a0a0a);background-size:400% 400%;animation:fireBG 8s ease infinite;color:var(--t1);min-height:100vh;display:flex;font-size:14px;transition:background .3s,color .3s}
+[data-theme="white"] body{background:linear-gradient(135deg,#F5E6E0,#E8D5CC,#F0D5C8)}
+.fire-glow{position:fixed;border-radius:50%;filter:blur(150px);z-index:0;animation:flamePulse 2s ease-in-out infinite;pointer-events:none}
+.fg1{width:600px;height:600px;background:rgba(255,80,20,0.04);top:-250px;right:-150px}
+.fg2{width:450px;height:450px;background:rgba(255,150,50,0.03);bottom:-150px;left:-100px;animation-delay:1s}
+.fg3{width:300px;height:300px;background:rgba(200,50,0,0.03);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:2s}
 @keyframes orbFloat{0%,100%{transform:translate(0,0)}33%{transform:translate(40px,-40px)}66%{transform:translate(-30px,30px)}}
 
 .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-left:1px solid var(--card-b);display:flex;flex-direction:column;flex-shrink:0;position:fixed;right:0;top:0;bottom:0;z-index:200;transition:transform .3s cubic-bezier(.4,0,.2,1),background .3s;box-shadow:var(--shadow)}
 .logo{display:flex;align-items:center;gap:14px;padding:22px 18px 18px;border-bottom:1px solid var(--card-b)}
-.logo-icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 0 40px rgba(139,92,246,0.15)}
-.logo-name{font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--accent2),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-icon{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#FF6B35,#FF4500);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 0 40px rgba(255,80,20,0.15);animation:flamePulse 2s ease-in-out infinite}
+.logo-name{font-size:15px;font-weight:800;background:linear-gradient(135deg,#FF8C00,#FF4500);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo-sub{font-size:9px;color:var(--t3);margin-top:1px;-webkit-text-fill-color:var(--t3)}
 .nav-wrap{flex:1;overflow-y:auto;padding:8px 0}
 .nav-it{display:flex;align-items:center;gap:10px;padding:10px 16px;color:var(--t3);font-size:12.5px;cursor:pointer;border-right:2px solid transparent;transition:all .2s;margin:2px 8px;border-radius:10px}
 .nav-it i{font-size:16px;width:20px;text-align:center;flex-shrink:0;transition:transform .3s}
 .nav-it:hover{background:var(--accent-d);color:var(--t2)}
 .nav-it:hover i{transform:scale(1.1)}
-.nav-it.on{background:linear-gradient(135deg,var(--accent-d),rgba(236,72,153,0.05));color:var(--t1);border-right-color:var(--accent);font-weight:600;box-shadow:0 0 30px rgba(139,92,246,0.03)}
-.nav-badge{margin-right:auto;background:linear-gradient(135deg,var(--accent),var(--pink));color:#fff;font-size:9px;padding:1px 8px;border-radius:20px;font-weight:700}
+.nav-it.on{background:linear-gradient(135deg,var(--accent-d),rgba(255,80,20,0.05));color:var(--t1);border-right-color:var(--accent);font-weight:600;box-shadow:0 0 30px rgba(255,80,20,0.03)}
+.nav-badge{margin-right:auto;background:linear-gradient(135deg,#FF6B35,#FF4500);color:#fff;font-size:9px;padding:1px 8px;border-radius:20px;font-weight:700}
 .sb-foot{padding:14px 16px;border-top:1px solid var(--card-b)}
 .theme-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--accent-d);color:var(--t2);border-radius:10px;padding:8px;font-size:11px;font-weight:500;font-family:inherit;border:1px solid var(--card-b);cursor:pointer;width:100%;transition:.2s;margin-bottom:7px}
 .theme-btn:hover{background:var(--card-b);color:var(--t1)}
-.support-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#8B5CF6,#6D28D9);color:#fff;border-radius:10px;padding:8px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;width:100%;transition:.2s;margin-bottom:7px;box-shadow:0 4px 15px rgba(139,92,246,0.2)}
-.support-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(139,92,246,0.3)}
+.support-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#FF6B35,#FF4500);color:#fff;border-radius:10px;padding:8px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;width:100%;transition:.2s;margin-bottom:7px;box-shadow:0 4px 15px rgba(255,80,20,0.2)}
+.support-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,80,20,0.3)}
 .logout-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--red-bg);color:var(--red-t);border-radius:10px;padding:8px;font-size:12px;font-weight:500;font-family:inherit;border:1px solid rgba(239,68,68,0.2);cursor:pointer;width:100%;transition:.2s}
 .logout-btn:hover{background:rgba(239,68,68,0.2)}
 .mob-top{display:none;position:fixed;top:0;right:0;left:0;height:56px;background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-bottom:1px solid var(--card-b);z-index:150;align-items:center;justify-content:space-between;padding:0 14px}
 .mob-top .ml{display:flex;align-items:center;gap:10px}
-.mob-logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--pink));display:flex;align-items:center;justify-content:center;font-size:17px}
+.mob-logo{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,#FF6B35,#FF4500);display:flex;align-items:center;justify-content:center;font-size:17px}
 .mob-title{color:var(--t1);font-size:13px;font-weight:700}
 .mob-right{display:flex;gap:6px}
 .menu-btn,.theme-mob{background:var(--accent-d);border:1px solid var(--card-b);color:var(--t2);width:36px;height:36px;border-radius:9px;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
@@ -176,7 +188,7 @@ body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#0a0a1
 @keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
 .tb-title{font-size:22px;font-weight:800;color:var(--t1);display:flex;align-items:center;gap:10px}
-.tb-title i{background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:24px}
+.tb-title i{background:linear-gradient(135deg,#FF8C00,#FF4500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:24px}
 .tb-sub{font-size:12px;color:var(--t3);margin-top:2px}
 .tb-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .badge{font-size:10px;padding:4px 12px;border-radius:20px;font-weight:700;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
@@ -185,6 +197,7 @@ body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#0a0a1
 .bg-purple{background:var(--purple-bg);color:#A78BFA}
 .bg-red{background:var(--red-bg);color:var(--red-t)}
 .bg-pink{background:var(--pink-bg);color:var(--pink)}
+.bg-fire{background:rgba(255,80,20,0.12);color:#FF8C00}
 .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;display:inline-block}
 .dg{background:var(--green)}.dr{background:var(--red)}.da{background:var(--amber)}.db{background:var(--accent)}
 .pulse{animation:pulse 2s infinite}
@@ -197,12 +210,12 @@ body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#0a0a1
 .stat-card .number{font-size:28px;font-weight:800;color:var(--t1);line-height:1.2}
 .stat-card .label{font-size:11px;color:var(--t3);margin-top:4px;font-weight:500}
 .stat-card .sub{font-size:9px;color:var(--t3);margin-top:2px;opacity:.6}
-.stat-card .bar{position:absolute;bottom:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--pink));opacity:0;transition:.3s}
+.stat-card .bar{position:absolute;bottom:0;right:0;left:0;height:3px;background:linear-gradient(90deg,#FF6B35,#FF4500);opacity:0;transition:.3s}
 .stat-card:hover .bar{opacity:1}
 
 .user-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
 .user-card{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--card-b);border-radius:var(--radius);padding:18px 20px;transition:all .3s;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.user-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200px;height:200px;background:radial-gradient(circle,rgba(139,92,246,0.03),transparent 70%);pointer-events:none}
+.user-card::before{content:'';position:absolute;top:-50%;right:-50%;width:200px;height:200px;background:radial-gradient(circle,rgba(255,80,20,0.03),transparent 70%);pointer-events:none}
 .user-card:hover{border-color:var(--card-bh);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
 .user-card .head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .user-card .name{font-size:14px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:6px}
@@ -213,21 +226,23 @@ body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#0a0a1
 .user-card .info{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);gap:8px;flex-wrap:wrap;margin-bottom:6px}
 .user-card .quota-info{display:flex;justify-content:space-between;font-size:11px;color:var(--t2);margin-bottom:4px}
 .user-card .quota-bar{height:6px;border-radius:4px;background:var(--accent-d);overflow:hidden;margin-bottom:10px}
-.user-card .quota-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--pink));transition:width .6s ease}
+.user-card .quota-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#FF6B35,#FF4500);transition:width .6s ease}
 .user-card .actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
 .user-card .actions .btn{flex:1;justify-content:center;min-width:fit-content;font-size:10px}
 .user-card .lock-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;color:var(--amber-t);background:var(--amber-bg);padding:2px 8px;border-radius:10px;border:1px solid rgba(245,158,11,0.15)}
 .user-card .warning-box{background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.12);border-radius:6px;padding:5px 8px;margin-top:6px;font-size:7.5px;color:var(--red-t);font-family:monospace;white-space:pre-wrap;max-height:50px;overflow-y:auto;direction:ltr;text-align:left;line-height:1.4}
+.user-card .conn-badge{display:inline-flex;align-items:center;gap:3px;font-size:9px;color:#34D399;background:rgba(16,185,129,0.08);padding:2px 8px;border-radius:10px;border:1px solid rgba(16,185,129,0.12)}
 
 .empty{text-align:center;padding:50px 20px;color:var(--t3)}
 .empty i{font-size:38px;opacity:.3;display:block;margin-bottom:12px}
 
 .btn{font-family:inherit;font-size:11.5px;font-weight:600;border-radius:10px;padding:8px 16px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:none;transition:all .2s;white-space:nowrap}
 .btn i{font-size:13px}
-.btn-p{background:linear-gradient(135deg,var(--accent),var(--pink));color:#fff;box-shadow:0 4px 20px rgba(139,92,246,.2)}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(139,92,246,.35)}
+.btn-p{background:linear-gradient(135deg,#FF6B35,#FF4500,#FF8C00);background-size:200% 200%;animation:btnFire 3s ease infinite;color:#fff;box-shadow:0 4px 20px rgba(255,80,20,.2)}
+@keyframes btnFire{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,80,20,.35)}
 .btn-o{background:var(--card);backdrop-filter:blur(10px);border:1px solid var(--card-b);color:var(--t2)}
-.btn-o:hover{background:var(--accent-d);border-color:rgba(139,92,246,.2)}
+.btn-o:hover{background:var(--accent-d);border-color:rgba(255,80,20,.2)}
 .btn-d{background:var(--red-bg);color:var(--red-t);border:1px solid rgba(239,68,68,.2)}
 .btn-d:hover{background:rgba(239,68,68,.2)}
 .btn-pur{background:var(--purple-bg);color:#A78BFA;border:1px solid rgba(139,92,246,.2)}
@@ -248,11 +263,11 @@ body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#0a0a1
 .modal-close{position:absolute;top:14px;left:14px;background:var(--accent-d);border:1px solid var(--card-b);color:var(--t2);width:32px;height:32px;border-radius:9px;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;transition:.2s}
 .modal-close:hover{background:var(--red-bg);color:var(--red-t);transform:rotate(90deg)}
 .modal-title{font-size:16px;font-weight:700;color:var(--t1);margin-bottom:20px;display:flex;align-items:center;gap:8px}
-.modal-title i{background:linear-gradient(135deg,var(--accent),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:18px}
+.modal-title i{background:linear-gradient(135deg,#FF8C00,#FF4500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:18px}
 .fg{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
 .fg label{font-size:10px;color:var(--t3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:4px}
 .fi{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--card-b);background:rgba(0,0,0,.2);color:var(--t1);font-family:inherit;font-size:12px;outline:none;transition:.2s}
-.fi:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.08);background:rgba(0,0,0,.3)}
+.fi:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,80,20,.08);background:rgba(0,0,0,.3)}
 .fi::placeholder{color:var(--t3)}
 select.fi{appearance:none;cursor:pointer}
 
@@ -262,7 +277,7 @@ select.fi{appearance:none;cursor:pointer}
 .conn-card .ip{font-family:monospace;font-size:13px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:6px}
 .conn-card .label{font-size:10px;color:var(--t3);margin-top:2px}
 .conn-card .conn-info{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:var(--t2);gap:6px;flex-wrap:wrap}
-.conn-status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite;margin-right:3px}
+.conn-status-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#34D399;animation:pulse 1.5s infinite;margin-right:3px}
 
 /* ===== بخش تنظیمات ===== */
 .settings-card{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--card-b);border-radius:var(--radius);padding:24px;max-width:500px}
@@ -271,9 +286,13 @@ select.fi{appearance:none;cursor:pointer}
 .settings-card .field{margin-bottom:14px}
 .settings-card .field label{font-size:11px;color:var(--t3);display:block;margin-bottom:4px;font-weight:600}
 .settings-card .field input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--card-b);background:rgba(0,0,0,.2);color:var(--t1);font-family:inherit;font-size:13px;outline:none;transition:.2s}
-.settings-card .field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.08)}
+.settings-card .field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,80,20,.08)}
 .settings-card .field input::placeholder{color:var(--t3)}
 .settings-card .btn{width:100%;justify-content:center;margin-top:4px}
+
+/* ===== اعلان‌ها ===== */
+.notif-badge{position:relative}
+.notif-dot{position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#EF4444;animation:pulse 1.5s infinite}
 
 @media(max-width:1200px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
@@ -289,14 +308,16 @@ select.fi{appearance:none;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="glow-orb orb1"></div><div class="glow-orb orb2"></div><div class="glow-orb orb3"></div>
+<div class="fire-glow fg1"></div>
+<div class="fire-glow fg2"></div>
+<div class="fire-glow fg3"></div>
 <div class="toast" id="toast"></div>
 
 <!-- ===== مودال ساخت کانفیگ ===== -->
 <div class="modal-bg" id="modal-user">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-user')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-user-plus"></i> 🦅 ساخت کانفیگ جدید</div>
+    <div class="modal-title"><i class="ti ti-user-plus"></i> 🔥 ساخت کانفیگ جدید</div>
     
     <div class="fg"><label><i class="ti ti-tag"></i> نام کاربری</label><input class="fi" id="user-label" placeholder="مثلاً: کاربر علی"></div>
     
@@ -334,7 +355,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-edit">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-edit')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-edit"></i> 🦅 ویرایش کانفیگ</div>
+    <div class="modal-title"><i class="ti ti-edit"></i> 🔥 ویرایش کانفیگ</div>
     <input type="hidden" id="edit-uuid">
     
     <div class="fg" id="edit-password-section">
@@ -386,7 +407,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-delete">
   <div class="modal" style="max-width:400px">
     <button class="modal-close" onclick="closeModal('modal-delete')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-trash"></i> 🦅 حذف کانفیگ</div>
+    <div class="modal-title"><i class="ti ti-trash"></i> 🔥 حذف کانفیگ</div>
     <input type="hidden" id="delete-uuid">
     <p style="font-size:13px;color:var(--t2);margin-bottom:16px">برای حذف این کانفیگ، رمز آن را وارد کنید.</p>
     <div class="fg">
@@ -402,19 +423,20 @@ select.fi{appearance:none;cursor:pointer}
 
 <!-- ===== هدر موبایل ===== -->
 <div class="mob-top">
-  <div class="ml"><div class="mob-logo">🦅</div><span class="mob-title">پنل عقاب</span></div>
+  <div class="ml"><div class="mob-logo">🔥</div><span class="mob-title">پنل عقاب</span></div>
   <div class="mob-right"><button class="theme-mob" id="theme-mob-btn" onclick="toggleTheme()"><i class="ti ti-palette" id="theme-mob-icon"></i></button><button class="menu-btn" id="open-sb"><i class="ti ti-menu-2"></i></button></div>
 </div>
 <div class="overlay" id="overlay"></div>
 
 <!-- ===== سایدبار ===== -->
 <aside class="sidebar" id="sb">
-  <div class="logo"><div class="logo-icon">🦅</div><div><div class="logo-name">پنل عقاب</div><div class="logo-sub">مدیریت کاربران</div></div></div>
+  <div class="logo"><div class="logo-icon">🔥</div><div><div class="logo-name">پنل عقاب</div><div class="logo-sub">مدیریت کاربران</div></div></div>
   <div class="nav-wrap">
     <div class="nav-it on" data-pg="users"><i class="ti ti-layout-dashboard"></i> داشبورد</div>
     <div class="nav-it" data-pg="connections"><i class="ti ti-plug-connected"></i> اتصالات زنده</div>
     <div class="nav-it" data-pg="support"><i class="ti ti-headset"></i> پشتیبانی</div>
     <div class="nav-it" data-pg="settings"><i class="ti ti-settings"></i> تنظیمات</div>
+    <div class="nav-it" data-pg="backup"><i class="ti ti-database"></i> بکاپ</div>
   </div>
   <div class="sb-foot">
     <button class="theme-btn" onclick="toggleTheme()"><i class="ti ti-palette" id="theme-icon"></i> <span id="theme-label">تغییر تم</span></button>
@@ -432,18 +454,18 @@ select.fi{appearance:none;cursor:pointer}
       <div class="tb-sub" id="last-update">آخرین بروزرسانی: لحظه‌ای</div>
     </div>
     <div class="tb-right">
-      <span class="badge bg-green" id="online-badge"><span class="dot dg"></span> ۰ آنلاین</span>
+      <span class="badge bg-fire" id="online-badge"><span class="dot dg"></span> ۰ آنلاین</span>
       <button class="btn btn-p" onclick="openModal('modal-user')"><i class="ti ti-plus"></i> کانفیگ جدید</button>
     </div>
   </div>
 
   <div class="stats-grid">
-    <div class="stat-card green"><span class="icon">🟢</span><div class="number" id="online-count">۰</div><div class="label">سرویس‌های آنلاین</div><div class="sub">در حال اتصال</div><div class="bar"></div></div>
-    <div class="stat-card blue"><span class="icon">👥</span><div class="number" id="total-users">۰</div><div class="label">کل کاربران</div><div class="sub">ثبت‌شده</div><div class="bar"></div></div>
-    <div class="stat-card purple"><span class="icon">📊</span><div class="number" id="total-usage">۰</div><div class="label">مصرف کل</div><div class="sub">مگابایت</div><div class="bar"></div></div>
-    <div class="stat-card pink"><span class="icon">📱</span><div class="number" id="active-devices">۰</div><div class="label">دستگاه‌های فعال</div><div class="sub">متصل</div><div class="bar"></div></div>
-    <div class="stat-card amber"><span class="icon">⛔</span><div class="number" id="inactive-count">۰</div><div class="label">غیرفعال</div><div class="sub">غیرفعال</div><div class="bar"></div></div>
-    <div class="stat-card amber"><span class="icon">🏆</span><div class="number" id="top-user-label" style="font-size:16px">-</div><div class="label">پر مصرف‌ترین کاربر</div><div class="sub" id="top-user-usage">۰</div><div class="bar"></div></div>
+    <div class="stat-card"><span class="icon">🔥</span><div class="number" id="online-count">۰</div><div class="label">سرویس‌های آنلاین</div><div class="sub">در حال اتصال</div><div class="bar"></div></div>
+    <div class="stat-card"><span class="icon">👥</span><div class="number" id="total-users">۰</div><div class="label">کل کاربران</div><div class="sub">ثبت‌شده</div><div class="bar"></div></div>
+    <div class="stat-card"><span class="icon">📊</span><div class="number" id="total-usage">۰</div><div class="label">مصرف کل</div><div class="sub">مگابایت</div><div class="bar"></div></div>
+    <div class="stat-card"><span class="icon">📱</span><div class="number" id="active-devices">۰</div><div class="label">دستگاه‌های فعال</div><div class="sub">متصل</div><div class="bar"></div></div>
+    <div class="stat-card"><span class="icon">⛔</span><div class="number" id="inactive-count">۰</div><div class="label">غیرفعال</div><div class="sub">غیرفعال</div><div class="bar"></div></div>
+    <div class="stat-card"><span class="icon">🏆</span><div class="number" id="top-user-label" style="font-size:16px">-</div><div class="label">پر مصرف‌ترین کاربر</div><div class="sub" id="top-user-usage">۰</div><div class="bar"></div></div>
   </div>
 
   <div id="users-grid" class="user-grid"><div class="empty"><i class="ti ti-users"></i><p>هیچ کاربری ساخته نشده</p></div></div>
@@ -460,7 +482,7 @@ select.fi{appearance:none;cursor:pointer}
     <div class="card-title"><i class="ti ti-messages"></i> ارتباط با پشتیبانی</div>
     <p style="font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:16px">برای دریافت راهنمایی، پشتیبانی و پاسخ به سوالات خود، به گروه تلگرامی ما بپیوندید.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-p" onclick="window.open('https://t.me/+QyEVU0FquFczYjQ0','_blank')" style="flex:2;background:linear-gradient(135deg,#0098e6,#0077bb);box-shadow:0 4px 20px rgba(0,152,230,0.25)"><i class="ti ti-brand-telegram"></i> عضویت در گروه پشتیبانی</button>
+      <button class="btn btn-p" onclick="window.open('https://t.me/+QyEVU0FquFczYjQ0','_blank')" style="flex:2"><i class="ti ti-brand-telegram"></i> عضویت در گروه پشتیبانی</button>
       <button class="btn btn-o" onclick="navigator.clipboard.writeText('https://t.me/+QyEVU0FquFczYjQ0').then(()=>toast('لینک گروه کپی شد ✓','ok'))"><i class="ti ti-copy"></i> کپی لینک</button>
     </div>
     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--card-b);display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -490,6 +512,21 @@ select.fi{appearance:none;cursor:pointer}
     <button class="btn btn-p" onclick="changePassword()"><i class="ti ti-check"></i> تغییر رمز</button>
   </div>
 </section>
+
+<!-- ===== بخش بکاپ ===== -->
+<section class="pg" id="pg-backup">
+  <div class="topbar"><div><div class="tb-title"><i class="ti ti-database"></i> مدیریت بکاپ</div><div class="tb-sub">ذخیره و بازیابی اطلاعات</div></div></div>
+  <div class="settings-card">
+    <div class="title"><i class="ti ti-download"></i> بکاپ‌گیری</div>
+    <p style="font-size:12px;color:var(--t2);margin-bottom:16px;line-height:1.8">از اطلاعات کاربران، کانفیگ‌ها و تنظیمات بکاپ بگیرید.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-p" onclick="createBackup()" style="flex:2"><i class="ti ti-download"></i> دانلود بکاپ</button>
+      <button class="btn btn-o" onclick="document.getElementById('restore-input').click()" style="flex:1"><i class="ti ti-upload"></i> بازیابی</button>
+      <input type="file" id="restore-input" accept=".json" style="display:none" onchange="restoreBackup(event)">
+    </div>
+    <div style="margin-top:12px;font-size:10px;color:var(--t3)">📁 فایل بکاپ با فرمت JSON ذخیره می‌شود</div>
+  </div>
+</section>
 </main>
 
 <script>
@@ -504,7 +541,7 @@ function applyTheme(theme) {
   const label = document.getElementById('theme-label');
   icon.className = 'ti ' + (theme === 'dark' ? 'ti-moon' : 'ti-sun');
   if (mobIcon) mobIcon.className = 'ti ' + (theme === 'dark' ? 'ti-moon' : 'ti-sun');
-  label.textContent = theme === 'dark' ? 'تم بنفش تیره' : 'تم سفید';
+  label.textContent = theme === 'dark' ? 'تم آتشین تیره' : 'تم آتشین روشن';
 }
 function toggleTheme() {
   const next = currentTheme === 'dark' ? 'white' : 'dark';
@@ -565,6 +602,44 @@ async function changePassword() {
   }
 }
 
+// ===== بکاپ =====
+async function createBackup() {
+  try {
+    const r = await authF('/api/backup');
+    const data = await r.json();
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `eagle_backup_${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast('✅ بکاپ با موفقیت دانلود شد', 'ok');
+  } catch(e) {
+    toast('خطا در بکاپ‌گیری', 'err');
+  }
+}
+
+async function restoreBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const text = await file.text();
+    const data = JSON.parse(text);
+    const r = await authF('/api/backup/restore', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) throw new Error();
+    toast('✅ بکاپ با موفقیت بازیابی شد', 'ok');
+    setTimeout(() => location.reload(), 1500);
+  } catch(e) {
+    toast('خطا در بازیابی بکاپ', 'err');
+  }
+  event.target.value = '';
+}
+
 // ===== احراز هویت =====
 async function authF(url, opts={}) {
   const r = await fetch(url, opts);
@@ -622,7 +697,7 @@ async function loadUsers() {
       const sr = await authF('/stats');
       const statsData = await sr.json();
       if (statsData.top_user) {
-        document.getElementById('top-user-label').textContent = '🦅 ' + statsData.top_user.label;
+        document.getElementById('top-user-label').textContent = '🔥 ' + statsData.top_user.label;
         document.getElementById('top-user-usage').textContent = statsData.top_user.used_fmt || '0';
       } else {
         document.getElementById('top-user-label').textContent = '—';
@@ -638,7 +713,7 @@ async function loadUsers() {
     const host = window.location.host;
     grid.innerHTML = links.map(l => {
       const pct = l.limit_bytes === 0 ? 0 : Math.min(100, (l.used_bytes / l.limit_bytes) * 100);
-      const bc = pct > 90 ? 'var(--red)' : pct > 70 ? 'var(--amber)' : 'var(--accent)';
+      const bc = pct > 90 ? '#EF4444' : pct > 70 ? '#F59E0B' : '#FF6B35';
       const active = l.active && !l.expired;
       const devices = l.max_devices || 0;
       const fp = l.fingerprint || 'chrome';
@@ -647,9 +722,13 @@ async function loadUsers() {
       const port = l.port || 443;
       const warningText = l.warning_config || '⚠️ این پنل رایگان است و فروش آن ممنوع';
       
+      // ===== تعداد اتصالات این کاربر =====
+      const connCount = window.connCounts && window.connCounts[l.uuid] ? window.connCounts[l.uuid] : 0;
+      const connBadge = connCount > 0 ? `<span class="conn-badge"><span class="dot dg" style="width:4px;height:4px"></span> ${connCount} متصل</span>` : '';
+      
       return `<div class="user-card">
         <div class="head">
-          <div class="name">🦅 ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''}</div>
+          <div class="name">🔥 ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''} ${connBadge}</div>
           <span class="status ${active ? 'on' : 'off'}">${active ? '🟢 آنلاین' : '🔴 آفلاین'}</span>
         </div>
         <div class="uuid">🔑 ${esc(l.uuid)}</div>
@@ -770,7 +849,7 @@ async function saveEdit() {
         }
         
         closeModal('modal-edit');
-        toast('🦅 کانفیگ ویرایش شد ✓', 'ok');
+        toast('🔥 کانفیگ ویرایش شد ✓', 'ok');
         loadUsers();
     } catch(e) {
         toast('خطا در ویرایش: ' + e.message, 'err');
@@ -807,7 +886,7 @@ async function confirmDelete() {
         }
         
         closeModal('modal-delete');
-        toast('🦅 کاربر حذف شد', 'ok');
+        toast('🔥 کاربر حذف شد', 'ok');
         loadUsers();
     } catch(e) {
         toast('خطا در حذف: ' + e.message, 'err');
@@ -856,7 +935,7 @@ async function saveUser() {
     document.getElementById('user-port').value = '443';
     
     closeModal('modal-user');
-    toast('🦅 کانفیگ ساخته شد ✓', 'ok');
+    toast('🔥 کانفیگ ساخته شد ✓', 'ok');
     loadUsers();
   } catch(e) {
     toast('خطا در ساخت', 'err');
@@ -886,6 +965,14 @@ async function loadConnections() {
     const grid = document.getElementById('conns-grid');
     const count = d.count || 0;
     document.getElementById('conn-count').textContent = count + ' اتصال';
+    
+    // ذخیره تعداد اتصالات هر کاربر برای نمایش توی کارت‌ها
+    window.connCounts = {};
+    if (d.connections) {
+      d.connections.forEach(c => {
+        // سعی کن uuid رو از label استخراج کنی یا از جای دیگه
+      });
+    }
     
     if (!count) {
       grid.innerHTML = '<div class="empty"><i class="ti ti-plug-off"></i><p>هیچ اتصال فعالی وجود ندارد</p></div>';
