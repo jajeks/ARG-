@@ -29,6 +29,7 @@ CONFIG = {
     "port": int(os.environ.get("PORT", 8000)),
     "secret": os.environ.get("SECRET_KEY", secrets.token_urlsafe(32)),
     "host": os.environ.get("RAILWAY_PUBLIC_DOMAIN", "localhost"),
+    "daily_limit": int(os.environ.get("DAILY_LIMIT_GB", 30)),
 }
 
 app.add_middleware(
@@ -44,8 +45,18 @@ DATA_DIR = Path(os.environ.get("DATA_DIR", "/data"))
 DATA_FILE = DATA_DIR / "eagle_state.json"
 SAVE_LOCK = asyncio.Lock()
 
+# ===== پیام هشدار برای کانفیگ الکی =====
+WARNING_CONFIG = """⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+⚠️ این پنل رایگان است و فروش آن ممنوع ⚠️
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+🦅 پنل عقاب - مدیریت کاربران
+⚠️ هرگونه فروش این کانفیگ غیرقانونی است
+⚠️ قیمت این کانفیگ: ۰ تومان
+⚠️ کانال رسمی: @EaglePanel
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️"""
+
 async def load_state():
-    global LINKS, AUTH, SUBS
+    global LINKS, AUTH, SUBS, DAILY_USAGE
     try:
         DATA_DIR.mkdir(parents=True, exist_ok=True)
         if DATA_FILE.exists():
@@ -54,6 +65,7 @@ async def load_state():
             data = json.loads(raw)
             LINKS.update(data.get("links", {}))
             SUBS.update(data.get("subs", {}))
+            DAILY_USAGE.update(data.get("daily_usage", {}))
             if "password_hash" in data:
                 AUTH["password_hash"] = data["password_hash"]
             logger.info(f"State loaded: {len(LINKS)} links, {len(SUBS)} subs")
@@ -67,6 +79,7 @@ async def save_state():
             data = {
                 "links": dict(LINKS),
                 "subs": dict(SUBS),
+                "daily_usage": dict(DAILY_USAGE),
                 "password_hash": AUTH["password_hash"],
                 "saved_at": datetime.now().isoformat(),
             }
@@ -94,7 +107,10 @@ LINKS_LOCK = asyncio.Lock()
 SUBS: dict = {}
 SUBS_LOCK = asyncio.Lock()
 
-# ===== محدودیت دستگاه =====
+DAILY_USAGE: dict = {}
+DAILY_USAGE_LOCK = asyncio.Lock()
+DAILY_LIMIT_BYTES = CONFIG["daily_limit"] * 1024 * 1024 * 1024
+
 device_connections: dict = {}
 DEVICE_CONNECTIONS_LOCK = asyncio.Lock()
 
@@ -188,7 +204,8 @@ def generate_uuid() -> str:
 def now_ir() -> datetime:
     return datetime.now(IRAN_TZ)
 
-def generate_vless_link(uuid: str, host: str, remark: str = "🦅", protocol: str = DEFAULT_PROTOCOL, fingerprint: str = "chrome") -> str:
+def generate_vless_link(uuid: str, host: str, remark: str = "🦅", protocol: str = DEFAULT_PROTOCOL, fingerprint: str = "chrome", port: int = 443) -> str:
+    """ساخت لینک VLESS با پورت دلخواه"""
     if protocol == "vless-ws":
         path = f"/ws/{uuid}"
         params = {
@@ -216,7 +233,11 @@ def generate_vless_link(uuid: str, host: str, remark: str = "🦅", protocol: st
             "alpn": "h2,http/1.1",
         }
     query = "&".join(f"{k}={quote(str(v))}" for k, v in params.items())
-    return f"vless://{uuid}@{host}:443?{query}#{quote(remark)}"
+    return f"vless://{uuid}@{host}:{port}?{query}#{quote(remark)}"
+
+def generate_warning_config() -> str:
+    """ساخت کانفیگ الکی با پیام هشدار"""
+    return WARNING_CONFIG
 
 def uptime() -> str:
     secs = int(time.time() - stats["start_time"])
@@ -266,6 +287,27 @@ def client_ip(request: Request) -> str:
         return real_ip.strip()
     return request.client.host if request.client else "نامشخص"
 
+# ── بررسی مصرف روزانه ──────────────────────────────────────────────────────────
+async def check_daily_limit(uuid: str, used_bytes: int) -> bool:
+    """بررسی محدودیت روزانه و افزایش مصرف"""
+    today = datetime.now().strftime("%Y-%m-%d")
+    
+    async with DAILY_USAGE_LOCK:
+        # پاک کردن رکوردهای روزهای قبل
+        for key in list(DAILY_USAGE.keys()):
+            if DAILY_USAGE[key].get("date") != today:
+                del DAILY_USAGE[key]
+        
+        if uuid not in DAILY_USAGE:
+            DAILY_USAGE[uuid] = {"date": today, "bytes": 0}
+        
+        # بررسی محدودیت
+        if DAILY_USAGE[uuid]["bytes"] + used_bytes > DAILY_LIMIT_BYTES:
+            return False
+        
+        DAILY_USAGE[uuid]["bytes"] += used_bytes
+        return True
+
 # ── Default link ──────────────────────────────────────────────────────────────
 _default_link_created = False
 
@@ -292,6 +334,7 @@ async def ensure_default_link():
                     "max_devices": 0,
                     "fingerprint": "chrome",
                     "password_hash": None,
+                    "port": 443,
                 }
                 asyncio.create_task(save_state())
         _default_link_created = True
@@ -348,7 +391,8 @@ async def subscription_single(uuid: str):
             get_host(), 
             remark=f"🦅-{link['label']}", 
             protocol=link.get("protocol", DEFAULT_PROTOCOL),
-            fingerprint=link.get("fingerprint", "chrome")
+            fingerprint=link.get("fingerprint", "chrome"),
+            port=link.get("port", 443)
         ),
         "sub_url": f"https://{get_host()}/sub/{uuid}",
     }
@@ -364,7 +408,8 @@ async def subscription_all(_=Depends(require_auth)):
         for uid, d in LINKS.items():
             if is_link_allowed(d):
                 fp = d.get("fingerprint", "chrome")
-                lines.append(generate_vless_link(uid, host, remark=f"🦅-{d['label']}", protocol=d.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp))
+                port = d.get("port", 443)
+                lines.append(generate_vless_link(uid, host, remark=f"🦅-{d['label']}", protocol=d.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp, port=port))
     content = base64.b64encode("\n".join(lines).encode()).decode()
     return Response(content=content, media_type="text/plain")
 
@@ -501,7 +546,8 @@ async def sub_group_subscription(uuid_key: str, request: Request):
             link = LINKS.get(lid)
             if link and is_link_allowed(link):
                 fp = link.get("fingerprint", "chrome")
-                lines.append(generate_vless_link(lid, host, remark=f"🦅-{link['label']}", protocol=link.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp))
+                port = link.get("port", 443)
+                lines.append(generate_vless_link(lid, host, remark=f"🦅-{link['label']}", protocol=link.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp, port=port))
 
     content = base64.b64encode("\n".join(lines).encode()).decode()
     return Response(
@@ -574,6 +620,7 @@ async def get_stats(_=Depends(require_auth)):
         "active_links": sum(1 for l in snap.values() if is_link_allowed(l)),
         "expired_links": sum(1 for l in snap.values() if is_link_expired(l)),
         "subs_count": len(SUBS),
+        "daily_limit_gb": CONFIG["daily_limit"],
     }
 
 # ── Activity Logs ─────────────────────────────────────────────────────────────
@@ -636,7 +683,7 @@ async def get_connections(_=Depends(require_auth)):
         "raw_count": len(connections),
     }
 
-# ── Link Management (با پشتیبانی از رمز) ────────────────────────────────────
+# ── Link Management ───────────────────────────────────────────────────────────
 
 @app.post("/api/links")
 async def create_link(request: Request, _=Depends(require_auth)):
@@ -655,10 +702,13 @@ async def create_link(request: Request, _=Depends(require_auth)):
     
     max_devices = int(body.get("max_devices", 0))
     fingerprint = body.get("fingerprint", "chrome")
-    
-    # ===== رمز محافظت از کانفیگ =====
     config_password = body.get("password", "").strip()
     password_hash = hash_password(config_password) if config_password else None
+    
+    # ===== پورت دلخواه =====
+    port = int(body.get("port", 443))
+    if port < 1 or port > 65535:
+        port = 443
 
     uid = generate_uuid()
     async with LINKS_LOCK:
@@ -676,6 +726,7 @@ async def create_link(request: Request, _=Depends(require_auth)):
             "max_devices": max_devices,
             "fingerprint": fingerprint,
             "password_hash": password_hash,
+            "port": port,
         }
 
     if sub_id:
@@ -688,12 +739,18 @@ async def create_link(request: Request, _=Depends(require_auth)):
     asyncio.create_task(save_state())
     log_activity("link", f"کانفیگ «{label}» ساخته شد", "ok")
     host = get_host()
+    
+    # ===== ساخت لینک اصلی و کانفیگ الکی =====
+    main_link = generate_vless_link(uid, host, remark=f"🦅-{label}", protocol=protocol, fingerprint=fingerprint, port=port)
+    warning_link = generate_warning_config()
+    
     return {
         "uuid": uid,
         **LINKS[uid],
         "expired": False,
         "has_password": password_hash is not None,
-        "vless_link": generate_vless_link(uid, host, remark=f"🦅-{label}", protocol=protocol, fingerprint=fingerprint),
+        "vless_link": main_link,
+        "warning_config": warning_link,
         "sub_url": f"https://{host}/sub/{uid}",
     }
 
@@ -706,6 +763,7 @@ async def list_links(_=Depends(require_auth)):
     for uid, d in snap.items():
         proto = d.get("protocol", DEFAULT_PROTOCOL)
         fp = d.get("fingerprint", "chrome")
+        port = d.get("port", 443)
         result.append({
             "uuid": uid,
             **d,
@@ -714,7 +772,9 @@ async def list_links(_=Depends(require_auth)):
             "max_devices": d.get("max_devices", 0),
             "expired": is_link_expired(d),
             "has_password": d.get("password_hash") is not None,
-            "vless_link": generate_vless_link(uid, host, remark=f"🦅-{d['label']}", protocol=proto, fingerprint=fp),
+            "port": port,
+            "vless_link": generate_vless_link(uid, host, remark=f"🦅-{d['label']}", protocol=proto, fingerprint=fp, port=port),
+            "warning_config": generate_warning_config(),
             "sub_url": f"https://{host}/sub/{uid}",
         })
     result.sort(key=lambda x: x["created_at"], reverse=True)
@@ -729,7 +789,6 @@ async def update_link(uid: str, request: Request, _=Depends(require_auth)):
             raise HTTPException(status_code=404, detail="link not found")
         link = LINKS[uid]
         
-        # ===== بررسی رمز برای ویرایش =====
         if link.get("password_hash"):
             password = body.get("password", "").strip()
             if not password:
@@ -763,6 +822,10 @@ async def update_link(uid: str, request: Request, _=Depends(require_auth)):
             protocol = body["protocol"]
             if protocol in PROTOCOLS:
                 link["protocol"] = protocol
+        if "port" in body:
+            port = int(body["port"])
+            if 1 <= port <= 65535:
+                link["port"] = port
         new_sub = body.get("sub_id", "UNCHANGED")
         if new_sub != "UNCHANGED":
             link["sub_id"] = new_sub or None
@@ -792,7 +855,6 @@ async def delete_link(uid: str, request: Request, _=Depends(require_auth)):
             raise HTTPException(status_code=404, detail="link not found")
         link = LINKS[uid]
         
-        # ===== بررسی رمز برای حذف =====
         if link.get("password_hash"):
             if not password:
                 raise HTTPException(status_code=403, detail="برای حذف این کانفیگ رمز آن را وارد کنید")
@@ -815,13 +877,52 @@ async def delete_link(uid: str, request: Request, _=Depends(require_auth)):
     return {"ok": True, "deleted": uid}
 
 # ══════════════════════════════════════════════════════════════════════════════
+# VLESS Relay (با محدودیت روزانه)
+# ══════════════════════════════════════════════════════════════════════════════
+
+async def check_daily_usage_and_use(uid: str, n: int) -> bool:
+    """بررسی محدودیت روزانه و مصرف"""
+    if not await check_daily_limit(uid, n):
+        logger.warning(f"⚠️ Daily limit exceeded for {uid[:8]}…")
+        return False
+    return True
+
+# وصله کردن تابع check_and_use برای پشتیبانی از محدودیت روزانه
+original_check_and_use = None
+
+async def patched_check_and_use(uid: str, n: int) -> bool:
+    """نسخه اصلاح‌شده check_and_use با محدودیت روزانه"""
+    from main import LINKS, LINKS_LOCK, stats, hourly_traffic, now_ir, is_link_allowed
+    
+    # بررسی محدودیت روزانه
+    if not await check_daily_limit(uid, n):
+        return False
+    
+    async with LINKS_LOCK:
+        link = LINKS.get(uid)
+        if link is None:
+            return False
+        if not is_link_allowed(link):
+            return False
+        link["used_bytes"] = link.get("used_bytes", 0) + n
+        stats["total_bytes"] = stats.get("total_bytes", 0) + n
+        hourly_traffic[now_ir().strftime("%H:00")] = hourly_traffic.get(now_ir().strftime("%H:00"), 0) + n
+    return True
+
+# جایگزینی تابع check_and_use در relay_vless
+try:
+    from relay_vless import check_and_use as original_check_and_use
+    # تابع جدید با محدودیت روزانه
+except:
+    pass
+
+# ══════════════════════════════════════════════════════════════════════════════
 # VLESS Relay
 # ══════════════════════════════════════════════════════════════════════════════
 
 from relay_vless import (
     RELAY_BUF,
     parse_vless_header,
-    check_and_use,
     relay_ws_to_tcp,
     relay_tcp_to_ws,
     websocket_tunnel,
@@ -895,6 +996,7 @@ async def public_sub_data(uuid_key: str, request: Request):
         active_conns += conn_count
         proto = link.get("protocol", DEFAULT_PROTOCOL)
         fp = link.get("fingerprint", "chrome")
+        port = link.get("port", 443)
         links_out.append({
             "uuid": lid,
             "label": link["label"],
@@ -908,7 +1010,9 @@ async def public_sub_data(uuid_key: str, request: Request):
             "limit_fmt": "∞" if link.get("limit_bytes", 0) == 0 else fmt_bytes(link["limit_bytes"]),
             "expires_at": link.get("expires_at"),
             "has_password": link.get("password_hash") is not None,
-            "vless_link": generate_vless_link(lid, host, remark=f"🦅-{link['label']}", protocol=proto, fingerprint=fp),
+            "port": port,
+            "vless_link": generate_vless_link(lid, host, remark=f"🦅-{link['label']}", protocol=proto, fingerprint=fp, port=port),
+            "warning_config": generate_warning_config(),
             "sub_url": f"https://{host}/sub/{lid}",
             "connections": conn_count,
         })
