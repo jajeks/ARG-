@@ -1,4 +1,4 @@
-# relay_vless.py - نسخه نهایی با پشتیبانی از محدودیت دستگاه
+# relay_vless.py - نسخه کامل با محدودیت دستگاه
 
 import asyncio
 import secrets
