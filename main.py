@@ -47,7 +47,7 @@ SAVE_LOCK = asyncio.Lock()
 WARNING_CONFIG = ""
 
 async def load_state():
-    global LINKS, AUTH, SUBS
+    global LINKS, AUTH, SUBS, SETTINGS
     try:
         DATA_DIR.mkdir(parents=True, exist_ok=True)
         if DATA_FILE.exists():
@@ -58,6 +58,8 @@ async def load_state():
             SUBS.update(data.get("subs", {}))
             if "password_hash" in data:
                 AUTH["password_hash"] = data["password_hash"]
+            if "settings" in data:
+                SETTINGS.update(data["settings"])
             logger.info(f"State loaded: {len(LINKS)} links, {len(SUBS)} subs")
     except Exception as e:
         logger.warning(f"Could not load state: {e}")
@@ -70,6 +72,7 @@ async def save_state():
                 "links": dict(LINKS),
                 "subs": dict(SUBS),
                 "password_hash": AUTH["password_hash"],
+                "settings": SETTINGS,
                 "saved_at": datetime.now().isoformat(),
             }
             tmp = DATA_FILE.with_suffix(".tmp")
@@ -95,6 +98,7 @@ LINKS: dict = {}
 LINKS_LOCK = asyncio.Lock()
 SUBS: dict = {}
 SUBS_LOCK = asyncio.Lock()
+SETTINGS: dict = {"rgb_mode": False}  # تنظیمات RGB
 
 device_connections: dict = {}
 DEVICE_CONNECTIONS_LOCK = asyncio.Lock()
@@ -191,7 +195,7 @@ def now_ir() -> datetime:
 
 def generate_vless_link(uuid: str, host: str, remark: str = "", protocol: str = DEFAULT_PROTOCOL, fingerprint: str = "chrome", port: int = 443) -> str:
     if not remark:
-        remark = "عقاب-رایگان"
+        remark = "عقاب"
     
     if protocol == "vless-ws":
         path = f"/ws/{uuid}"
@@ -273,6 +277,18 @@ def client_ip(request: Request) -> str:
         return real_ip.strip()
     return request.client.host if request.client else "نامشخص"
 
+# ── Settings API ──────────────────────────────────────────────────────────────
+@app.get("/api/settings")
+async def get_settings(_=Depends(require_auth)):
+    return SETTINGS
+
+@app.post("/api/settings/rgb")
+async def toggle_rgb(request: Request, _=Depends(require_auth)):
+    body = await request.json()
+    SETTINGS["rgb_mode"] = bool(body.get("enabled", False))
+    await save_state()
+    return {"rgb_mode": SETTINGS["rgb_mode"]}
+
 # ── Default link ──────────────────────────────────────────────────────────────
 _default_link_created = False
 
@@ -348,7 +364,6 @@ async def subscription_single(uuid: str):
         </html>
         """, status_code=404)
     
-    # ===== محاسبه اتصالات فعال (برای صفحه ساب) =====
     active_connections_list = []
     for c in connections.values():
         if c.get("uuid") == uuid:
@@ -357,7 +372,7 @@ async def subscription_single(uuid: str):
     active_connections_count = len(active_connections_list)
     
     label = link.get("label", "کاربر")
-    remark = f"عقاب-رایگان-{label}"
+    remark = f"عقاب-{label}"
     
     link_data = {
         **link,
@@ -388,7 +403,7 @@ async def subscription_all(_=Depends(require_auth)):
                 fp = d.get("fingerprint", "chrome")
                 port = d.get("port", 443)
                 label = d.get("label", "کاربر")
-                remark = f"عقاب-رایگان-{label}"
+                remark = f"عقاب-{label}"
                 lines.append(generate_vless_link(uid, host, remark=remark, protocol=d.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp, port=port))
     content = base64.b64encode("\n".join(lines).encode()).decode()
     return Response(content=content, media_type="text/plain")
@@ -528,7 +543,7 @@ async def sub_group_subscription(uuid_key: str, request: Request):
                 fp = link.get("fingerprint", "chrome")
                 port = link.get("port", 443)
                 label = link.get("label", "کاربر")
-                remark = f"عقاب-رایگان-{label}"
+                remark = f"عقاب-{label}"
                 lines.append(generate_vless_link(lid, host, remark=remark, protocol=link.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp, port=port))
 
     content = base64.b64encode("\n".join(lines).encode()).decode()
@@ -565,24 +580,6 @@ async def api_logout(request: Request):
 @app.get("/api/me")
 async def api_me(request: Request):
     return {"authenticated": await is_valid_session(request.cookies.get(SESSION_COOKIE))}
-
-@app.post("/api/change-password")
-async def api_change_password(request: Request, _=Depends(require_auth)):
-    body = await request.json()
-    if hash_password(str(body.get("current_password", ""))) != AUTH["password_hash"]:
-        raise HTTPException(status_code=400, detail="رمز فعلی اشتباه است")
-    new = str(body.get("new_password", ""))
-    if len(new) < 4:
-        raise HTTPException(status_code=400, detail="رمز جدید باید حداقل ۴ کاراکتر باشد")
-    AUTH["password_hash"] = hash_password(new)
-    async with SESSIONS_LOCK:
-        SESSIONS.clear()
-    token = await create_session()
-    await save_state()
-    log_activity("auth", "رمز عبور پنل تغییر کرد", "ok")
-    resp = JSONResponse({"ok": True})
-    resp.set_cookie(SESSION_COOKIE, token, max_age=SESSION_TTL, httponly=True, samesite="lax", path="/")
-    return resp
 
 # ── Stats ─────────────────────────────────────────────────────────────────────
 @app.get("/stats")
@@ -735,7 +732,7 @@ async def create_link(request: Request, _=Depends(require_auth)):
     log_activity("link", f"کانفیگ «{label}» ساخته شد", "ok")
     host = get_host()
     
-    remark = f"عقاب-رایگان-{label}"
+    remark = f"عقاب-{label}"
     main_link = generate_vless_link(uid, host, remark=remark, protocol=protocol, fingerprint=fingerprint, port=port)
     warning_link = ""
     
@@ -755,12 +752,9 @@ async def list_links(_=Depends(require_auth)):
     async with LINKS_LOCK:
         snap = dict(LINKS)
     
-    # ===== محاسبه مصرف امروز هر کاربر =====
     today = datetime.now().strftime("%Y-%m-%d")
     today_usage = {}
     for uid, d in snap.items():
-        # مصرف امروز رو از hourly_traffic یا خود لینک بگیر
-        # اینجا ساده از used_bytes استفاده میکنیم
         today_usage[uid] = d.get("used_bytes", 0)
     
     result = []
@@ -769,16 +763,14 @@ async def list_links(_=Depends(require_auth)):
         fp = d.get("fingerprint", "chrome")
         port = d.get("port", 443)
         label = d.get("label", "کاربر")
-        remark = f"عقاب-رایگان-{label}"
+        remark = f"عقاب-{label}"
         
-        # ===== آخرین اتصال =====
         last_connected = None
         for c in connections.values():
             if c.get("uuid") == uid:
                 if not last_connected or c.get("connected_at") > last_connected:
                     last_connected = c.get("connected_at")
         
-        # ===== وضعیت =====
         active = d.get("active", True) and not is_link_expired(d)
         status_text = "🟢 آنلاین" if active else "🔴 آفلاین"
         status_class = "on" if active else "off"
@@ -992,7 +984,7 @@ async def public_sub_data(uuid_key: str, request: Request):
         fp = link.get("fingerprint", "chrome")
         port = link.get("port", 443)
         label = link.get("label", "کاربر")
-        remark = f"عقاب-رایگان-{label}"
+        remark = f"عقاب-{label}"
         links_out.append({
             "uuid": lid,
             "label": link["label"],
@@ -1043,38 +1035,6 @@ async def dashboard(request: Request):
 @app.get("/test-ws", response_class=HTMLResponse)
 async def test_ws_redirect():
     return HTMLResponse(content="<script>location.href='/dashboard'</script>")
-
-# ── Backup ────────────────────────────────────────────────────────────────────
-@app.get("/api/backup")
-async def get_backup(_=Depends(require_auth)):
-    async with LINKS_LOCK:
-        links = dict(LINKS)
-    async with SUBS_LOCK:
-        subs = dict(SUBS)
-    return {
-        "links": links,
-        "subs": subs,
-        "password_hash": AUTH["password_hash"],
-        "exported_at": datetime.now().isoformat(),
-        "version": "10.0"
-    }
-
-@app.post("/api/backup/restore")
-async def restore_backup(request: Request, _=Depends(require_auth)):
-    body = await request.json()
-    if "links" in body:
-        async with LINKS_LOCK:
-            LINKS.clear()
-            LINKS.update(body["links"])
-    if "subs" in body:
-        async with SUBS_LOCK:
-            SUBS.clear()
-            SUBS.update(body["subs"])
-    if "password_hash" in body:
-        AUTH["password_hash"] = body["password_hash"]
-    await save_state()
-    log_activity("backup", "بکاپ بازیابی شد", "ok")
-    return {"ok": True}
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=CONFIG["port"], log_level="info", workers=1)
