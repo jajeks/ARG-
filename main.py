@@ -98,7 +98,7 @@ LINKS: dict = {}
 LINKS_LOCK = asyncio.Lock()
 SUBS: dict = {}
 SUBS_LOCK = asyncio.Lock()
-SETTINGS: dict = {"rgb_mode": False}  # تنظیمات RGB
+SETTINGS: dict = {"rgb_mode": False}
 
 device_connections: dict = {}
 DEVICE_CONNECTIONS_LOCK = asyncio.Lock()
@@ -1035,6 +1035,57 @@ async def dashboard(request: Request):
 @app.get("/test-ws", response_class=HTMLResponse)
 async def test_ws_redirect():
     return HTMLResponse(content="<script>location.href='/dashboard'</script>")
+
+# ── Backup ────────────────────────────────────────────────────────────────────
+@app.get("/api/backup")
+async def get_backup(_=Depends(require_auth)):
+    async with LINKS_LOCK:
+        links = dict(LINKS)
+    async with SUBS_LOCK:
+        subs = dict(SUBS)
+    return {
+        "links": links,
+        "subs": subs,
+        "password_hash": AUTH["password_hash"],
+        "settings": SETTINGS,
+        "exported_at": datetime.now().isoformat(),
+        "version": "10.0"
+    }
+
+@app.post("/api/backup/restore")
+async def restore_backup(request: Request, _=Depends(require_auth)):
+    try:
+        body = await request.json()
+        
+        if "links" in body and isinstance(body["links"], dict):
+            async with LINKS_LOCK:
+                LINKS.clear()
+                for uid, link_data in body["links"].items():
+                    # اطمینان از وجود فیلدهای لازم
+                    if not isinstance(link_data, dict):
+                        continue
+                    LINKS[uid] = link_data
+        
+        if "subs" in body and isinstance(body["subs"], dict):
+            async with SUBS_LOCK:
+                SUBS.clear()
+                for sid, sub_data in body["subs"].items():
+                    if not isinstance(sub_data, dict):
+                        continue
+                    SUBS[sid] = sub_data
+        
+        if "password_hash" in body:
+            AUTH["password_hash"] = body["password_hash"]
+        
+        if "settings" in body and isinstance(body["settings"], dict):
+            SETTINGS.update(body["settings"])
+        
+        await save_state()
+        log_activity("backup", "بکاپ بازیابی شد", "ok")
+        return {"ok": True, "message": "بکاپ با موفقیت بازیابی شد"}
+    except Exception as e:
+        logger.error(f"Backup restore error: {e}")
+        raise HTTPException(status_code=400, detail=f"خطا در بازیابی بکاپ: {str(e)}")
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=CONFIG["port"], log_level="info", workers=1)
