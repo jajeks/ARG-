@@ -4,7 +4,7 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦌 ورود · کاسپین پنل 3</title>
+<title>🐲 ورود · کاسپین پنل 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -78,7 +78,7 @@ input:focus+.ic{color:#FF8C00}
 <div class="glow-orb orb1"></div><div class="glow-orb orb2"></div><div class="glow-orb orb3"></div>
 <div class="wrap">
   <div class="card">
-    <div class="brand"><div class="brand-icon">🦌</div><div><div class="brand-name">پنل کاسپین 3</div><div class="brand-sub">مدیریت کاربران</div></div></div>
+    <div class="brand"><div class="brand-icon">🐲</div><div><div class="brand-name">پنل کاسپین 3</div><div class="brand-sub">مدیریت کاربران</div></div></div>
     <h1>ورود به پنل کاسپین 3</h1>
     <p class="sub">رمز عبور را برای دسترسی به داشبورد وارد کنید</p>
     <div class="err" id="err"><i class="ti ti-alert-circle"></i><span id="err-text"></span></div>
@@ -87,7 +87,7 @@ input:focus+.ic{color:#FF8C00}
       <div class="field"><label>رمز عبور</label><div class="inp-wrap"><input type="password" id="pw" placeholder="رمز عبور را وارد کنید" autofocus required><i class="ti ti-lock ic"></i></div></div>
       <button class="btn" type="submit" id="btn"><i class="ti ti-login-2"></i> ورود به پنل</button>
     </form>
-    <div class="footer">🦌 پنل کاسپین 3 · v10.0 · <button onclick="toggleTheme()"><i class="ti ti-palette"></i> تغییر تم</button></div>
+    <div class="footer">🐲 پنل کاسپین 3 · v10.0 · <button onclick="toggleTheme()"><i class="ti ti-palette"></i> تغییر تم</button></div>
   </div>
 </div>
 <script>
@@ -116,7 +116,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦌 پنل کاسپین 3 · مدیریت کاربران</title>
+<title>🐲 پنل کاسپین 3 · مدیریت کاربران</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -338,7 +338,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-user">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-user')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-user-plus"></i> 🦌 ساخت کانفیگ جدید</div>
+    <div class="modal-title"><i class="ti ti-user-plus"></i> 🐲 ساخت کانفیگ جدید</div>
     
     <div class="fg"><label><i class="ti ti-tag"></i> نام کاربری</label><input class="fi" id="user-label" placeholder="مثلاً: کاربر علی"></div>
     
@@ -376,7 +376,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-edit">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-edit')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-edit"></i> 🦌 ویرایش کانفیگ</div>
+    <div class="modal-title"><i class="ti ti-edit"></i> 🐲 ویرایش کانفیگ</div>
     <input type="hidden" id="edit-uuid">
     
     <div class="fg" id="edit-password-section">
@@ -428,7 +428,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-delete">
   <div class="modal" style="max-width:400px">
     <button class="modal-close" onclick="closeModal('modal-delete')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-trash"></i> 🦌 حذف کانفیگ</div>
+    <div class="modal-title"><i class="ti ti-trash"></i> 🐲 حذف کانفیگ</div>
     <input type="hidden" id="delete-uuid">
     <p style="font-size:13px;color:var(--t2);margin-bottom:16px">برای حذف این کانفیگ، رمز آن را وارد کنید.</p>
     <div class="fg">
@@ -444,14 +444,14 @@ select.fi{appearance:none;cursor:pointer}
 
 <!-- ===== هدر موبایل ===== -->
 <div class="mob-top">
-  <div class="ml"><div class="mob-logo">🦌</div><span class="mob-title">پنل کاسپین 3</span></div>
+  <div class="ml"><div class="mob-logo">🐲</div><span class="mob-title">پنل کاسپین 3</span></div>
   <div class="mob-right"><button class="theme-mob" id="theme-mob-btn" onclick="toggleTheme()"><i class="ti ti-palette" id="theme-mob-icon"></i></button><button class="menu-btn" id="open-sb"><i class="ti ti-menu-2"></i></button></div>
 </div>
 <div class="overlay" id="overlay"></div>
 
 <!-- ===== سایدبار ===== -->
 <aside class="sidebar" id="sb">
-  <div class="logo"><div class="logo-icon">🦌</div><div><div class="logo-name">پنل کاسپین 3</div><div class="logo-sub">مدیریت کاربران</div></div></div>
+  <div class="logo"><div class="logo-icon">🐲</div><div><div class="logo-name">پنل کاسپین 3</div><div class="logo-sub">مدیریت کاربران</div></div></div>
   <div class="nav-wrap">
     <div class="nav-it on" data-pg="users"><i class="ti ti-layout-dashboard"></i> داشبورد</div>
     <div class="nav-it" data-pg="connections"><i class="ti ti-plug-connected"></i> اتصالات زنده</div>
@@ -694,7 +694,7 @@ async function loadUsers() {
       const sr = await authF('/stats');
       const statsData = await sr.json();
       if (statsData.top_user) {
-        document.getElementById('top-user-label').textContent = '🦌 ' + statsData.top_user.label;
+        document.getElementById('top-user-label').textContent = '🐲 ' + statsData.top_user.label;
         document.getElementById('top-user-usage').textContent = statsData.top_user.used_fmt || '0';
       } else {
         document.getElementById('top-user-label').textContent = '—';
@@ -726,7 +726,7 @@ async function loadUsers() {
       
       return `<div class="user-card">
         <div class="head">
-          <div class="name">🦌 ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''}</div>
+          <div class="name">🐲 ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''}</div>
           <span class="status ${statusClass}">${statusText}</span>
         </div>
         <div class="uuid">🔑 ${esc(l.uuid)}</div>
@@ -847,7 +847,7 @@ async function saveEdit() {
         }
         
         closeModal('modal-edit');
-        toast('🦌 کانفیگ ویرایش شد ✓', 'ok');
+        toast('🐲 کانفیگ ویرایش شد ✓', 'ok');
         loadUsers();
     } catch(e) {
         toast('خطا در ویرایش: ' + e.message, 'err');
@@ -884,7 +884,7 @@ async function confirmDelete() {
         }
         
         closeModal('modal-delete');
-        toast('🦌 کاربر حذف شد', 'ok');
+        toast('🐲 کاربر حذف شد', 'ok');
         loadUsers();
     } catch(e) {
         toast('خطا در حذف: ' + e.message, 'err');
@@ -933,7 +933,7 @@ async function saveUser() {
     document.getElementById('user-port').value = '443';
     
     closeModal('modal-user');
-    toast('🦌 کانفیگ ساخته شد ✓', 'ok');
+    toast('🐲 کانفیگ ساخته شد ✓', 'ok');
     loadUsers();
   } catch(e) {
     toast('خطا در ساخت', 'err');
@@ -1144,7 +1144,7 @@ def get_sub_page_html(uuid: str, link: dict) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦌 {label} · پنل کاسپین 3</title>
+<title>🐲 {label} · پنل کاسپین 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -1374,11 +1374,11 @@ body{{
 <div class="toast" id="toast"></div>
 <div class="card">
     <div class="brand">
-        <div class="brand-icon">🦌</div>
+        <div class="brand-icon">🐲</div>
         <div class="brand-text"><div class="name">پنل کاسپین 3</div><div class="sub">اطلاعات اشتراک</div></div>
     </div>
     <div class="user-header">
-        <div class="user-name"><span class="fire">🦌</span> {label}</div>
+        <div class="user-name"><span class="fire">🐲</span> {label}</div>
         <span class="status {'active' if is_allowed else 'inactive'}">
             <i class="ti {'ti-circle-check' if is_allowed else 'ti-circle-x'}"></i>
             {'فعال' if is_allowed else 'غیرفعال'}
@@ -1410,7 +1410,7 @@ body{{
         <button class="btn btn-success" onclick="copySub()"><i class="ti ti-link"></i> کپی ساب‌لینک</button>
         <button class="btn btn-secondary" onclick="showQR()"><i class="ti ti-qrcode"></i> QR</button>
     </div>
-    <div class="footer"><span class="eagle">🦌</span> پنل کاسپین 3</div>
+    <div class="footer"><span class="eagle">🐲</span> پنل کاسپین 3</div>
 </div>
 <script>
 const vless = `{new_vless_link}`;
