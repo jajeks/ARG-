@@ -31,6 +31,9 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 [data-theme="forest"]{
   --bg:#081a0a;--card:rgba(10,30,12,0.85);--accent:#2E8B57;--accent2:#4CAF50;--text:#D4F5D4;--dim:#3A7A3A;--mid:#5AA85A;--border:rgba(46,139,87,0.2)
 }
+[data-theme="ruby"]{
+  --bg:#1a0a12;--card:rgba(30,10,20,0.85);--accent:#9B2D6E;--accent2:#C44A8A;--text:#F5D4E8;--dim:#8A4A6A;--mid:#B05A8A;--border:rgba(155,45,110,0.2)
+}
 
 /* ===== تم سفید (روشن) برای همه ===== */
 [data-theme="white_fire"]{
@@ -44,6 +47,9 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 }
 [data-theme="white_forest"]{
   --bg:#D4F5D4;--card:rgba(235,248,235,0.85);--accent:#2E8B57;--accent2:#1A6A3A;--text:#052A0A;--dim:#3A7A3A;--mid:#2A5A2A;--border:rgba(46,139,87,0.2)
+}
+[data-theme="white_ruby"]{
+  --bg:#F5D4E8;--card:rgba(248,235,240,0.85);--accent:#9B2D6E;--accent2:#C44A8A;--text:#2A051A;--dim:#8A4A6A;--mid:#6A2A4A;--border:rgba(155,45,110,0.2)
 }
 
 body.rgb-mode{background:linear-gradient(135deg,#1a0505,#050a1a,#1a0a05,#0a051a,#1a0505) !important;background-size:400% 400% !important;animation:rgbBG 4s ease infinite !important}
@@ -62,25 +68,25 @@ body{font-family:'Vazirmatn',sans-serif;background:var(--bg);background-size:400
 .card{background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:28px;padding:44px 38px 38px;box-shadow:0 0 100px rgba(255,80,20,0.04),0 25px 70px rgba(0,0,0,0.6);animation:cardIn 0.6s ease;transition:background .3s,color .3s,border-color .3s}
 @keyframes cardIn{from{opacity:0;transform:translateY(30px) scale(0.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 .brand{display:flex;align-items:center;gap:16px;margin-bottom:30px}
-.brand-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#FF6B35,#FF4500);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 0 60px rgba(255,80,20,0.15),0 8px 30px rgba(255,80,20,0.2);animation:flameFlicker 2s ease-in-out infinite}
-.brand-name{font-size:20px;font-weight:800;background:linear-gradient(135deg,#FF8C00,#FF4500,#FF6B35);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.brand-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 0 60px rgba(255,80,20,0.15),0 8px 30px rgba(255,80,20,0.2);animation:flameFlicker 2s ease-in-out infinite}
+.brand-name{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--accent2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .brand-sub{font-size:11px;color:var(--dim);margin-top:2px;-webkit-text-fill-color:var(--dim)}
 h1{font-size:22px;font-weight:800;color:var(--text);margin-bottom:6px}
 .sub{font-size:12.5px;color:var(--mid);margin-bottom:26px;line-height:1.7}
 .hint{display:flex;align-items:center;gap:10px;background:rgba(255,80,20,0.06);border:1px solid rgba(255,80,20,0.12);border-radius:12px;padding:10px 16px;margin-bottom:22px}
 .hint-label{font-size:11px;color:var(--dim);flex:1}
-.hint-val{font-family:ui-monospace,monospace;font-size:14px;font-weight:700;color:#FF8C00;background:rgba(255,80,20,0.1);border:1px solid rgba(255,80,20,0.2);padding:3px 13px;border-radius:8px;cursor:pointer;transition:.2s}
+.hint-val{font-family:ui-monospace,monospace;font-size:14px;font-weight:700;color:var(--accent2);background:rgba(255,80,20,0.1);border:1px solid rgba(255,80,20,0.2);padding:3px 13px;border-radius:8px;cursor:pointer;transition:.2s}
 .hint-val:hover{background:rgba(255,80,20,0.2);box-shadow:0 0 30px rgba(255,80,20,0.1)}
 .field{margin-bottom:20px}
 .field label{display:block;font-size:10.5px;font-weight:600;color:var(--mid);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em}
 .inp-wrap{position:relative}
 input[type=password]{width:100%;padding:14px 48px 14px 18px;border-radius:12px;border:1px solid rgba(255,100,50,0.15);background:rgba(0,0,0,.3);color:var(--text);font-family:inherit;font-size:14px;outline:none;transition:.3s}
-input[type=password]:focus{border-color:rgba(255,100,50,.5);background:rgba(0,0,0,.4);box-shadow:0 0 0 4px rgba(255,80,20,.06),0 0 40px rgba(255,80,20,.03)}
+input[type=password]:focus{border-color:var(--accent);background:rgba(0,0,0,.4);box-shadow:0 0 0 4px rgba(255,80,20,.06),0 0 40px rgba(255,80,20,.03)}
 .ic{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:18px;transition:.3s}
-input:focus+.ic{color:#FF8C00}
+input:focus+.ic{color:var(--accent2)}
 .err{display:none;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:#F87171;align-items:center;gap:8px}
 .err.show{display:flex}
-.btn{width:100%;padding:14px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,#FF6B35,#FF4500,#FF8C00);background-size:200% 200%;animation:btnFire 3s ease infinite;color:#fff;font-family:inherit;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 30px rgba(255,80,20,.25);transition:all .3s;position:relative;overflow:hidden}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--accent),var(--accent2));background-size:200% 200%;animation:btnFire 3s ease infinite;color:#fff;font-family:inherit;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 30px rgba(255,80,20,.25);transition:all .3s;position:relative;overflow:hidden}
 @keyframes btnFire{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .btn::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.08);opacity:0;transition:.3s}
 .btn:hover::before{opacity:1}
@@ -127,17 +133,19 @@ input:focus+.ic{color:#FF8C00}
         <span class="dot" style="background:linear-gradient(135deg,#D4AF37,#F5D060)" onclick="applyTheme('gold')" title="تم طلایی تیره"></span>
         <span class="dot" style="background:linear-gradient(135deg,#0099CC,#33CCFF)" onclick="applyTheme('ocean')" title="تم آبی اقیانوسی تیره"></span>
         <span class="dot" style="background:linear-gradient(135deg,#2E8B57,#4CAF50)" onclick="applyTheme('forest')" title="تم سبز جنگلی تیره"></span>
+        <span class="dot" style="background:linear-gradient(135deg,#9B2D6E,#C44A8A)" onclick="applyTheme('ruby')" title="تم بنفش یاقوتی تیره"></span>
         <span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)" onclick="applyTheme('white_fire')" title="تم آتشین روشن"></span>
         <span class="dot" style="background:linear-gradient(135deg,#F5ECD7,#E8D5CC)" onclick="applyTheme('white_gold')" title="تم طلایی روشن"></span>
         <span class="dot" style="background:linear-gradient(135deg,#D4EEFF,#B8D8EE)" onclick="applyTheme('white_ocean')" title="تم آبی اقیانوسی روشن"></span>
         <span class="dot" style="background:linear-gradient(135deg,#D4F5D4,#B8E8B8)" onclick="applyTheme('white_forest')" title="تم سبز جنگلی روشن"></span>
+        <span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)" onclick="applyTheme('white_ruby')" title="تم بنفش یاقوتی روشن"></span>
       </span>
     </div>
   </div>
 </div>
 <script>
 let currentTheme = localStorage.getItem('eagle-theme') || 'dark_fire';
-const themeList = ['dark_fire','gold','ocean','forest','white_fire','white_gold','white_ocean','white_forest'];
+const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
 
 function applyTheme(theme){
     currentTheme = theme;
@@ -250,6 +258,20 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(46,139,87,0.05);
 }
 
+/* ===== تم بنفش یاقوتی تیره ===== */
+[data-theme="ruby"] {
+  --bg:#1a0a12;--bg2:#2a0f1a;--bg3:#3a1422;
+  --card:rgba(30,10,20,0.75);--card-b:rgba(155,45,110,0.2);--card-bh:rgba(155,45,110,0.4);
+  --accent:#9B2D6E;--accent2:#C44A8A;--accent-d:rgba(155,45,110,0.1);
+  --green:#A86B8A;--green-bg:rgba(168,107,138,0.08);--green-t:#C48AAA;
+  --red:#CD5C5C;--red-bg:rgba(205,92,92,0.08);--red-t:#E89696;
+  --amber:#9B2D6E;--amber-bg:rgba(155,45,110,0.08);--amber-t:#C44A8A;
+  --pink:#9B2D6E;--pink-bg:rgba(155,45,110,0.08);
+  --purple:#9B2D6E;--purple-bg:rgba(155,45,110,0.08);
+  --t1:#F5D4E8;--t2:#B05A8A;--t3:#8A4A6A;
+  --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(155,45,110,0.05);
+}
+
 /* ===== تم آتشین روشن ===== */
 [data-theme="white_fire"] {
   --bg:#F5E6E0;--bg2:#E8D5CC;--bg3:#F0D5C8;
@@ -303,6 +325,20 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --pink:#2E8B57;--pink-bg:rgba(46,139,87,0.06);
   --purple:#2E8B57;--purple-bg:rgba(46,139,87,0.06);
   --t1:#052A0A;--t2:#2A5A2A;--t3:#3A7A3A;
+  --shadow:0 8px 32px rgba(0,0,0,0.06);
+}
+
+/* ===== تم بنفش یاقوتی روشن ===== */
+[data-theme="white_ruby"] {
+  --bg:#F5D4E8;--bg2:#E8C4D8;--bg3:#F0D4E8;
+  --card:rgba(248,235,240,0.7);--card-b:rgba(155,45,110,0.14);--card-bh:rgba(155,45,110,0.3);
+  --accent:#9B2D6E;--accent2:#C44A8A;--accent-d:rgba(155,45,110,0.06);
+  --green:#A86B8A;--green-bg:rgba(168,107,138,0.06);--green-t:#7A4A6A;
+  --red:#CD5C5C;--red-bg:rgba(205,92,92,0.06);--red-t:#993A3A;
+  --amber:#9B2D6E;--amber-bg:rgba(155,45,110,0.06);--amber-t:#C44A8A;
+  --pink:#9B2D6E;--pink-bg:rgba(155,45,110,0.06);
+  --purple:#9B2D6E;--purple-bg:rgba(155,45,110,0.06);
+  --t1:#2A051A;--t2:#6A2A4A;--t3:#8A4A6A;
   --shadow:0 8px 32px rgba(0,0,0,0.06);
 }
 
@@ -634,10 +670,12 @@ select.fi{appearance:none;cursor:pointer}
         <div class="theme-menu-item" onclick="selectTheme('gold')"><span class="dot" style="background:linear-gradient(135deg,#D4AF37,#F5D060)"></span> طلایی تیره</div>
         <div class="theme-menu-item" onclick="selectTheme('ocean')"><span class="dot" style="background:linear-gradient(135deg,#0099CC,#33CCFF)"></span> آبی اقیانوسی تیره</div>
         <div class="theme-menu-item" onclick="selectTheme('forest')"><span class="dot" style="background:linear-gradient(135deg,#2E8B57,#4CAF50)"></span> سبز جنگلی تیره</div>
+        <div class="theme-menu-item" onclick="selectTheme('ruby')"><span class="dot" style="background:linear-gradient(135deg,#9B2D6E,#C44A8A)"></span> بنفش یاقوتی تیره</div>
         <div class="theme-menu-item" onclick="selectTheme('white_fire')"><span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)"></span> آتشین روشن</div>
         <div class="theme-menu-item" onclick="selectTheme('white_gold')"><span class="dot" style="background:linear-gradient(135deg,#F5ECD7,#E8D5CC)"></span> طلایی روشن</div>
         <div class="theme-menu-item" onclick="selectTheme('white_ocean')"><span class="dot" style="background:linear-gradient(135deg,#D4EEFF,#B8D8EE)"></span> آبی اقیانوسی روشن</div>
         <div class="theme-menu-item" onclick="selectTheme('white_forest')"><span class="dot" style="background:linear-gradient(135deg,#D4F5D4,#B8E8B8)"></span> سبز جنگلی روشن</div>
+        <div class="theme-menu-item" onclick="selectTheme('white_ruby')"><span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)"></span> بنفش یاقوتی روشن</div>
       </div>
     </div>
     <button class="rgb-btn off" id="rgb-btn" onclick="toggleRGB()"><i class="ti ti-color-swatch"></i> <span id="rgb-label">تم RGB</span></button>
@@ -725,16 +763,18 @@ select.fi{appearance:none;cursor:pointer}
 <script>
 // ===== تنظیمات تم =====
 let currentTheme = localStorage.getItem('eagle-theme') || 'dark_fire';
-const themeList = ['dark_fire','gold','ocean','forest','white_fire','white_gold','white_ocean','white_forest'];
+const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
 const themeNames = {
     'dark_fire':'🔥 آتشین تیره',
     'gold':'👑 طلایی تیره',
     'ocean':'🌊 آبی اقیانوسی تیره',
     'forest':'🌲 سبز جنگلی تیره',
+    'ruby':'💎 بنفش یاقوتی تیره',
     'white_fire':'🔥 آتشین روشن',
     'white_gold':'👑 طلایی روشن',
     'white_ocean':'🌊 آبی اقیانوسی روشن',
-    'white_forest':'🌲 سبز جنگلی روشن'
+    'white_forest':'🌲 سبز جنگلی روشن',
+    'white_ruby':'💎 بنفش یاقوتی روشن'
 };
 
 function applyTheme(theme) {
