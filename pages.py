@@ -4,7 +4,7 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦅 ورود · پنل عقاب</title>
+<title>🦅 ورود · پنل کاسپین 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -113,8 +113,8 @@ input:focus+.ic{color:var(--accent2)}
 <div class="glow-orb orb1"></div><div class="glow-orb orb2"></div><div class="glow-orb orb3"></div>
 <div class="wrap">
   <div class="card">
-    <div class="brand"><div class="brand-icon">🦅</div><div><div class="brand-name">پنل عقاب</div><div class="brand-sub">مدیریت کاربران</div></div></div>
-    <h1>ورود به پنل عقاب</h1>
+    <div class="brand"><div class="brand-icon">🦅</div><div><div class="brand-name">پنل کاسپین 3</div><div class="brand-sub">مدیریت کاربران</div></div></div>
+    <h1>ورود به پنل کاسپین 3</h1>
     <p class="sub">رمز عبور را برای دسترسی به داشبورد وارد کنید</p>
     <div class="err" id="err"><i class="ti ti-alert-circle"></i><span id="err-text"></span></div>
     <div class="hint"><span class="hint-label">رمز پیش‌فرض</span><span class="hint-val" onclick="document.getElementById('pw').value='123456';document.getElementById('pw').focus()">123456</span></div>
@@ -123,7 +123,7 @@ input:focus+.ic{color:var(--accent2)}
       <button class="btn" type="submit" id="btn"><i class="ti ti-login-2"></i> ورود به پنل</button>
     </form>
     <div class="footer">
-      🦅 پنل عقاب · v10.0
+      🦅 پنل کاسپین 3 · v10.0
       <button onclick="cycleTheme()"><i class="ti ti-palette"></i> تغییر تم</button>
       <span style="display:flex;gap:4px">
         <span class="dot" style="background:linear-gradient(135deg,#FF6B35,#FF4500)" onclick="applyTheme('dark_fire')" title="تم آتشین تیره"></span>
@@ -177,7 +177,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦅 پنل عقاب · مدیریت کاربران</title>
+<title>🦅 پنل کاسپین 3 · مدیریت کاربران</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -592,13 +592,13 @@ select.fi{appearance:none;cursor:pointer}
 </div>
 
 <div class="mob-top">
-  <div class="ml"><div class="mob-logo">🦅</div><span class="mob-title">پنل عقاب</span></div>
+  <div class="ml"><div class="mob-logo">🦅</div><span class="mob-title">پنل کاسپین 3</span></div>
   <div class="mob-right"><button class="theme-mob" id="theme-mob-btn" onclick="cycleTheme()"><i class="ti ti-palette" id="theme-mob-icon"></i></button><button class="menu-btn" id="open-sb"><i class="ti ti-menu-2"></i></button></div>
 </div>
 <div class="overlay" id="overlay"></div>
 
 <aside class="sidebar" id="sb">
-  <div class="logo"><div class="logo-icon">🦅</div><div><div class="logo-name">پنل عقاب</div><div class="logo-sub">مدیریت کاربران</div></div></div>
+  <div class="logo"><div class="logo-icon">🦅</div><div><div class="logo-name">پنل کاسپین 3</div><div class="logo-sub">مدیریت کاربران</div></div></div>
   <div class="nav-wrap">
     <div class="nav-it on" data-pg="users"><i class="ti ti-layout-dashboard"></i> داشبورد</div>
     <div class="nav-it" data-pg="connections"><i class="ti ti-plug-connected"></i> اتصالات زنده</div>
@@ -634,7 +634,7 @@ select.fi{appearance:none;cursor:pointer}
 <section class="pg on" id="pg-users">
   <div class="topbar">
     <div>
-      <div class="tb-title"><i class="ti ti-layout-dashboard"></i> داشبورد عقاب</div>
+      <div class="tb-title"><i class="ti ti-layout-dashboard"></i> داشبورد کاسپین پنل 3</div>
       <div class="tb-sub" id="last-update">آخرین بروزرسانی: لحظه‌ای</div>
     </div>
     <div class="tb-right">
@@ -664,12 +664,12 @@ select.fi{appearance:none;cursor:pointer}
     <div style="font-size:16px;font-weight:700;color:var(--t1);margin-bottom:16px;display:flex;align-items:center;gap:8px"><i class="ti ti-messages" style="color:var(--accent)"></i> ارتباط با پشتیبانی</div>
     <p style="font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:16px">برای دریافت راهنمایی، پشتیبانی و پاسخ به سوالات خود، به گروه تلگرامی ما بپیوندید.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-p" onclick="window.open('https://t.me/+QyEVU0FquFczYjQ0','_blank')" style="flex:2"><i class="ti ti-brand-telegram"></i> عضویت در گروه پشتیبانی</button>
-      <button class="btn btn-o" onclick="navigator.clipboard.writeText('https://t.me/+QyEVU0FquFczYjQ0').then(()=>toast('لینک گروه کپی شد ✓','ok'))"><i class="ti ti-copy"></i> کپی لینک</button>
+      <button class="btn btn-p" onclick="window.open('https://t.me/PV_Golestaneh','_blank')" style="flex:2"><i class="ti ti-brand-telegram"></i> عضویت در گروه پشتیبانی</button>
+      <button class="btn btn-o" onclick="navigator.clipboard.writeText('https://t.me/PV_Golestaneh').then(()=>toast('لینک گروه کپی شد ✓','ok'))"><i class="ti ti-copy"></i> کپی لینک</button>
     </div>
     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--card-b);display:flex;align-items:center;gap:10px;flex-wrap:wrap">
       <span class="badge bg-green"><span class="dot dg"></span> آنلاین</span>
-      <span style="font-size:11px;color:var(--t3)">گروه پشتیبانی عقاب · پاسخگویی سریع</span>
+      <span style="font-size:11px;color:var(--t3)">گروه پشتیبانی کاسپین · پاسخگویی سریع</span>
     </div>
   </div>
 </section>
@@ -1247,7 +1247,7 @@ def get_sub_page_html(uuid: str, link: dict) -> str:
     
     from main import get_host, generate_vless_link
     host = get_host()
-    remark = f"عقاب-{label}"
+    remark = f"کاسپین پنل 3-{label}"
     new_vless_link = generate_vless_link(
         uuid, 
         host, 
@@ -1262,7 +1262,7 @@ def get_sub_page_html(uuid: str, link: dict) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🦅 {label} · پنل عقاب</title>
+<title>🦅 {label} · پنل کاسپین 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -1463,7 +1463,7 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
 <div class="card">
     <div class="brand">
         <div class="brand-icon">🦅</div>
-        <div class="brand-text"><div class="name">پنل عقاب</div><div class="sub">اطلاعات اشتراک</div></div>
+        <div class="brand-text"><div class="name">پنل کاسپین 3</div><div class="sub">اطلاعات اشتراک</div></div>
     </div>
     <div class="user-header">
         <div class="user-name"><span class="fire">🦅</span> {label}</div>
@@ -1496,7 +1496,7 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
         <button class="btn btn-success" onclick="copySub()"><i class="ti ti-link"></i> کپی ساب‌لینک</button>
         <button class="btn btn-secondary" onclick="showQR()"><i class="ti ti-qrcode"></i> QR</button>
     </div>
-    <div class="footer"><span class="eagle">🦅</span> پنل عقاب</div>
+    <div class="footer"><span class="eagle">🦅</span> پنل کاسپین 3</div>
 </div>
 
 <script>
