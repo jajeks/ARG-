@@ -97,15 +97,31 @@ function toggleTheme(){currentTheme=currentTheme==='dark'?'white':'dark';applyTh
 applyTheme(currentTheme);
 
 // بارگذاری وضعیت ایموجی
-let emojiMode = 'dragon'; // default
+let emojiMode = 'dragon'; // مقدار پیش‌فرض
+
+function getEmoji() {
+    return emojiMode === 'eagle' ? '🦅' : '🐲';
+}
+
+function getEmojiLabel() {
+    return emojiMode === 'eagle' ? '🦅 عقاب' : '🐲 اژدها';
+}
 
 async function loadEmojiStatus() {
     try {
         const r = await fetch('/api/emoji/status');
         const data = await r.json();
-        emojiMode = data.mode;
-        updateLoginEmoji();
-    } catch(e) {}
+        if (data && data.mode) {
+            emojiMode = data.mode;
+        }
+        console.log('📌 Emoji mode loaded:', emojiMode);
+        updateEmojiUI();
+    } catch(e) {
+        console.error('❌ Error loading emoji status:', e);
+        // اگر خطا بود، از مقدار پیش‌فرض استفاده کن
+        emojiMode = 'dragon';
+        updateEmojiUI();
+    }
 }
 
 function updateLoginEmoji() {
@@ -616,6 +632,8 @@ function updateEmojiUI() {
     const emoji = getEmoji();
     const label = getEmojiLabel();
     
+    console.log('🔄 Updating emoji UI to:', emoji, label);
+    
     // به‌روزرسانی لوگوی سایدبار
     const sidebarLogo = document.getElementById('sidebarLogoEmoji');
     if (sidebarLogo) sidebarLogo.textContent = emoji;
@@ -629,6 +647,16 @@ function updateEmojiUI() {
     if (emojiBtn) {
         emojiBtn.innerHTML = '<i class="ti ti-emoji"></i> <span id="emoji-label">' + label + '</span>';
     }
+    
+    // به‌روزرسانی همه ایموجی‌های داخل کارت‌ها (در صورت وجود)
+    document.querySelectorAll('.user-card .name').forEach(el => {
+        // ایموجی‌های داخل نام کاربر رو به‌روز کن
+        const text = el.textContent;
+        if (text.includes('🐲') || text.includes('🦅')) {
+            // فقط ایموجی اول رو عوض کن
+            el.innerHTML = el.innerHTML.replace(/[🦅🐲]/g, emoji);
+        }
+    });
 }
 
 async function toggleEmoji() {
@@ -637,15 +665,27 @@ async function toggleEmoji() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         });
+        
+        if (!r.ok) {
+            throw new Error('Server error: ' + r.status);
+        }
+        
         const data = await r.json();
-        emojiMode = data.mode;
+        console.log('📌 Toggle response:', data);
+        
+        if (data && data.mode) {
+            emojiMode = data.mode;
+        }
+        
         updateEmojiUI();
         toast('🔄 ایموجی به ' + getEmojiLabel() + ' تغییر کرد', 'ok');
         
-        // به‌روزرسانی صفحه
+        // بارگذاری مجدد کاربران برای به‌روزرسانی ایموجی‌های داخل کارت‌ها
         loadUsers();
+        
     } catch(e) {
-        toast('خطا در تغییر ایموجی', 'err');
+        console.error('❌ Error toggling emoji:', e);
+        toast('خطا در تغییر ایموجی: ' + e.message, 'err');
     }
 }
 
@@ -778,16 +818,17 @@ async function loadUsers() {
     document.getElementById('online-badge').innerHTML = '<span class="dot dg"></span> ' + online + ' آنلاین';
     
     try {
-      const sr = await authF('/stats');
-      const statsData = await sr.json();
-      if (statsData.top_user) {
+    const sr = await authF('/stats');
+    const statsData = await sr.json();
+    if (statsData.top_user) {
+        const emoji = getEmoji();
         document.getElementById('top-user-label').textContent = emoji + ' ' + statsData.top_user.label;
         document.getElementById('top-user-usage').textContent = statsData.top_user.used_fmt || '0';
-      } else {
+    } else {
         document.getElementById('top-user-label').textContent = '—';
         document.getElementById('top-user-usage').textContent = '۰';
-      }
-    } catch(e) {}
+    }
+} catch(e) {}
     
     if (!links.length) {
       grid.innerHTML = '<div class="empty"><i class="ti ti-users"></i><p>هیچ کاربری ساخته نشده</p></div>';
@@ -812,8 +853,8 @@ async function loadUsers() {
       const statusClass = active ? 'on' : 'off';
       
       return `<div class="user-card">
-        <div class="head">
-          <div class="name">${emoji} ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''}</div>
+    <div class="head">
+        <div class="name">${getEmoji()} ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''}</div>
           <span class="status ${statusClass}">${statusText}</span>
         </div>
         <div class="uuid">🔑 ${esc(l.uuid)}</div>
