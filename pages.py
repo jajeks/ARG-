@@ -1,4 +1,4 @@
-# pages.py - پنل عقاب با تم‌های طلایی، آبی اقیانوسی و سبز جنگلی
+# pages.py - پنل عقاب با تم‌های کامل (پس‌زمینه متغیر)
 
 LOGIN_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -49,8 +49,8 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 body.rgb-mode{background:linear-gradient(135deg,#1a0505,#050a1a,#1a0a05,#0a051a,#1a0505) !important;background-size:400% 400% !important;animation:rgbBG 4s ease infinite !important}
 [data-theme^="white"] body.rgb-mode{background:linear-gradient(135deg,#f5e6e0,#e0e8f5,#f0e8d5,#e8d5f0,#f5e6e0) !important;background-size:400% 400% !important;animation:rgbBGLight 4s ease infinite !important}
 html,body{height:100%;overflow:hidden}
-body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#1a0505,#2a0a0a,#3d0f0a,#2a0505,#1a0a0a);background-size:400% 400%;animation:fireBG 8s ease infinite;display:flex;align-items:center;justify-content:center;padding:20px;transition:background .3s,color .3s}
-[data-theme^="white"] body{background:linear-gradient(135deg,#F5E6E0,#E8D5CC,#F0D5C8)}
+body{font-family:'Vazirmatn',sans-serif;background:var(--bg);background-size:400% 400%;animation:fireBG 8s ease infinite;display:flex;align-items:center;justify-content:center;padding:20px;transition:background .3s,color .3s}
+[data-theme^="white"] body{background:var(--bg)}
 .fire-particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .fire-particle{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,120,50,0.4),rgba(255,50,0,0));width:6px;height:6px;animation:floatFire 12s ease-in-out infinite}
 @keyframes floatFire{0%{transform:translateY(100vh) scale(0) rotate(0deg);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateY(-10vh) scale(1.5) rotate(720deg);opacity:0}}
@@ -312,8 +312,8 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 @keyframes rgbBGLight{0%{background:#f5e6e0}25%{background:#e0e8f5}50%{background:#f0e8d5}75%{background:#e8d5f0}100%{background:#f5e6e0}}
 @keyframes rgbShadow{0%{box-shadow:0 8px 32px rgba(255,0,0,0.3),0 0 60px rgba(255,80,20,0.03)}25%{box-shadow:0 8px 32px rgba(0,0,255,0.3),0 0 60px rgba(80,20,255,0.03)}50%{box-shadow:0 8px 32px rgba(0,255,0,0.3),0 0 60px rgba(20,255,80,0.03)}75%{box-shadow:0 8px 32px rgba(255,0,255,0.3),0 0 60px rgba(255,20,200,0.03)}100%{box-shadow:0 8px 32px rgba(255,0,0,0.3),0 0 60px rgba(255,80,20,0.03)}}
 html,body{height:100%}
-body{font-family:'Vazirmatn',sans-serif;background:linear-gradient(135deg,#1a0505,#2a0a0a,#3d0f0a,#2a0505,#1a0a0a);background-size:400% 400%;animation:fireBG 8s ease infinite;color:var(--t1);min-height:100vh;display:flex;font-size:14px;transition:background .3s,color .3s}
-[data-theme^="white"] body{background:linear-gradient(135deg,#F5E6E0,#E8D5CC,#F0D5C8)}
+body{font-family:'Vazirmatn',sans-serif;background:var(--bg);background-size:400% 400%;animation:fireBG 8s ease infinite;color:var(--t1);min-height:100vh;display:flex;font-size:14px;transition:background .3s,color .3s}
+[data-theme^="white"] body{background:var(--bg)}
 body.rgb-mode{background:linear-gradient(135deg,#1a0505,#050a1a,#1a0a05,#0a051a,#1a0505) !important;background-size:400% 400% !important;animation:rgbBG 4s ease infinite !important}
 [data-theme^="white"] body.rgb-mode{background:linear-gradient(135deg,#f5e6e0,#e0e8f5,#f0e8d5,#e8d5f0,#f5e6e0) !important;background-size:400% 400% !important;animation:rgbBGLight 4s ease infinite !important}
 .fire-glow{position:fixed;border-radius:50%;filter:blur(150px);z-index:0;animation:flamePulse 2s ease-in-out infinite;pointer-events:none}
