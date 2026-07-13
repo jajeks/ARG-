@@ -1,10 +1,10 @@
-# pages.py - پنل عقاب/اژدها (نسخه کامل با دکمه تغییر ایموجی)
+# pages.py - پنل عقاب (نسخه کامل با تم RGB کل پنل + بکاپ)
 
 LOGIN_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐲 ورود · کاسپین پنل 3</title>
+<title>🦅 ورود · کاسپین پنل 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -78,7 +78,7 @@ input:focus+.ic{color:#FF8C00}
 <div class="glow-orb orb1"></div><div class="glow-orb orb2"></div><div class="glow-orb orb3"></div>
 <div class="wrap">
   <div class="card">
-    <div class="brand"><div class="brand-icon" id="loginEmoji">🐲</div><div><div class="brand-name">پنل کاسپین 3</div><div class="brand-sub">مدیریت کاربران</div></div></div>
+    <div class="brand"><div class="brand-icon">🦅</div><div><div class="brand-name">پنل کاسپین 3</div><div class="brand-sub">مدیریت کاربران</div></div></div>
     <h1>ورود به پنل کاسپین 3</h1>
     <p class="sub">رمز عبور را برای دسترسی به داشبورد وارد کنید</p>
     <div class="err" id="err"><i class="ti ti-alert-circle"></i><span id="err-text"></span></div>
@@ -87,7 +87,7 @@ input:focus+.ic{color:#FF8C00}
       <div class="field"><label>رمز عبور</label><div class="inp-wrap"><input type="password" id="pw" placeholder="رمز عبور را وارد کنید" autofocus required><i class="ti ti-lock ic"></i></div></div>
       <button class="btn" type="submit" id="btn"><i class="ti ti-login-2"></i> ورود به پنل</button>
     </form>
-    <div class="footer">🐲 پنل کاسپین 3 · v10.0 · <button onclick="toggleTheme()"><i class="ti ti-palette"></i> تغییر تم</button></div>
+    <div class="footer">🦅 پنل کاسپین 3 · v10.0 · <button onclick="toggleTheme()"><i class="ti ti-palette"></i> تغییر تم</button></div>
   </div>
 </div>
 <script>
@@ -95,44 +95,6 @@ let currentTheme = localStorage.getItem('eagle-theme') || 'dark';
 function applyTheme(theme){document.documentElement.setAttribute('data-theme',theme);localStorage.setItem('eagle-theme',theme);}
 function toggleTheme(){currentTheme=currentTheme==='dark'?'white':'dark';applyTheme(currentTheme);}
 applyTheme(currentTheme);
-
-// بارگذاری وضعیت ایموجی
-let emojiMode = 'dragon'; // مقدار پیش‌فرض
-
-function getEmoji() {
-    return emojiMode === 'eagle' ? '🦅' : '🐲';
-}
-
-function getEmojiLabel() {
-    return emojiMode === 'eagle' ? '🦅 عقاب' : '🐲 اژدها';
-}
-
-async function loadEmojiStatus() {
-    try {
-        const r = await fetch('/api/emoji/status');
-        const data = await r.json();
-        if (data && data.mode) {
-            emojiMode = data.mode;
-        }
-        console.log('📌 Emoji mode loaded:', emojiMode);
-        updateEmojiUI();
-    } catch(e) {
-        console.error('❌ Error loading emoji status:', e);
-        // اگر خطا بود، از مقدار پیش‌فرض استفاده کن
-        emojiMode = 'dragon';
-        updateEmojiUI();
-    }
-}
-
-function updateLoginEmoji() {
-    const emoji = emojiMode === 'eagle' ? '🦅' : '🐲';
-    const el = document.getElementById('loginEmoji');
-    if (el) el.textContent = emoji;
-    // به‌روزرسانی فوتر
-    document.querySelector('.footer').innerHTML = emoji + ' پنل کاسپین 3 · v10.0 · <button onclick="toggleTheme()"><i class="ti ti-palette"></i> تغییر تم</button>';
-}
-loadEmojiStatus();
-
 document.getElementById('form').addEventListener('submit',async e=>{
   e.preventDefault();
   const btn=document.getElementById('btn'),err=document.getElementById('err'),et=document.getElementById('err-text');
@@ -154,7 +116,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐲 پنل کاسپین 3 · مدیریت کاربران</title>
+<title>🦅 پنل کاسپین 3 · مدیریت کاربران</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -199,6 +161,7 @@ body.rgb-mode{background:linear-gradient(135deg,#1a0505,#050a1a,#1a0a05,#0a051a,
 .fg1{width:600px;height:600px;background:rgba(255,80,20,0.04);top:-250px;right:-150px}
 .fg2{width:450px;height:450px;background:rgba(255,150,50,0.03);bottom:-150px;left:-100px;animation-delay:1s}
 .fg3{width:300px;height:300px;background:rgba(200,50,0,0.03);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:2s}
+/* ===== RGB برای Sidebar ===== */
 body.rgb-mode .sidebar{animation:rgbShadow 3s ease infinite !important;border-color:rgba(255,0,0,0.2) !important}
 body.rgb-mode .sidebar .logo{border-color:rgba(255,0,0,0.2) !important}
 body.rgb-mode .sidebar .sb-foot{border-color:rgba(255,0,0,0.2) !important}
@@ -227,10 +190,8 @@ body.rgb-mode .settings-card{border-color:rgba(255,0,0,0.15) !important}
 .rgb-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,0,0,0.3)}
 .rgb-btn.off{background:var(--accent-d);color:var(--t2);animation:none;box-shadow:none}
 .rgb-btn.off:hover{background:var(--card-b);color:var(--t1)}
-.emoji-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#FF6B35,#FF4500);color:#fff;border-radius:10px;padding:8px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;width:100%;transition:.2s;margin-bottom:7px;box-shadow:0 4px 15px rgba(255,80,20,0.2)}
-.emoji-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,80,20,0.3)}
-.support-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#34D399,#059669);color:#fff;border-radius:10px;padding:8px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;width:100%;transition:.2s;margin-bottom:7px;box-shadow:0 4px 15px rgba(16,185,129,0.2)}
-.support-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(16,185,129,0.3)}
+.support-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#FF6B35,#FF4500);color:#fff;border-radius:10px;padding:8px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;width:100%;transition:.2s;margin-bottom:7px;box-shadow:0 4px 15px rgba(255,80,20,0.2)}
+.support-btn:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,80,20,0.3)}
 .logout-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--red-bg);color:var(--red-t);border-radius:10px;padding:8px;font-size:12px;font-weight:500;font-family:inherit;border:1px solid rgba(239,68,68,0.2);cursor:pointer;width:100%;transition:.2s}
 .logout-btn:hover{background:rgba(239,68,68,0.2)}
 .mob-top{display:none;position:fixed;top:0;right:0;left:0;height:56px;background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-bottom:1px solid var(--card-b);z-index:150;align-items:center;justify-content:space-between;padding:0 14px}
@@ -377,7 +338,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-user">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-user')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-user-plus"></i> 🐲 ساخت کانفیگ جدید</div>
+    <div class="modal-title"><i class="ti ti-user-plus"></i> 🦅 ساخت کانفیگ جدید</div>
     
     <div class="fg"><label><i class="ti ti-tag"></i> نام کاربری</label><input class="fi" id="user-label" placeholder="مثلاً: کاربر علی"></div>
     
@@ -415,7 +376,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-edit">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-edit')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-edit"></i> 🐲 ویرایش کانفیگ</div>
+    <div class="modal-title"><i class="ti ti-edit"></i> 🦅 ویرایش کانفیگ</div>
     <input type="hidden" id="edit-uuid">
     
     <div class="fg" id="edit-password-section">
@@ -467,7 +428,7 @@ select.fi{appearance:none;cursor:pointer}
 <div class="modal-bg" id="modal-delete">
   <div class="modal" style="max-width:400px">
     <button class="modal-close" onclick="closeModal('modal-delete')"><i class="ti ti-x"></i></button>
-    <div class="modal-title"><i class="ti ti-trash"></i> 🐲 حذف کانفیگ</div>
+    <div class="modal-title"><i class="ti ti-trash"></i> 🦅 حذف کانفیگ</div>
     <input type="hidden" id="delete-uuid">
     <p style="font-size:13px;color:var(--t2);margin-bottom:16px">برای حذف این کانفیگ، رمز آن را وارد کنید.</p>
     <div class="fg">
@@ -483,14 +444,14 @@ select.fi{appearance:none;cursor:pointer}
 
 <!-- ===== هدر موبایل ===== -->
 <div class="mob-top">
-  <div class="ml"><div class="mob-logo" id="mobLogoEmoji">🐲</div><span class="mob-title">پنل کاسپین 3</span></div>
+  <div class="ml"><div class="mob-logo">🦅</div><span class="mob-title">پنل کاسپین 3</span></div>
   <div class="mob-right"><button class="theme-mob" id="theme-mob-btn" onclick="toggleTheme()"><i class="ti ti-palette" id="theme-mob-icon"></i></button><button class="menu-btn" id="open-sb"><i class="ti ti-menu-2"></i></button></div>
 </div>
 <div class="overlay" id="overlay"></div>
 
 <!-- ===== سایدبار ===== -->
 <aside class="sidebar" id="sb">
-  <div class="logo"><div class="logo-icon" id="sidebarLogoEmoji">🐲</div><div><div class="logo-name">پنل کاسپین 3</div><div class="logo-sub">مدیریت کاربران</div></div></div>
+  <div class="logo"><div class="logo-icon">🦅</div><div><div class="logo-name">پنل کاسپین 3</div><div class="logo-sub">مدیریت کاربران</div></div></div>
   <div class="nav-wrap">
     <div class="nav-it on" data-pg="users"><i class="ti ti-layout-dashboard"></i> داشبورد</div>
     <div class="nav-it" data-pg="connections"><i class="ti ti-plug-connected"></i> اتصالات زنده</div>
@@ -501,8 +462,6 @@ select.fi{appearance:none;cursor:pointer}
   <div class="sb-foot">
     <button class="theme-btn" onclick="toggleTheme()"><i class="ti ti-palette" id="theme-icon"></i> <span id="theme-label">تغییر تم</span></button>
     <button class="rgb-btn off" id="rgb-btn" onclick="toggleRGB()"><i class="ti ti-color-swatch"></i> <span id="rgb-label">تم RGB</span></button>
-    <!-- دکمه تغییر ایموجی -->
-    <button class="emoji-btn" id="emoji-btn" onclick="toggleEmoji()"><i class="ti ti-emoji"></i> <span id="emoji-label">🐲 اژدها</span></button>
     <button class="support-btn" onclick="window.open('https://t.me/PV_Golestaneh','_blank')"><i class="ti ti-brand-telegram"></i> گروه پشتیبانی</button>
     <button class="logout-btn" onclick="logout()"><i class="ti ti-logout"></i> خروج</button>
   </div>
@@ -603,91 +562,6 @@ function toggleTheme() {
   applyTheme(next);
 }
 applyTheme(currentTheme);
-
-// ===== تنظیمات ایموجی =====
-let emojiMode = 'dragon'; // 'dragon' or 'eagle'
-
-function getEmoji() {
-    return emojiMode === 'eagle' ? '🦅' : '🐲';
-}
-
-function getEmojiLabel() {
-    return emojiMode === 'eagle' ? '🦅 عقاب' : '🐲 اژدها';
-}
-
-async function loadEmojiStatus() {
-    try {
-        const r = await fetch('/api/emoji/status');
-        const data = await r.json();
-        emojiMode = data.mode || 'dragon';
-        updateEmojiUI();
-    } catch(e) {
-        // fallback
-        emojiMode = 'dragon';
-        updateEmojiUI();
-    }
-}
-
-function updateEmojiUI() {
-    const emoji = getEmoji();
-    const label = getEmojiLabel();
-    
-    console.log('🔄 Updating emoji UI to:', emoji, label);
-    
-    // به‌روزرسانی لوگوی سایدبار
-    const sidebarLogo = document.getElementById('sidebarLogoEmoji');
-    if (sidebarLogo) sidebarLogo.textContent = emoji;
-    
-    // به‌روزرسانی لوگوی موبایل
-    const mobLogo = document.getElementById('mobLogoEmoji');
-    if (mobLogo) mobLogo.textContent = emoji;
-    
-    // به‌روزرسانی دکمه
-    const emojiBtn = document.getElementById('emoji-btn');
-    if (emojiBtn) {
-        emojiBtn.innerHTML = '<i class="ti ti-emoji"></i> <span id="emoji-label">' + label + '</span>';
-    }
-    
-    // به‌روزرسانی همه ایموجی‌های داخل کارت‌ها (در صورت وجود)
-    document.querySelectorAll('.user-card .name').forEach(el => {
-        // ایموجی‌های داخل نام کاربر رو به‌روز کن
-        const text = el.textContent;
-        if (text.includes('🐲') || text.includes('🦅')) {
-            // فقط ایموجی اول رو عوض کن
-            el.innerHTML = el.innerHTML.replace(/[🦅🐲]/g, emoji);
-        }
-    });
-}
-
-async function toggleEmoji() {
-    try {
-        const r = await fetch('/api/emoji/toggle', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
-        });
-        
-        if (!r.ok) {
-            throw new Error('Server error: ' + r.status);
-        }
-        
-        const data = await r.json();
-        console.log('📌 Toggle response:', data);
-        
-        if (data && data.mode) {
-            emojiMode = data.mode;
-        }
-        
-        updateEmojiUI();
-        toast('🔄 ایموجی به ' + getEmojiLabel() + ' تغییر کرد', 'ok');
-        
-        // بارگذاری مجدد کاربران برای به‌روزرسانی ایموجی‌های داخل کارت‌ها
-        loadUsers();
-        
-    } catch(e) {
-        console.error('❌ Error toggling emoji:', e);
-        toast('خطا در تغییر ایموجی: ' + e.message, 'err');
-    }
-}
 
 // ===== تم RGB =====
 let rgbMode = false;
@@ -801,7 +675,6 @@ async function loadUsers() {
     const r = await authF('/api/links');
     const { links=[] } = await r.json();
     const grid = document.getElementById('users-grid');
-    const emoji = getEmoji();
     
     const total = links.length;
     const online = links.filter(l => l.active && !l.expired).length;
@@ -818,17 +691,16 @@ async function loadUsers() {
     document.getElementById('online-badge').innerHTML = '<span class="dot dg"></span> ' + online + ' آنلاین';
     
     try {
-    const sr = await authF('/stats');
-    const statsData = await sr.json();
-    if (statsData.top_user) {
-        const emoji = getEmoji();
-        document.getElementById('top-user-label').textContent = emoji + ' ' + statsData.top_user.label;
+      const sr = await authF('/stats');
+      const statsData = await sr.json();
+      if (statsData.top_user) {
+        document.getElementById('top-user-label').textContent = '🦅 ' + statsData.top_user.label;
         document.getElementById('top-user-usage').textContent = statsData.top_user.used_fmt || '0';
-    } else {
+      } else {
         document.getElementById('top-user-label').textContent = '—';
         document.getElementById('top-user-usage').textContent = '۰';
-    }
-} catch(e) {}
+      }
+    } catch(e) {}
     
     if (!links.length) {
       grid.innerHTML = '<div class="empty"><i class="ti ti-users"></i><p>هیچ کاربری ساخته نشده</p></div>';
@@ -853,8 +725,8 @@ async function loadUsers() {
       const statusClass = active ? 'on' : 'off';
       
       return `<div class="user-card">
-    <div class="head">
-        <div class="name">${getEmoji()} ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''}</div>
+        <div class="head">
+          <div class="name">🦅 ${esc(l.label)} ${hasPassword ? '<span class="lock-badge"><i class="ti ti-lock"></i> رمزدار</span>' : ''}</div>
           <span class="status ${statusClass}">${statusText}</span>
         </div>
         <div class="uuid">🔑 ${esc(l.uuid)}</div>
@@ -975,7 +847,7 @@ async function saveEdit() {
         }
         
         closeModal('modal-edit');
-        toast('🐲 کانفیگ ویرایش شد ✓', 'ok');
+        toast('🦅 کانفیگ ویرایش شد ✓', 'ok');
         loadUsers();
     } catch(e) {
         toast('خطا در ویرایش: ' + e.message, 'err');
@@ -1012,7 +884,7 @@ async function confirmDelete() {
         }
         
         closeModal('modal-delete');
-        toast('🐲 کاربر حذف شد', 'ok');
+        toast('🦅 کاربر حذف شد', 'ok');
         loadUsers();
     } catch(e) {
         toast('خطا در حذف: ' + e.message, 'err');
@@ -1061,7 +933,7 @@ async function saveUser() {
     document.getElementById('user-port').value = '443';
     
     closeModal('modal-user');
-    toast('🐲 کانفیگ ساخته شد ✓', 'ok');
+    toast('🦅 کانفیگ ساخته شد ✓', 'ok');
     loadUsers();
   } catch(e) {
     toast('خطا در ساخت', 'err');
@@ -1162,7 +1034,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!d.authenticated) location.href = '/login';
   } catch(e) { location.href = '/login'; }
   
-  await loadEmojiStatus();
   await loadRGBStatus();
   loadUsers();
   loadConnections();
@@ -1273,7 +1144,7 @@ def get_sub_page_html(uuid: str, link: dict) -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐲 {label} · پنل کاسپین 3</title>
+<title>🦅 {label} · پنل کاسپین 3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
@@ -1503,11 +1374,11 @@ body{{
 <div class="toast" id="toast"></div>
 <div class="card">
     <div class="brand">
-        <div class="brand-icon">🐲</div>
+        <div class="brand-icon">🦅</div>
         <div class="brand-text"><div class="name">پنل کاسپین 3</div><div class="sub">اطلاعات اشتراک</div></div>
     </div>
     <div class="user-header">
-        <div class="user-name"><span class="fire">🐲</span> {label}</div>
+        <div class="user-name"><span class="fire">🦅</span> {label}</div>
         <span class="status {'active' if is_allowed else 'inactive'}">
             <i class="ti {'ti-circle-check' if is_allowed else 'ti-circle-x'}"></i>
             {'فعال' if is_allowed else 'غیرفعال'}
@@ -1539,7 +1410,7 @@ body{{
         <button class="btn btn-success" onclick="copySub()"><i class="ti ti-link"></i> کپی ساب‌لینک</button>
         <button class="btn btn-secondary" onclick="showQR()"><i class="ti ti-qrcode"></i> QR</button>
     </div>
-    <div class="footer"><span class="eagle">🐲</span> پنل کاسپین 3</div>
+    <div class="footer"><span class="eagle">🦅</span> پنل کاسپین 3</div>
 </div>
 <script>
 const vless = `{new_vless_link}`;
