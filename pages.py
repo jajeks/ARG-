@@ -1,4 +1,4 @@
-# pages.py - پنل عقاب با تم‌های کامل (پس‌زمینه متغیر + پالت رنگ در ساب)
+# pages.py - پنل عقاب با تم‌های کامل و منوی کشویی در ساب
 
 LOGIN_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -15,7 +15,6 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 @keyframes rgbBG{0%{background:#1a0505}25%{background:#050a1a}50%{background:#1a0a05}75%{background:#0a051a}100%{background:#1a0505}}
 @keyframes rgbBGLight{0%{background:#f5e6e0}25%{background:#e0e8f5}50%{background:#f0e8d5}75%{background:#e8d5f0}100%{background:#f5e6e0}}
 
-/* ===== تم‌های اصلی ===== */
 :root{
   --bg:#0a0a1a;--card:rgba(20,10,10,0.85);--accent:#FF6B35;--accent2:#FF8C00;--text:#F0EEFF;--dim:#8A4A3A;--mid:#A06040;--border:rgba(255,100,50,0.2)
 }
@@ -34,8 +33,6 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 [data-theme="ruby"]{
   --bg:#1a0a12;--card:rgba(30,10,20,0.85);--accent:#9B2D6E;--accent2:#C44A8A;--text:#F5D4E8;--dim:#8A4A6A;--mid:#B05A8A;--border:rgba(155,45,110,0.2)
 }
-
-/* ===== تم سفید (روشن) ===== */
 [data-theme="white_fire"]{
   --bg:#F5E6E0;--card:rgba(255,245,240,0.85);--accent:#E05A2A;--accent2:#CC5500;--text:#2A0A05;--dim:#8A5A4A;--mid:#6A3A2A;--border:rgba(200,80,40,0.2)
 }
@@ -512,37 +509,23 @@ select.fi{appearance:none;cursor:pointer}
 <div class="fire-glow fg3"></div>
 <div class="toast" id="toast"></div>
 
-<!-- ===== مودال ساخت کانفیگ ===== -->
 <div class="modal-bg" id="modal-user">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-user')"><i class="ti ti-x"></i></button>
     <div class="modal-title"><i class="ti ti-user-plus"></i> 🦅 ساخت کانفیگ جدید</div>
-    
     <div class="fg"><label><i class="ti ti-tag"></i> نام کاربری</label><input class="fi" id="user-label" placeholder="مثلاً: کاربر علی"></div>
-    
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
       <div class="fg"><label><i class="ti ti-database"></i> حجم</label><input class="fi" id="user-quota" type="number" min="0.5" step="0.5" value="2"></div>
       <div class="fg"><label><i class="ti ti-ruler"></i> واحد</label><select class="fi" id="user-unit"><option value="GB">GB</option><option value="MB">MB</option></select></div>
       <div class="fg"><label><i class="ti ti-calendar"></i> انقضا (روز)</label><input class="fi" id="user-exp" type="number" min="0" value="30" placeholder="0=نامحدود"></div>
     </div>
-    
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div class="fg"><label><i class="ti ti-fingerprint"></i> فینگرپرینت</label><select class="fi" id="user-fingerprint"><option value="chrome">Chrome</option><option value="firefox">Firefox</option><option value="safari">Safari</option><option value="edge">Edge</option><option value="random">Random</option><option value="none">None</option></select></div>
       <div class="fg"><label><i class="ti ti-devices"></i> محدودیت دستگاه</label><input class="fi" id="user-devices" type="number" min="0" max="10" value="1" placeholder="0=نامحدود"></div>
     </div>
-    
     <div class="fg"><label><i class="ti ti-settings"></i> پروتکل</label><select class="fi" id="user-protocol"><option value="vless-ws">VLESS (WebSocket)</option><option value="xhttp-stream-up">XHTTP (Stream)</option></select></div>
-    
-    <div class="fg">
-      <label><i class="ti ti-plug"></i> پورت (پیش‌فرض: 443)</label>
-      <input class="fi" id="user-port" type="number" min="1" max="65535" value="443" placeholder="443">
-    </div>
-    
-    <div class="fg">
-      <label><i class="ti ti-lock"></i> رمز کانفیگ (اختیاری)</label>
-      <input class="fi" id="user-password" type="password" placeholder="برای حذف/ویرایش نیاز است" dir="ltr">
-    </div>
-    
+    <div class="fg"><label><i class="ti ti-plug"></i> پورت (پیش‌فرض: 443)</label><input class="fi" id="user-port" type="number" min="1" max="65535" value="443" placeholder="443"></div>
+    <div class="fg"><label><i class="ti ti-lock"></i> رمز کانفیگ (اختیاری)</label><input class="fi" id="user-password" type="password" placeholder="برای حذف/ویرایش نیاز است" dir="ltr"></div>
     <div style="display:flex;gap:8px;margin-top:16px">
       <button class="btn btn-p" onclick="saveUser()" style="flex:2"><i class="ti ti-check"></i> ساخت کانفیگ</button>
       <button class="btn btn-o" onclick="closeModal('modal-user')" style="flex:1">انصراف</button>
@@ -550,31 +533,25 @@ select.fi{appearance:none;cursor:pointer}
   </div>
 </div>
 
-<!-- ===== مودال ویرایش ===== -->
 <div class="modal-bg" id="modal-edit">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('modal-edit')"><i class="ti ti-x"></i></button>
     <div class="modal-title"><i class="ti ti-edit"></i> 🦅 ویرایش کانفیگ</div>
     <input type="hidden" id="edit-uuid">
-    
     <div class="fg" id="edit-password-section">
       <label><i class="ti ti-lock"></i> 🔑 رمز کانفیگ (برای ویرایش لازم است)</label>
       <input class="fi" id="edit-password" type="password" placeholder="رمز کانفیگ را وارد کنید" dir="ltr">
     </div>
-    
     <div class="fg"><label><i class="ti ti-tag"></i> نام کاربری</label><input class="fi" id="edit-label" placeholder="نام کاربری"></div>
-    
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
       <div class="fg"><label><i class="ti ti-database"></i> حجم (0=نامحدود)</label><input class="fi" id="edit-quota" type="number" min="0" step="0.5"></div>
       <div class="fg"><label><i class="ti ti-ruler"></i> واحد</label><select class="fi" id="edit-unit"><option value="GB">GB</option><option value="MB">MB</option></select></div>
       <div class="fg"><label><i class="ti ti-calendar"></i> انقضا (روز)</label><input class="fi" id="edit-exp" type="number" min="0" placeholder="0=نامحدود"></div>
     </div>
-    
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div class="fg"><label><i class="ti ti-fingerprint"></i> فینگرپرینت</label><select class="fi" id="edit-fingerprint"><option value="chrome">Chrome</option><option value="firefox">Firefox</option><option value="safari">Safari</option><option value="edge">Edge</option><option value="random">Random</option><option value="none">None</option></select></div>
       <div class="fg"><label><i class="ti ti-devices"></i> محدودیت دستگاه</label><input class="fi" id="edit-devices" type="number" min="0" max="10" placeholder="0=نامحدود"></div>
     </div>
-    
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
       <div class="fg"><label><i class="ti ti-settings"></i> پروتکل</label>
         <select class="fi" id="edit-protocol">
@@ -589,12 +566,7 @@ select.fi{appearance:none;cursor:pointer}
         </select>
       </div>
     </div>
-    
-    <div class="fg">
-      <label><i class="ti ti-plug"></i> پورت</label>
-      <input class="fi" id="edit-port" type="number" min="1" max="65535" placeholder="443">
-    </div>
-    
+    <div class="fg"><label><i class="ti ti-plug"></i> پورت</label><input class="fi" id="edit-port" type="number" min="1" max="65535" placeholder="443"></div>
     <div style="display:flex;gap:8px;margin-top:16px">
       <button class="btn btn-p" onclick="saveEdit()" style="flex:2"><i class="ti ti-check"></i> ذخیره تغییرات</button>
       <button class="btn btn-o" onclick="closeModal('modal-edit')" style="flex:1">انصراف</button>
@@ -602,7 +574,6 @@ select.fi{appearance:none;cursor:pointer}
   </div>
 </div>
 
-<!-- ===== مودال حذف ===== -->
 <div class="modal-bg" id="modal-delete">
   <div class="modal" style="max-width:400px">
     <button class="modal-close" onclick="closeModal('modal-delete')"><i class="ti ti-x"></i></button>
@@ -620,14 +591,12 @@ select.fi{appearance:none;cursor:pointer}
   </div>
 </div>
 
-<!-- ===== هدر موبایل ===== -->
 <div class="mob-top">
   <div class="ml"><div class="mob-logo">🦅</div><span class="mob-title">پنل عقاب</span></div>
   <div class="mob-right"><button class="theme-mob" id="theme-mob-btn" onclick="cycleTheme()"><i class="ti ti-palette" id="theme-mob-icon"></i></button><button class="menu-btn" id="open-sb"><i class="ti ti-menu-2"></i></button></div>
 </div>
 <div class="overlay" id="overlay"></div>
 
-<!-- ===== سایدبار ===== -->
 <aside class="sidebar" id="sb">
   <div class="logo"><div class="logo-icon">🦅</div><div><div class="logo-name">پنل عقاب</div><div class="logo-sub">مدیریت کاربران</div></div></div>
   <div class="nav-wrap">
@@ -673,7 +642,6 @@ select.fi{appearance:none;cursor:pointer}
       <button class="btn btn-p" onclick="openModal('modal-user')"><i class="ti ti-plus"></i> کانفیگ جدید</button>
     </div>
   </div>
-
   <div class="stats-grid">
     <div class="stat-card"><span class="icon">🔥</span><div class="number" id="online-count">۰</div><div class="label">سرویس‌های آنلاین</div><div class="sub">در حال اتصال</div><div class="bar"></div></div>
     <div class="stat-card"><span class="icon">👥</span><div class="number" id="total-users">۰</div><div class="label">کل کاربران</div><div class="sub">ثبت‌شده</div><div class="bar"></div></div>
@@ -682,7 +650,6 @@ select.fi{appearance:none;cursor:pointer}
     <div class="stat-card"><span class="icon">⛔</span><div class="number" id="inactive-count">۰</div><div class="label">غیرفعال</div><div class="sub">غیرفعال</div><div class="bar"></div></div>
     <div class="stat-card"><span class="icon">🏆</span><div class="number" id="top-user-label" style="font-size:16px">-</div><div class="label">پر مصرف‌ترین کاربر</div><div class="sub" id="top-user-usage">۰</div><div class="bar"></div></div>
   </div>
-
   <div id="users-grid" class="user-grid"><div class="empty"><i class="ti ti-users"></i><p>هیچ کاربری ساخته نشده</p></div></div>
 </section>
 
@@ -1200,7 +1167,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 </body></html>"""
 
 
-# ===== صفحه ساب‌لینک با پالت رنگ =====
+# ===== صفحه ساب‌لینک با منوی کشویی تم =====
 def get_sub_page_html(uuid: str, link: dict) -> str:
     used = link.get('used_bytes', 0)
     limit = link.get('limit_bytes', 0)
@@ -1328,21 +1295,37 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
 .glow2{{width:400px;height:400px;background:rgba(255,150,50,0.05);bottom:-100px;left:-80px;animation-delay:2s}}
 .glow3{{width:300px;height:300px;background:rgba(200,50,0,0.04);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:4s}}
 
-.theme-palette{{
+.theme-dropdown{{
     position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;
-    background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-    border:1px solid var(--border);border-radius:16px;padding:10px 16px;
-    display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
-    box-shadow:0 8px 40px rgba(0,0,0,0.3);transition:background .3s,border-color .3s;
 }}
-.theme-palette .label{{font-size:10px;color:var(--dim);font-weight:600;margin-left:6px}}
-.theme-palette .dot{{display:inline-block;width:24px;height:24px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:all .2s;flex-shrink:0}}
-.theme-palette .dot:hover{{transform:scale(1.15)}}
-.theme-palette .dot.active{{border-color:var(--text);box-shadow:0 0 20px rgba(255,255,255,0.2)}}
-.theme-palette .close-btn{{background:none;border:none;color:var(--dim);cursor:pointer;font-size:16px;padding:2px 6px;transition:.2s}}
-.theme-palette .close-btn:hover{{color:var(--text);transform:rotate(90deg)}}
+.theme-dropdown .toggle-btn{{
+    background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+    border:1px solid var(--border);border-radius:14px;padding:10px 20px;
+    color:var(--text);font-family:'Vazirmatn',sans-serif;font-size:13px;font-weight:600;
+    cursor:pointer;display:flex;align-items:center;gap:10px;
+    transition:all .3s;box-shadow:0 8px 40px rgba(0,0,0,0.3);
+}}
+.theme-dropdown .toggle-btn:hover{{border-color:var(--accent);transform:scale(1.02)}}
+.theme-dropdown .toggle-btn .arrow{{transition:transform .3s;font-size:12px}}
+.theme-dropdown .toggle-btn .arrow.open{{transform:rotate(180deg)}}
+.theme-dropdown .menu{{
+    display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);
+    background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+    border:1px solid var(--border);border-radius:14px;padding:8px;
+    min-width:200px;box-shadow:0 12px 50px rgba(0,0,0,0.4);
+}}
+.theme-dropdown .menu.open{{display:block}}
+.theme-dropdown .menu-item{{
+    display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:10px;
+    cursor:pointer;transition:all .2s;color:var(--dim);font-size:13px;font-weight:500;
+}}
+.theme-dropdown .menu-item:hover{{background:var(--accent-d);color:var(--text)}}
+.theme-dropdown .menu-item .dot{{display:inline-block;width:18px;height:18px;border-radius:5px;flex-shrink:0;border:1px solid rgba(255,255,255,0.1)}}
+.theme-dropdown .menu-item .check{{margin-right:auto;opacity:0;transition:opacity .2s;color:var(--accent)}}
+.theme-dropdown .menu-item.active .check{{opacity:1}}
+.theme-dropdown .menu-item.active{{background:var(--accent-d);color:var(--text)}}
 
-.card{{position:relative;z-index:10;background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:28px;padding:40px 38px 34px;max-width:500px;width:100%;box-shadow:0 0 100px rgba(255,80,20,0.05),0 25px 70px rgba(0,0,0,0.7);animation:cardIn 0.6s ease;transition:background .3s,border-color .3s,color .3s}}
+.card{{position:relative;z-index:10;background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:28px;padding:40px 38px 34px;max-width:500px;width:100%;box-shadow:0 0 100px rgba(255,80,20,0.05),0 25px 70px rgba(0,0,0,0.7);animation:cardIn 0.6s ease;transition:background .3s,border-color .3s,color .3s;margin-top:60px}}
 @keyframes cardIn{{from{{opacity:0;transform:translateY(30px) scale(0.96)}}to{{opacity:1;transform:translateY(0) scale(1)}}}}
 .brand{{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border)}}
 .brand-icon{{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 0 50px rgba(255,80,20,0.2),0 0 100px rgba(255,80,20,0.05);animation:flameFlicker 2s ease-in-out infinite;transition:background .3s}}
@@ -1389,14 +1372,13 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
 .toast.show{{opacity:1;transform:translateX(-50%) translateY(0)}}
 .toast.ok{{border-color:rgba(16,185,129,0.2);color:#34D399}}
 @media(max-width:520px){{
-    .card{{padding:28px 20px 24px}}
+    .card{{padding:28px 20px 24px;margin-top:70px}}
     .user-name{{font-size:20px}}
     .brand-icon{{width:44px;height:44px;font-size:22px}}
     .info-item{{padding:11px 14px}}
     .btn{{font-size:11px;padding:8px 12px}}
-    .theme-palette{{top:12px;padding:8px 12px;gap:4px}}
-    .theme-palette .dot{{width:20px;height:20px}}
-    .theme-palette .label{{font-size:9px}}
+    .theme-dropdown .toggle-btn{{padding:8px 14px;font-size:12px}}
+    .theme-dropdown .menu{{min-width:170px}}
 }}
 </style>
 </head>
@@ -1416,19 +1398,66 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
 <div class="fire-glow glow1"></div><div class="fire-glow glow2"></div><div class="fire-glow glow3"></div>
 <div class="toast" id="toast"></div>
 
-<div class="theme-palette" id="themePalette">
-    <span class="label">🎨</span>
-    <span class="dot" style="background:linear-gradient(135deg,#FF6B35,#FF4500)" onclick="applyTheme('dark_fire')" title="آتشین تیره"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#D4AF37,#F5D060)" onclick="applyTheme('gold')" title="طلایی تیره"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#0099CC,#33CCFF)" onclick="applyTheme('ocean')" title="آبی اقیانوسی تیره"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#2E8B57,#4CAF50)" onclick="applyTheme('forest')" title="سبز جنگلی تیره"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#9B2D6E,#C44A8A)" onclick="applyTheme('ruby')" title="بنفش یاقوتی تیره"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)" onclick="applyTheme('white_fire')" title="آتشین روشن"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#F5ECD7,#E8D5CC)" onclick="applyTheme('white_gold')" title="طلایی روشن"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#D4EEFF,#B8D8EE)" onclick="applyTheme('white_ocean')" title="آبی اقیانوسی روشن"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#D4F5D4,#B8E8B8)" onclick="applyTheme('white_forest')" title="سبز جنگلی روشن"></span>
-    <span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)" onclick="applyTheme('white_ruby')" title="بنفش یاقوتی روشن"></span>
-    <button class="close-btn" onclick="document.getElementById('themePalette').style.display='none'" title="بستن پالت">✕</button>
+<!-- ===== دکمه منوی کشویی تم ===== -->
+<div class="theme-dropdown">
+    <button class="toggle-btn" onclick="toggleThemeMenu()">
+        <span>🎨</span>
+        <span id="themeDisplay">انتخاب تم</span>
+        <span class="arrow" id="themeArrow">▾</span>
+    </button>
+    <div class="menu" id="themeMenu">
+        <div class="menu-item" data-theme="dark_fire" onclick="selectTheme('dark_fire')">
+            <span class="dot" style="background:linear-gradient(135deg,#FF6B35,#FF4500)"></span>
+            آتشین تیره
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="gold" onclick="selectTheme('gold')">
+            <span class="dot" style="background:linear-gradient(135deg,#D4AF37,#F5D060)"></span>
+            طلایی تیره
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="ocean" onclick="selectTheme('ocean')">
+            <span class="dot" style="background:linear-gradient(135deg,#0099CC,#33CCFF)"></span>
+            آبی اقیانوسی تیره
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="forest" onclick="selectTheme('forest')">
+            <span class="dot" style="background:linear-gradient(135deg,#2E8B57,#4CAF50)"></span>
+            سبز جنگلی تیره
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="ruby" onclick="selectTheme('ruby')">
+            <span class="dot" style="background:linear-gradient(135deg,#9B2D6E,#C44A8A)"></span>
+            بنفش یاقوتی تیره
+            <span class="check">✓</span>
+        </div>
+        <div style="border-top:1px solid var(--border);margin:4px 8px"></div>
+        <div class="menu-item" data-theme="white_fire" onclick="selectTheme('white_fire')">
+            <span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)"></span>
+            آتشین روشن
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="white_gold" onclick="selectTheme('white_gold')">
+            <span class="dot" style="background:linear-gradient(135deg,#F5ECD7,#E8D5CC)"></span>
+            طلایی روشن
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="white_ocean" onclick="selectTheme('white_ocean')">
+            <span class="dot" style="background:linear-gradient(135deg,#D4EEFF,#B8D8EE)"></span>
+            آبی اقیانوسی روشن
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="white_forest" onclick="selectTheme('white_forest')">
+            <span class="dot" style="background:linear-gradient(135deg,#D4F5D4,#B8E8B8)"></span>
+            سبز جنگلی روشن
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="white_ruby" onclick="selectTheme('white_ruby')">
+            <span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)"></span>
+            بنفش یاقوتی روشن
+            <span class="check">✓</span>
+        </div>
+    </div>
 </div>
 
 <div class="card">
@@ -1469,19 +1498,58 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
     </div>
     <div class="footer"><span class="eagle">🦅</span> پنل عقاب</div>
 </div>
+
 <script>
+// ===== تنظیمات تم =====
 let currentTheme = localStorage.getItem('eagle-sub-theme') || 'dark_fire';
 const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
+const themeNames = {{
+    'dark_fire':'🔥 آتشین تیره',
+    'gold':'👑 طلایی تیره',
+    'ocean':'🌊 آبی اقیانوسی تیره',
+    'forest':'🌲 سبز جنگلی تیره',
+    'ruby':'💎 بنفش یاقوتی تیره',
+    'white_fire':'🔥 آتشین روشن',
+    'white_gold':'👑 طلایی روشن',
+    'white_ocean':'🌊 آبی اقیانوسی روشن',
+    'white_forest':'🌲 سبز جنگلی روشن',
+    'white_ruby':'💎 بنفش یاقوتی روشن'
+}};
 
 function applyTheme(theme) {{
     currentTheme = theme;
     localStorage.setItem('eagle-sub-theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
-    document.querySelectorAll('.theme-palette .dot').forEach(el => el.classList.remove('active'));
-    const dots = document.querySelectorAll('.theme-palette .dot');
-    const idx = themeList.indexOf(theme);
-    if (dots[idx]) dots[idx].classList.add('active');
+    document.getElementById('themeDisplay').textContent = themeNames[theme] || 'انتخاب تم';
+    document.querySelectorAll('.theme-dropdown .menu-item').forEach(el => {{
+        el.classList.toggle('active', el.dataset.theme === theme);
+    }});
+    document.getElementById('themeMenu').classList.remove('open');
+    document.getElementById('themeArrow').classList.remove('open');
 }}
+
+function toggleThemeMenu() {{
+    const menu = document.getElementById('themeMenu');
+    const arrow = document.getElementById('themeArrow');
+    menu.classList.toggle('open');
+    arrow.classList.toggle('open');
+}}
+
+function selectTheme(theme) {{
+    applyTheme(theme);
+    toast('✅ ' + themeNames[theme], 'ok');
+}}
+
+// بستن منو با کلیک خارج
+document.addEventListener('click', function(e) {{
+    const dropdown = document.querySelector('.theme-dropdown');
+    if (dropdown && !dropdown.contains(e.target)) {{
+        document.getElementById('themeMenu').classList.remove('open');
+        document.getElementById('themeArrow').classList.remove('open');
+    }}
+}});
+
+// بارگذاری تم ذخیره شده
 applyTheme(currentTheme);
 
 const vless = `{new_vless_link}`;
