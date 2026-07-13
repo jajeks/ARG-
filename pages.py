@@ -1,4 +1,4 @@
-# pages.py - پنل عقاب با تم‌های کامل (پس‌زمینه متغیر)
+# pages.py - پنل عقاب با تم‌های کامل (پس‌زمینه متغیر + پالت رنگ در ساب)
 
 LOGIN_HTML = r"""<!DOCTYPE html>
 <html lang="fa" dir="rtl">
@@ -35,7 +35,7 @@ LOGIN_HTML = r"""<!DOCTYPE html>
   --bg:#1a0a12;--card:rgba(30,10,20,0.85);--accent:#9B2D6E;--accent2:#C44A8A;--text:#F5D4E8;--dim:#8A4A6A;--mid:#B05A8A;--border:rgba(155,45,110,0.2)
 }
 
-/* ===== تم سفید (روشن) برای همه ===== */
+/* ===== تم سفید (روشن) ===== */
 [data-theme="white_fire"]{
   --bg:#F5E6E0;--card:rgba(255,245,240,0.85);--accent:#E05A2A;--accent2:#CC5500;--text:#2A0A05;--dim:#8A5A4A;--mid:#6A3A2A;--border:rgba(200,80,40,0.2)
 }
@@ -186,8 +186,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
-/* ===== تم‌های پایه ===== */
 :root{
   --bg:#0a0a1a;--bg2:#12122a;--bg3:#1a1a3a;
   --card:rgba(20,10,10,0.7);--card-b:rgba(255,100,50,0.12);--card-bh:rgba(255,100,50,0.28);
@@ -201,8 +199,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --sidebar-w:240px;--radius:16px;
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(255,80,20,0.03);
 }
-
-/* ===== تم آتشین تیره ===== */
 [data-theme="dark_fire"] {
   --bg:#0a0a1a;--bg2:#12122a;--bg3:#1a1a3a;
   --card:rgba(20,10,10,0.7);--card-b:rgba(255,100,50,0.12);--card-bh:rgba(255,100,50,0.28);
@@ -215,8 +211,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#F0EEFF;--t2:#A07050;--t3:#7A4A3A;
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(255,80,20,0.03);
 }
-
-/* ===== تم طلایی تیره ===== */
 [data-theme="gold"] {
   --bg:#1a1208;--bg2:#2a1f0d;--bg3:#3a2a12;
   --card:rgba(30,20,10,0.75);--card-b:rgba(212,175,55,0.2);--card-bh:rgba(212,175,55,0.4);
@@ -229,8 +223,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#F5ECD7;--t2:#C4A35A;--t3:#8A7A4A;
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(212,175,55,0.05);
 }
-
-/* ===== تم آبی اقیانوسی تیره ===== */
 [data-theme="ocean"] {
   --bg:#0a1a2a;--bg2:#0f2a3a;--bg3:#143a4a;
   --card:rgba(10,25,45,0.75);--card-b:rgba(0,153,204,0.2);--card-bh:rgba(0,153,204,0.4);
@@ -243,8 +235,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#D4EEFF;--t2:#5AA8C8;--t3:#3A7A9A;
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(0,153,204,0.05);
 }
-
-/* ===== تم سبز جنگلی تیره ===== */
 [data-theme="forest"] {
   --bg:#081a0a;--bg2:#0d2a10;--bg3:#123a16;
   --card:rgba(10,30,12,0.75);--card-b:rgba(46,139,87,0.2);--card-bh:rgba(46,139,87,0.4);
@@ -257,8 +247,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#D4F5D4;--t2:#5AA85A;--t3:#3A7A3A;
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(46,139,87,0.05);
 }
-
-/* ===== تم بنفش یاقوتی تیره ===== */
 [data-theme="ruby"] {
   --bg:#1a0a12;--bg2:#2a0f1a;--bg3:#3a1422;
   --card:rgba(30,10,20,0.75);--card-b:rgba(155,45,110,0.2);--card-bh:rgba(155,45,110,0.4);
@@ -271,8 +259,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#F5D4E8;--t2:#B05A8A;--t3:#8A4A6A;
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(155,45,110,0.05);
 }
-
-/* ===== تم آتشین روشن ===== */
 [data-theme="white_fire"] {
   --bg:#F5E6E0;--bg2:#E8D5CC;--bg3:#F0D5C8;
   --card:rgba(255,245,240,0.7);--card-b:rgba(200,80,40,0.14);--card-bh:rgba(200,80,40,0.3);
@@ -285,8 +271,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#2A0A05;--t2:#6A3A2A;--t3:#8A5A4A;
   --shadow:0 8px 32px rgba(0,0,0,0.06);
 }
-
-/* ===== تم طلایی روشن ===== */
 [data-theme="white_gold"] {
   --bg:#F5ECD7;--bg2:#E8D5CC;--bg3:#F0E8D5;
   --card:rgba(255,248,235,0.7);--card-b:rgba(212,175,55,0.14);--card-bh:rgba(212,175,55,0.3);
@@ -299,8 +283,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#2A1A05;--t2:#6A5A2A;--t3:#8A7A4A;
   --shadow:0 8px 32px rgba(0,0,0,0.06);
 }
-
-/* ===== تم آبی اقیانوسی روشن ===== */
 [data-theme="white_ocean"] {
   --bg:#D4EEFF;--bg2:#B8D8EE;--bg3:#C8E8FF;
   --card:rgba(235,248,255,0.7);--card-b:rgba(0,153,204,0.14);--card-bh:rgba(0,153,204,0.3);
@@ -313,8 +295,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#052A3A;--t2:#2A5A7A;--t3:#3A7A9A;
   --shadow:0 8px 32px rgba(0,0,0,0.06);
 }
-
-/* ===== تم سبز جنگلی روشن ===== */
 [data-theme="white_forest"] {
   --bg:#D4F5D4;--bg2:#B8E8B8;--bg3:#C8F0C8;
   --card:rgba(235,248,235,0.7);--card-b:rgba(46,139,87,0.14);--card-bh:rgba(46,139,87,0.3);
@@ -327,8 +307,6 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#052A0A;--t2:#2A5A2A;--t3:#3A7A3A;
   --shadow:0 8px 32px rgba(0,0,0,0.06);
 }
-
-/* ===== تم بنفش یاقوتی روشن ===== */
 [data-theme="white_ruby"] {
   --bg:#F5D4E8;--bg2:#E8C4D8;--bg3:#F0D4E8;
   --card:rgba(248,235,240,0.7);--card-b:rgba(155,45,110,0.14);--card-bh:rgba(155,45,110,0.3);
@@ -507,7 +485,6 @@ select.fi{appearance:none;cursor:pointer}
 .switch .slider{position:absolute;top:2px;right:2px;width:22px;height:22px;background:#fff;border-radius:50%;transition:.3s;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
 .switch.on .slider{right:24px}
 
-/* ===== منوی انتخاب تم ===== */
 .theme-select-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--accent-d);color:var(--t2);border-radius:10px;padding:8px;font-size:11px;font-weight:500;font-family:inherit;border:1px solid var(--card-b);cursor:pointer;width:100%;transition:.2s;margin-bottom:7px}
 .theme-select-btn:hover{background:var(--card-b);color:var(--t1)}
 .theme-menu{display:none;position:absolute;bottom:100%;left:0;right:0;background:var(--card);backdrop-filter:blur(30px);border:1px solid var(--card-b);border-radius:10px;padding:6px;z-index:300;box-shadow:var(--shadow);margin-bottom:4px;max-height:250px;overflow-y:auto}
@@ -684,7 +661,6 @@ select.fi{appearance:none;cursor:pointer}
   </div>
 </aside>
 
-<!-- ===== محتوای اصلی ===== -->
 <main class="main">
 <section class="pg on" id="pg-users">
   <div class="topbar">
@@ -761,7 +737,6 @@ select.fi{appearance:none;cursor:pointer}
 </main>
 
 <script>
-// ===== تنظیمات تم =====
 let currentTheme = localStorage.getItem('eagle-theme') || 'dark_fire';
 const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
 const themeNames = {
@@ -802,7 +777,6 @@ function selectTheme(theme) {
     toast('✅ ' + themeNames[theme], 'ok');
 }
 
-// بستن منو با کلیک خارج
 document.addEventListener('click', function(e) {
     const menu = document.getElementById('theme-menu');
     const btn = document.querySelector('.theme-select-btn');
@@ -813,7 +787,6 @@ document.addEventListener('click', function(e) {
 
 applyTheme(currentTheme);
 
-// ===== تم RGB =====
 let rgbMode = false;
 
 async function loadRGBStatus() {
@@ -865,7 +838,6 @@ async function toggleRGB() {
   }
 }
 
-// ===== توابع کمکی =====
 function toast(msg, type='') {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -888,7 +860,6 @@ function esc(s) {
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-// ===== احراز هویت =====
 async function authF(url, opts={}) {
   const r = await fetch(url, opts);
   if (r.status === 401) { location.href = '/login'; throw new Error('unauthorized'); }
@@ -900,7 +871,6 @@ async function logout() {
   location.href = '/login';
 }
 
-// ===== ناوبری =====
 function navTo(name) {
   document.querySelectorAll('.nav-it').forEach(n => n.classList.toggle('on', n.dataset.pg === name));
   document.querySelectorAll('.pg').forEach(p => p.classList.toggle('on', p.id === 'pg-' + name));
@@ -919,7 +889,6 @@ function closeSb(){ sb.classList.remove('open'); overlay.classList.remove('show'
 document.getElementById('open-sb').addEventListener('click', openSb);
 overlay.addEventListener('click', closeSb);
 
-// ===== بارگذاری کاربران =====
 async function loadUsers() {
   try {
     const r = await authF('/api/links');
@@ -1006,55 +975,41 @@ async function loadUsers() {
   } catch(e) { console.error(e); }
 }
 
-// ===== باز کردن مودال ویرایش =====
 async function openEditModal(uuid) {
     try {
         const r = await authF('/api/links');
         const { links=[] } = await r.json();
         const link = links.find(l => l.uuid === uuid);
-        
-        if (!link) {
-            toast('کاربر یافت نشد', 'err');
-            return;
-        }
-        
+        if (!link) { toast('کاربر یافت نشد', 'err'); return; }
         document.getElementById('edit-uuid').value = uuid;
         document.getElementById('edit-label').value = link.label || '';
         document.getElementById('edit-password').value = '';
-        
         if (link.limit_bytes === 0) {
             document.getElementById('edit-quota').value = '';
         } else {
             document.getElementById('edit-quota').value = (link.limit_bytes / (1024**3)).toFixed(1);
         }
         document.getElementById('edit-unit').value = 'GB';
-        
         if (link.expires_at) {
             const days = Math.ceil((new Date(link.expires_at) - new Date()) / (1000 * 60 * 60 * 24));
             document.getElementById('edit-exp').value = days > 0 ? days : 0;
         } else {
             document.getElementById('edit-exp').value = '';
         }
-        
         document.getElementById('edit-fingerprint').value = link.fingerprint || 'chrome';
         document.getElementById('edit-devices').value = link.max_devices || 0;
         document.getElementById('edit-protocol').value = link.protocol || 'vless-ws';
         document.getElementById('edit-status').value = link.active ? 'true' : 'false';
         document.getElementById('edit-port').value = link.port || 443;
-        
         if (link.has_password) {
             document.getElementById('edit-password-section').style.display = 'block';
         } else {
             document.getElementById('edit-password-section').style.display = 'none';
         }
-        
         openModal('modal-edit');
-    } catch(e) {
-        toast('خطا در بارگذاری', 'err');
-    }
+    } catch(e) { toast('خطا در بارگذاری', 'err'); }
 }
 
-// ===== ذخیره ویرایش =====
 async function saveEdit() {
     const uuid = document.getElementById('edit-uuid').value;
     const password = document.getElementById('edit-password').value.trim();
@@ -1067,81 +1022,54 @@ async function saveEdit() {
     const protocol = document.getElementById('edit-protocol').value || 'vless-ws';
     const active = document.getElementById('edit-status').value === 'true';
     const port = parseInt(document.getElementById('edit-port').value) || 443;
-    
     try {
         const r = await authF('/api/links/' + uuid, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                label: label,
-                limit_value: quota,
-                limit_unit: unit,
-                expires_days: exp,
-                fingerprint: fingerprint,
-                max_devices: devices,
-                protocol: protocol,
-                active: active,
-                password: password,
-                port: port
+                label, limit_value: quota, limit_unit: unit, expires_days: exp,
+                fingerprint, max_devices: devices, protocol, active, password, port
             })
         });
-        
         if (!r.ok) {
             const err = await r.json().catch(() => ({}));
-            if (r.status === 403) {
-                toast('❌ رمز کانفیگ اشتباه است!', 'err');
-            } else {
-                throw new Error(err.detail || 'خطا');
-            }
+            if (r.status === 403) { toast('❌ رمز کانفیگ اشتباه است!', 'err'); }
+            else { throw new Error(err.detail || 'خطا'); }
             return;
         }
-        
         closeModal('modal-edit');
         toast('🦅 کانفیگ ویرایش شد ✓', 'ok');
         loadUsers();
-    } catch(e) {
-        toast('خطا در ویرایش: ' + e.message, 'err');
-    }
+    } catch(e) { toast('خطا در ویرایش: ' + e.message, 'err'); }
 }
 
-// ===== باز کردن مودال حذف =====
 function openDeleteModal(uuid) {
     document.getElementById('delete-uuid').value = uuid;
     document.getElementById('delete-password').value = '';
     openModal('modal-delete');
 }
 
-// ===== تایید حذف با رمز =====
 async function confirmDelete() {
     const uuid = document.getElementById('delete-uuid').value;
     const password = document.getElementById('delete-password').value.trim();
-    
     try {
         const r = await authF('/api/links/' + uuid, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: password })
+            body: JSON.stringify({ password })
         });
-        
         if (!r.ok) {
             const err = await r.json().catch(() => ({}));
-            if (r.status === 403) {
-                toast('❌ رمز کانفیگ اشتباه است!', 'err');
-            } else {
-                throw new Error(err.detail || 'خطا');
-            }
+            if (r.status === 403) { toast('❌ رمز کانفیگ اشتباه است!', 'err'); }
+            else { throw new Error(err.detail || 'خطا'); }
             return;
         }
-        
         closeModal('modal-delete');
         toast('🦅 کاربر حذف شد', 'ok');
         loadUsers();
-    } catch(e) {
-        toast('خطا در حذف: ' + e.message, 'err');
-    }
+    } catch(e) { toast('خطا در حذف: ' + e.message, 'err'); }
 }
 
-// ===== ساخت کانفیگ جدید =====
 async function saveUser() {
   const label = document.getElementById('user-label').value.trim() || 'کاربر';
   const quota = parseFloat(document.getElementById('user-quota').value) || 2;
@@ -1152,26 +1080,16 @@ async function saveUser() {
   const protocol = document.getElementById('user-protocol').value || 'vless-ws';
   const password = document.getElementById('user-password').value.trim();
   const port = parseInt(document.getElementById('user-port').value) || 443;
-  
   try {
     const r = await authF('/api/links', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        label,
-        limit_value: quota,
-        limit_unit: unit,
-        expires_days: exp,
-        fingerprint: fingerprint,
-        max_devices: devices,
-        protocol: protocol,
-        note: '',
-        password: password,
-        port: port
+        label, limit_value: quota, limit_unit: unit, expires_days: exp,
+        fingerprint, max_devices: devices, protocol, note: '', password, port
       })
     });
     if (!r.ok) throw new Error();
-    
     document.getElementById('user-label').value = '';
     document.getElementById('user-quota').value = '2';
     document.getElementById('user-unit').value = 'GB';
@@ -1181,16 +1099,12 @@ async function saveUser() {
     document.getElementById('user-protocol').value = 'vless-ws';
     document.getElementById('user-password').value = '';
     document.getElementById('user-port').value = '443';
-    
     closeModal('modal-user');
     toast('🦅 کانفیگ ساخته شد ✓', 'ok');
     loadUsers();
-  } catch(e) {
-    toast('خطا در ساخت', 'err');
-  }
+  } catch(e) { toast('خطا در ساخت', 'err'); }
 }
 
-// ===== ریست مصرف =====
 async function resetUsage(uuid) {
   if (!confirm('مصرف این کاربر ریست شود؟')) return;
   try {
@@ -1205,7 +1119,6 @@ async function resetUsage(uuid) {
   } catch(e) { toast('خطا', 'err'); }
 }
 
-// ===== اتصالات زنده =====
 async function loadConnections() {
   try {
     const r = await authF('/api/connections');
@@ -1213,12 +1126,10 @@ async function loadConnections() {
     const grid = document.getElementById('conns-grid');
     const count = d.count || 0;
     document.getElementById('conn-count').textContent = count + ' اتصال';
-    
     if (!count) {
       grid.innerHTML = '<div class="empty"><i class="ti ti-plug-off"></i><p>هیچ اتصال فعالی وجود ندارد</p></div>';
       return;
     }
-    
     grid.innerHTML = d.connections.map(c => {
       const secs = c.connected_at ? Math.max(0, Math.floor((Date.now() - new Date(c.connected_at).getTime()) / 1000)) : 0;
       const dur = secs < 60 ? secs + ' ث' : secs < 3600 ? Math.floor(secs/60) + ' د' : Math.floor(secs/3600) + ' س';
@@ -1234,7 +1145,6 @@ async function loadConnections() {
   } catch(e) { console.error(e); }
 }
 
-// ===== بکاپ =====
 async function createBackup() {
   try {
     const r = await authF('/api/backup');
@@ -1247,9 +1157,7 @@ async function createBackup() {
     a.click();
     URL.revokeObjectURL(url);
     toast('✅ بکاپ با موفقیت دانلود شد', 'ok');
-  } catch(e) {
-    toast('خطا در بکاپ‌گیری', 'err');
-  }
+  } catch(e) { toast('خطا در بکاپ‌گیری', 'err'); }
 }
 
 async function restoreBackup(event) {
@@ -1270,24 +1178,19 @@ async function restoreBackup(event) {
     }
     toast('✅ بکاپ با موفقیت بازیابی شد', 'ok');
     setTimeout(() => location.reload(), 1500);
-  } catch(e) {
-    toast('خطا در بازیابی بکاپ: ' + e.message, 'err');
-  }
+  } catch(e) { toast('خطا در بازیابی بکاپ: ' + e.message, 'err'); }
   event.target.value = '';
 }
 
-// ===== بارگذاری اولیه =====
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const r = await fetch('/api/me');
     const d = await r.json();
     if (!d.authenticated) location.href = '/login';
   } catch(e) { location.href = '/login'; }
-  
   await loadRGBStatus();
   loadUsers();
   loadConnections();
-  
   setInterval(() => {
     if (document.getElementById('pg-users').classList.contains('on')) loadUsers();
     if (document.getElementById('pg-connections').classList.contains('on')) loadConnections();
@@ -1297,10 +1200,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 </body></html>"""
 
 
-# ===== صفحه ساب‌لینک =====
+# ===== صفحه ساب‌لینک با پالت رنگ =====
 def get_sub_page_html(uuid: str, link: dict) -> str:
-    """صفحه ساب‌لینک با اتصالات زنده"""
-    
     used = link.get('used_bytes', 0)
     limit = link.get('limit_bytes', 0)
     active = link.get('active', True)
@@ -1400,202 +1301,91 @@ def get_sub_page_html(uuid: str, link: dict) -> str:
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
-@keyframes fireBG{{
-    0%{{background-position:0% 50%}}
-    25%{{background-position:50% 0%}}
-    50%{{background-position:100% 50%}}
-    75%{{background-position:50% 100%}}
-    100%{{background-position:0% 50%}}
+:root{{
+  --bg:#0a0a1a;--card:rgba(20,10,10,0.75);--accent:#FF6B35;--accent2:#FF8C00;--text:#F0EEFF;--dim:#8A4A3A;--mid:#A06040;--border:rgba(255,100,50,0.15)
 }}
-@keyframes flameFlicker{{
-    0%{{opacity:0.6;transform:scale(1) rotate(0deg)}}
-    25%{{opacity:0.8;transform:scale(1.02) rotate(2deg)}}
-    50%{{opacity:0.5;transform:scale(0.98) rotate(-1deg)}}
-    75%{{opacity:0.9;transform:scale(1.01) rotate(1deg)}}
-    100%{{opacity:0.6;transform:scale(1) rotate(0deg)}}
-}}
+[data-theme="dark_fire"]{{--bg:#0a0a1a;--card:rgba(20,10,10,0.75);--accent:#FF6B35;--accent2:#FF8C00;--text:#F0EEFF;--dim:#8A4A3A;--mid:#A06040;--border:rgba(255,100,50,0.15)}}
+[data-theme="gold"]{{--bg:#1a1208;--card:rgba(30,20,10,0.75);--accent:#D4AF37;--accent2:#F5D060;--text:#F5ECD7;--dim:#8A7A4A;--mid:#C4A35A;--border:rgba(212,175,55,0.15)}}
+[data-theme="ocean"]{{--bg:#0a1a2a;--card:rgba(10,25,45,0.75);--accent:#0099CC;--accent2:#33CCFF;--text:#D4EEFF;--dim:#3A7A9A;--mid:#5AA8C8;--border:rgba(0,153,204,0.15)}}
+[data-theme="forest"]{{--bg:#081a0a;--card:rgba(10,30,12,0.75);--accent:#2E8B57;--accent2:#4CAF50;--text:#D4F5D4;--dim:#3A7A3A;--mid:#5AA85A;--border:rgba(46,139,87,0.15)}}
+[data-theme="ruby"]{{--bg:#1a0a12;--card:rgba(30,10,20,0.75);--accent:#9B2D6E;--accent2:#C44A8A;--text:#F5D4E8;--dim:#8A4A6A;--mid:#B05A8A;--border:rgba(155,45,110,0.15)}}
+[data-theme="white_fire"]{{--bg:#F5E6E0;--card:rgba(255,245,240,0.75);--accent:#E05A2A;--accent2:#CC5500;--text:#2A0A05;--dim:#8A5A4A;--mid:#6A3A2A;--border:rgba(200,80,40,0.15)}}
+[data-theme="white_gold"]{{--bg:#F5ECD7;--card:rgba(255,248,235,0.75);--accent:#D4AF37;--accent2:#C49A2A;--text:#2A1A05;--dim:#8A7A4A;--mid:#6A5A2A;--border:rgba(212,175,55,0.15)}}
+[data-theme="white_ocean"]{{--bg:#D4EEFF;--card:rgba(235,248,255,0.75);--accent:#0099CC;--accent2:#0077AA;--text:#052A3A;--dim:#3A7A9A;--mid:#2A5A7A;--border:rgba(0,153,204,0.15)}}
+[data-theme="white_forest"]{{--bg:#D4F5D4;--card:rgba(235,248,235,0.75);--accent:#2E8B57;--accent2:#1A6A3A;--text:#052A0A;--dim:#3A7A3A;--mid:#2A5A2A;--border:rgba(46,139,87,0.15)}}
+[data-theme="white_ruby"]{{--bg:#F5D4E8;--card:rgba(248,235,240,0.75);--accent:#9B2D6E;--accent2:#C44A8A;--text:#2A051A;--dim:#8A4A6A;--mid:#6A2A4A;--border:rgba(155,45,110,0.15)}}
+
+@keyframes fireBG{{0%{{background-position:0% 50%}}25%{{background-position:50% 0%}}50%{{background-position:100% 50%}}75%{{background-position:50% 100%}}100%{{background-position:0% 50%}}}}
+@keyframes flameFlicker{{0%{{opacity:0.6;transform:scale(1) rotate(0deg)}}25%{{opacity:0.8;transform:scale(1.02) rotate(2deg)}}50%{{opacity:0.5;transform:scale(0.98) rotate(-1deg)}}75%{{opacity:0.9;transform:scale(1.01) rotate(1deg)}}100%{{opacity:0.6;transform:scale(1) rotate(0deg)}}}}
 @keyframes pulse{{0%,100%{{opacity:1}}50%{{opacity:.25}}}}
-body{{
-    font-family:'Vazirmatn',sans-serif;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    color:#F0EEFF;
-    position:relative;
-    overflow-x:hidden;
-    background:linear-gradient(135deg,#1a0505,#2a0a0a,#3d0f0a,#2a0505,#1a0a0a);
-    background-size:400% 400%;
-    animation:fireBG 8s ease infinite;
-}}
-.fire-particles{{
-    position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
-}}
-.fire-particle{{
-    position:absolute;
-    border-radius:50%;
-    background:radial-gradient(circle,rgba(255,120,50,0.4),rgba(255,50,0,0));
-    width:6px;height:6px;
-    animation:floatFire 12s ease-in-out infinite;
-}}
-@keyframes floatFire{{
-    0%{{transform:translateY(100vh) scale(0) rotate(0deg);opacity:0}}
-    20%{{opacity:1}}
-    80%{{opacity:1}}
-    100%{{transform:translateY(-10vh) scale(1.5) rotate(720deg);opacity:0}}
-}}
-.fire-glow{{
-    position:fixed;border-radius:50%;filter:blur(150px);z-index:0;animation:flameFlicker 3s ease-in-out infinite;pointer-events:none;
-}}
+body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;color:var(--text);position:relative;overflow-x:hidden;background:var(--bg);background-size:400% 400%;animation:fireBG 8s ease infinite;transition:background .3s,color .3s}}
+[data-theme^="white"] body{{background:var(--bg)}}
+.fire-particles{{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}}
+.fire-particle{{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,120,50,0.4),rgba(255,50,0,0));width:6px;height:6px;animation:floatFire 12s ease-in-out infinite}}
+@keyframes floatFire{{0%{{transform:translateY(100vh) scale(0) rotate(0deg);opacity:0}}20%{{opacity:1}}80%{{opacity:1}}100%{{transform:translateY(-10vh) scale(1.5) rotate(720deg);opacity:0}}}}
+.fire-glow{{position:fixed;border-radius:50%;filter:blur(150px);z-index:0;animation:flameFlicker 3s ease-in-out infinite;pointer-events:none}}
 .glow1{{width:500px;height:500px;background:rgba(255,80,20,0.06);top:-200px;right:-100px}}
 .glow2{{width:400px;height:400px;background:rgba(255,150,50,0.05);bottom:-100px;left:-80px;animation-delay:2s}}
 .glow3{{width:300px;height:300px;background:rgba(200,50,0,0.04);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:4s}}
-.card{{
-    position:relative;z-index:10;
-    background:rgba(20,8,8,0.75);
-    backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
-    border:1px solid rgba(255,100,50,0.15);
-    border-radius:28px;
-    padding:40px 38px 34px;
-    max-width:500px;width:100%;
-    box-shadow:0 0 100px rgba(255,80,20,0.05),0 25px 70px rgba(0,0,0,0.7);
-    animation:cardIn 0.6s ease;
+
+.theme-palette{{
+    position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:100;
+    background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+    border:1px solid var(--border);border-radius:16px;padding:10px 16px;
+    display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center;
+    box-shadow:0 8px 40px rgba(0,0,0,0.3);transition:background .3s,border-color .3s;
 }}
+.theme-palette .label{{font-size:10px;color:var(--dim);font-weight:600;margin-left:6px}}
+.theme-palette .dot{{display:inline-block;width:24px;height:24px;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:all .2s;flex-shrink:0}}
+.theme-palette .dot:hover{{transform:scale(1.15)}}
+.theme-palette .dot.active{{border-color:var(--text);box-shadow:0 0 20px rgba(255,255,255,0.2)}}
+.theme-palette .close-btn{{background:none;border:none;color:var(--dim);cursor:pointer;font-size:16px;padding:2px 6px;transition:.2s}}
+.theme-palette .close-btn:hover{{color:var(--text);transform:rotate(90deg)}}
+
+.card{{position:relative;z-index:10;background:var(--card);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid var(--border);border-radius:28px;padding:40px 38px 34px;max-width:500px;width:100%;box-shadow:0 0 100px rgba(255,80,20,0.05),0 25px 70px rgba(0,0,0,0.7);animation:cardIn 0.6s ease;transition:background .3s,border-color .3s,color .3s}}
 @keyframes cardIn{{from{{opacity:0;transform:translateY(30px) scale(0.96)}}to{{opacity:1;transform:translateY(0) scale(1)}}}}
-.brand{{
-    display:flex;align-items:center;gap:14px;margin-bottom:28px;
-    padding-bottom:18px;border-bottom:1px solid rgba(255,100,50,0.08);
-}}
-.brand-icon{{
-    width:52px;height:52px;border-radius:16px;
-    background:linear-gradient(135deg,#FF6B35,#FF4500,#FF8C00);
-    display:flex;align-items:center;justify-content:center;
-    font-size:28px;flex-shrink:0;
-    box-shadow:0 0 50px rgba(255,80,20,0.2),0 0 100px rgba(255,80,20,0.05);
-    animation:flameFlicker 2s ease-in-out infinite;
-}}
-.brand-text .name{{
-    font-size:18px;font-weight:800;
-    background:linear-gradient(135deg,#FF8C00,#FF4500,#FF6B35);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}}
-.brand-text .sub{{font-size:10.5px;color:#8A4A3A;margin-top:2px;-webkit-text-fill-color:#8A4A3A}}
+.brand{{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border)}}
+.brand-icon{{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;box-shadow:0 0 50px rgba(255,80,20,0.2),0 0 100px rgba(255,80,20,0.05);animation:flameFlicker 2s ease-in-out infinite;transition:background .3s}}
+.brand-text .name{{font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--accent2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;transition:background .3s}}
+.brand-text .sub{{font-size:10.5px;color:var(--dim);margin-top:2px;-webkit-text-fill-color:var(--dim);transition:color .3s}}
 .user-header{{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}}
-.user-name{{font-size:24px;font-weight:800;color:#F0EEFF;display:flex;align-items:center;gap:8px}}
+.user-name{{font-size:24px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px;transition:color .3s}}
 .user-name .fire{{font-size:20px}}
-.status{{
-    display:inline-flex;align-items:center;gap:5px;
-    padding:5px 14px;border-radius:20px;
-    font-size:12px;font-weight:700;
-}}
-.status.active{{
-    background:rgba(255,80,20,0.12);color:#FF8C00;
-    border:1px solid rgba(255,80,20,0.15);
-}}
-.status.inactive{{
-    background:rgba(239,68,68,0.12);color:#F87171;
-    border:1px solid rgba(239,68,68,0.15);
-}}
-.uuid-box{{
-    background:rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.04);
-    border-radius:10px;padding:8px 12px;
-    font-size:10px;font-family:monospace;color:#8A4A3A;
-    word-break:break-all;margin:6px 0 16px;cursor:pointer;transition:.15s;
-}}
+.status{{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700}}
+.status.active{{background:rgba(255,80,20,0.12);color:var(--accent2);border:1px solid rgba(255,80,20,0.15)}}
+.status.inactive{{background:rgba(239,68,68,0.12);color:#F87171;border:1px solid rgba(239,68,68,0.15)}}
+.uuid-box{{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:10px;padding:8px 12px;font-size:10px;font-family:monospace;color:var(--dim);word-break:break-all;margin:6px 0 16px;cursor:pointer;transition:.15s}}
 .uuid-box:hover{{background:rgba(255,80,20,0.05);border-color:rgba(255,80,20,0.1)}}
 .info-grid{{display:grid;gap:10px;margin:16px 0}}
-.info-item{{
-    background:rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.04);
-    border-radius:12px;padding:13px 16px;
-    display:flex;justify-content:space-between;align-items:center;
-    transition:.15s;
-}}
+.info-item{{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;transition:.15s}}
 .info-item:hover{{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.06)}}
-.info-label{{font-size:12px;color:#8A4A3A;display:flex;align-items:center;gap:6px}}
-.info-label i{{font-size:15px;color:#FF6B35}}
-.info-value{{font-size:14px;font-weight:700;color:#F0EEFF}}
-.info-value.used{{color:#FF8C00}}
+.info-label{{font-size:12px;color:var(--dim);display:flex;align-items:center;gap:6px;transition:color .3s}}
+.info-label i{{font-size:15px;color:var(--accent);transition:color .3s}}
+.info-value{{font-size:14px;font-weight:700;color:var(--text);transition:color .3s}}
+.info-value.used{{color:var(--accent2)}}
 .info-value.remain{{color:#34D399}}
-.info-value.proto{{
-    font-size:11px;
-    background:rgba(255,80,20,0.08);
-    padding:4px 12px;border-radius:8px;
-    border:1px solid rgba(255,80,20,0.08);
-}}
+.info-value.proto{{font-size:11px;background:rgba(255,80,20,0.08);padding:4px 12px;border-radius:8px;border:1px solid rgba(255,80,20,0.08)}}
 .progress{{margin:18px 0 20px}}
-.progress-bar{{
-    height:7px;border-radius:5px;
-    background:rgba(255,255,255,0.05);overflow:hidden;
-}}
-.progress-fill{{
-    height:100%;border-radius:5px;
-    background:linear-gradient(90deg,#FF6B35,#FF4500,#FF8C00);
-    width:{percent:.1f}%;transition:width 1s ease;
-}}
-.progress-text{{display:flex;justify-content:space-between;font-size:11px;color:#8A4A3A;margin-top:6px}}
-.progress-text .pct{{font-weight:700;color:#F0EEFF}}
-.vless-section{{
-    background:rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.04);
-    border-radius:12px;padding:14px 16px;margin:16px 0;
-}}
-.vless-label{{
-    font-size:10px;color:#8A4A3A;font-weight:700;
-    text-transform:uppercase;letter-spacing:.06em;
-    display:flex;align-items:center;gap:6px;margin-bottom:8px;
-}}
-.vless-label i{{color:#FF6B35;font-size:13px}}
-.vless-link{{
-    font-family:monospace;font-size:10px;color:#FF8C00;
-    word-break:break-all;line-height:1.8;
-    background:rgba(0,0,0,0.3);padding:10px 12px;
-    border-radius:8px;border:1px solid rgba(255,80,20,0.06);
-}}
+.progress-bar{{height:7px;border-radius:5px;background:rgba(255,255,255,0.05);overflow:hidden}}
+.progress-fill{{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:{percent:.1f}%;transition:width 1s ease,background .3s}}
+.progress-text{{display:flex;justify-content:space-between;font-size:11px;color:var(--dim);margin-top:6px;transition:color .3s}}
+.progress-text .pct{{font-weight:700;color:var(--text);transition:color .3s}}
+.vless-section{{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:14px 16px;margin:16px 0}}
+.vless-label{{font-size:10px;color:var(--dim);font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px;margin-bottom:8px;transition:color .3s}}
+.vless-label i{{color:var(--accent);transition:color .3s}}
+.vless-link{{font-family:monospace;font-size:10px;color:var(--accent2);word-break:break-all;line-height:1.8;background:rgba(0,0,0,0.3);padding:10px 12px;border-radius:8px;border:1px solid rgba(255,80,20,0.06);transition:color .3s}}
 .actions{{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}}
-.btn{{
-    font-family:inherit;font-size:12px;font-weight:600;
-    border-radius:10px;padding:9px 16px;
-    cursor:pointer;display:inline-flex;align-items:center;gap:6px;
-    border:none;transition:all .2s;white-space:nowrap;flex:1;justify-content:center;
-}}
+.btn{{font-family:inherit;font-size:12px;font-weight:600;border-radius:10px;padding:9px 16px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:none;transition:all .2s;white-space:nowrap;flex:1;justify-content:center}}
 .btn i{{font-size:14px}}
-.btn-primary{{
-    background:linear-gradient(135deg,#FF6B35,#FF4500);
-    color:#fff;box-shadow:0 4px 20px rgba(255,80,20,0.2);
-}}
+.btn-primary{{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 4px 20px rgba(255,80,20,0.2);transition:background .3s}}
 .btn-primary:hover{{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,80,20,0.3)}}
-.btn-secondary{{
-    background:rgba(255,255,255,0.04);
-    border:1px solid rgba(255,255,255,0.06);
-    color:#8A4A3A;
-}}
-.btn-secondary:hover{{background:rgba(255,255,255,0.08);color:#F0EEFF}}
-.btn-success{{
-    background:rgba(16,185,129,0.1);
-    border:1px solid rgba(16,185,129,0.15);
-    color:#34D399;
-}}
+.btn-secondary{{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:var(--dim);transition:color .3s,border-color .3s}}
+.btn-secondary:hover{{background:rgba(255,255,255,0.08);color:var(--text)}}
+.btn-success{{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.15);color:#34D399}}
 .btn-success:hover{{background:rgba(16,185,129,0.15)}}
-.footer{{
-    margin-top:22px;padding-top:16px;
-    border-top:1px solid rgba(255,255,255,0.03);
-    text-align:center;font-size:10px;color:#5A3A2A;
-}}
-.footer .eagle{{color:#FF6B35;font-weight:700}}
-.toast{{
-    position:fixed;bottom:30px;left:50%;
-    transform:translateX(-50%) translateY(60px);
-    background:rgba(20,8,8,0.9);backdrop-filter:blur(20px);
-    border:1px solid rgba(255,80,20,0.12);
-    color:#F0EEFF;border-radius:12px;
-    padding:12px 22px;font-size:13px;
-    opacity:0;transition:all .3s;z-index:999;pointer-events:none;
-    display:flex;align-items:center;gap:8px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.4);
-}}
+.footer{{margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.03);text-align:center;font-size:10px;color:var(--dim);transition:color .3s}}
+.footer .eagle{{color:var(--accent);transition:color .3s}}
+.toast{{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--border);color:var(--text);border-radius:12px;padding:12px 22px;font-size:13px;opacity:0;transition:all .3s;z-index:999;pointer-events:none;display:flex;align-items:center;gap:8px;box-shadow:0 10px 40px rgba(0,0,0,0.4)}}
 .toast.show{{opacity:1;transform:translateX(-50%) translateY(0)}}
 .toast.ok{{border-color:rgba(16,185,129,0.2);color:#34D399}}
 @media(max-width:520px){{
@@ -1604,6 +1394,9 @@ body{{
     .brand-icon{{width:44px;height:44px;font-size:22px}}
     .info-item{{padding:11px 14px}}
     .btn{{font-size:11px;padding:8px 12px}}
+    .theme-palette{{top:12px;padding:8px 12px;gap:4px}}
+    .theme-palette .dot{{width:20px;height:20px}}
+    .theme-palette .label{{font-size:9px}}
 }}
 </style>
 </head>
@@ -1622,6 +1415,22 @@ body{{
 </div>
 <div class="fire-glow glow1"></div><div class="fire-glow glow2"></div><div class="fire-glow glow3"></div>
 <div class="toast" id="toast"></div>
+
+<div class="theme-palette" id="themePalette">
+    <span class="label">🎨</span>
+    <span class="dot" style="background:linear-gradient(135deg,#FF6B35,#FF4500)" onclick="applyTheme('dark_fire')" title="آتشین تیره"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#D4AF37,#F5D060)" onclick="applyTheme('gold')" title="طلایی تیره"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#0099CC,#33CCFF)" onclick="applyTheme('ocean')" title="آبی اقیانوسی تیره"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#2E8B57,#4CAF50)" onclick="applyTheme('forest')" title="سبز جنگلی تیره"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#9B2D6E,#C44A8A)" onclick="applyTheme('ruby')" title="بنفش یاقوتی تیره"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)" onclick="applyTheme('white_fire')" title="آتشین روشن"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#F5ECD7,#E8D5CC)" onclick="applyTheme('white_gold')" title="طلایی روشن"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#D4EEFF,#B8D8EE)" onclick="applyTheme('white_ocean')" title="آبی اقیانوسی روشن"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#D4F5D4,#B8E8B8)" onclick="applyTheme('white_forest')" title="سبز جنگلی روشن"></span>
+    <span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)" onclick="applyTheme('white_ruby')" title="بنفش یاقوتی روشن"></span>
+    <button class="close-btn" onclick="document.getElementById('themePalette').style.display='none'" title="بستن پالت">✕</button>
+</div>
+
 <div class="card">
     <div class="brand">
         <div class="brand-icon">🦅</div>
@@ -1635,9 +1444,7 @@ body{{
         </span>
     </div>
     <div class="uuid-box" onclick="copyUUID()" title="کلیک برای کپی UUID">🔑 {uuid}</div>
-    
     {conns_html}
-    
     <div class="info-grid">
         <div class="info-item"><span class="info-label"><i class="ti ti-database"></i> مصرف</span><span class="info-value used">{used_fmt}</span></div>
         <div class="info-item"><span class="info-label"><i class="ti ti-package"></i> سهمیه</span><span class="info-value">{limit_fmt}</span></div>
@@ -1663,14 +1470,25 @@ body{{
     <div class="footer"><span class="eagle">🦅</span> پنل عقاب</div>
 </div>
 <script>
+let currentTheme = localStorage.getItem('eagle-sub-theme') || 'dark_fire';
+const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
+
+function applyTheme(theme) {{
+    currentTheme = theme;
+    localStorage.setItem('eagle-sub-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    document.querySelectorAll('.theme-palette .dot').forEach(el => el.classList.remove('active'));
+    const dots = document.querySelectorAll('.theme-palette .dot');
+    const idx = themeList.indexOf(theme);
+    if (dots[idx]) dots[idx].classList.add('active');
+}}
+applyTheme(currentTheme);
+
 const vless = `{new_vless_link}`;
 const subUrl = `{sub_url}`;
 const uuid = `{uuid}`;
-function toast(msg, type=''){{
-    const t=document.getElementById('toast');
-    t.textContent=msg;t.className='toast show'+(type?' '+type:'');
-    setTimeout(()=>t.classList.remove('show'),2500);
-}}
+
+function toast(msg, type=''){{const t=document.getElementById('toast');t.textContent=msg;t.className='toast show'+(type?' '+type:'');setTimeout(()=>t.classList.remove('show'),2500);}}
 function copyVless(){{navigator.clipboard.writeText(vless).then(()=>toast('✅ لینک کانفیگ کپی شد','ok'));}}
 function copySub(){{navigator.clipboard.writeText(subUrl).then(()=>toast('✅ ساب‌لینک کپی شد','ok'));}}
 function copyUUID(){{navigator.clipboard.writeText(uuid).then(()=>toast('✅ UUID کپی شد','ok'));}}
