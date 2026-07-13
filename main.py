@@ -19,11 +19,11 @@ import httpx
 import logging
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-logger = logging.getLogger("Eagle-Gateway")
+logger = logging.getLogger("Caspian 3")
 
 IRAN_TZ = ZoneInfo("Asia/Tehran")
 
-app = FastAPI(title="🦅 Eagle Gateway", docs_url=None, redoc_url=None)
+app = FastAPI(title="🦅 Caspian 3", docs_url=None, redoc_url=None)
 
 CONFIG = {
     "port": int(os.environ.get("PORT", 8000)),
@@ -174,7 +174,7 @@ async def startup():
     )
     await load_state()
     log_activity("system", "🦅 سرور راه‌اندازی شد", "ok")
-    logger.info(f"🦅 Eagle Gateway started on port {CONFIG['port']}")
+    logger.info(f"🦅 Caspian 3 started on port {CONFIG['port']}")
 
 @app.on_event("shutdown")
 async def shutdown():
@@ -195,7 +195,7 @@ def now_ir() -> datetime:
 
 def generate_vless_link(uuid: str, host: str, remark: str = "", protocol: str = DEFAULT_PROTOCOL, fingerprint: str = "chrome", port: int = 443) -> str:
     if not remark:
-        remark = "عقاب"
+        remark = "کاسپین 3"
     
     if protocol == "vless-ws":
         path = f"/ws/{uuid}"
@@ -323,7 +323,7 @@ async def ensure_default_link():
 # ── Basic endpoints ───────────────────────────────────────────────────────────
 @app.get("/")
 async def root():
-    return {"service": "🦅 Eagle Gateway", "version": "10.0", "status": "active"}
+    return {"service": "🦅 Caspian 3", "version": "10.0", "status": "active"}
 
 @app.get("/health")
 async def health():
@@ -372,7 +372,7 @@ async def subscription_single(uuid: str):
     active_connections_count = len(active_connections_list)
     
     label = link.get("label", "کاربر")
-    remark = f"عقاب-{label}"
+    remark = f"کاسپین 3-{label}"
     
     link_data = {
         **link,
@@ -403,7 +403,7 @@ async def subscription_all(_=Depends(require_auth)):
                 fp = d.get("fingerprint", "chrome")
                 port = d.get("port", 443)
                 label = d.get("label", "کاربر")
-                remark = f"عقاب-{label}"
+                remark = f"کاسپین 3-{label}"
                 lines.append(generate_vless_link(uid, host, remark=remark, protocol=d.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp, port=port))
     content = base64.b64encode("\n".join(lines).encode()).decode()
     return Response(content=content, media_type="text/plain")
@@ -543,7 +543,7 @@ async def sub_group_subscription(uuid_key: str, request: Request):
                 fp = link.get("fingerprint", "chrome")
                 port = link.get("port", 443)
                 label = link.get("label", "کاربر")
-                remark = f"عقاب-{label}"
+                remark = f"کاسپین 3-{label}"
                 lines.append(generate_vless_link(lid, host, remark=remark, protocol=link.get("protocol", DEFAULT_PROTOCOL), fingerprint=fp, port=port))
 
     content = base64.b64encode("\n".join(lines).encode()).decode()
@@ -732,7 +732,7 @@ async def create_link(request: Request, _=Depends(require_auth)):
     log_activity("link", f"کانفیگ «{label}» ساخته شد", "ok")
     host = get_host()
     
-    remark = f"عقاب-{label}"
+    remark = f"کاسپین 3-{label}"
     main_link = generate_vless_link(uid, host, remark=remark, protocol=protocol, fingerprint=fingerprint, port=port)
     warning_link = ""
     
@@ -763,7 +763,7 @@ async def list_links(_=Depends(require_auth)):
         fp = d.get("fingerprint", "chrome")
         port = d.get("port", 443)
         label = d.get("label", "کاربر")
-        remark = f"عقاب-{label}"
+        remark = f"کاسپین 3-{label}"
         
         last_connected = None
         for c in connections.values():
@@ -984,7 +984,7 @@ async def public_sub_data(uuid_key: str, request: Request):
         fp = link.get("fingerprint", "chrome")
         port = link.get("port", 443)
         label = link.get("label", "کاربر")
-        remark = f"عقاب-{label}"
+        remark = f"کاسپین 3-{label}"
         links_out.append({
             "uuid": lid,
             "label": link["label"],
