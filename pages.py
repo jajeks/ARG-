@@ -462,7 +462,7 @@ select.fi{appearance:none;cursor:pointer}
   <div class="sb-foot">
     <button class="theme-btn" onclick="toggleTheme()"><i class="ti ti-palette" id="theme-icon"></i> <span id="theme-label">تغییر تم</span></button>
     <button class="rgb-btn off" id="rgb-btn" onclick="toggleRGB()"><i class="ti ti-color-swatch"></i> <span id="rgb-label">تم RGB</span></button>
-    <button class="support-btn" onclick="window.open('https://t.me/+QyEVU0FquFczYjQ0','_blank')"><i class="ti ti-brand-telegram"></i> گروه پشتیبانی</button>
+    <button class="support-btn" onclick="window.open('https://t.me/PV_Golestaneh','_blank')"><i class="ti ti-brand-telegram"></i> گروه پشتیبانی</button>
     <button class="logout-btn" onclick="logout()"><i class="ti ti-logout"></i> خروج</button>
   </div>
 </aside>
