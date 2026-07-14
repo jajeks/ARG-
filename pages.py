@@ -33,6 +33,12 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 [data-theme="ruby"]{
   --bg:#1a0a12;--card:rgba(30,10,20,0.85);--accent:#9B2D6E;--accent2:#C44A8A;--text:#F5D4E8;--dim:#8A4A6A;--mid:#B05A8A;--border:rgba(155,45,110,0.2)
 }
+[data-theme="crimson"]{
+  --bg:#1a0505;--card:rgba(30,8,8,0.85);--accent:#DC143C;--accent2:#FF2040;--text:#FFE8EC;--dim:#8A2A3A;--mid:#B03A4A;--border:rgba(220,20,60,0.2)
+}
+[data-theme="emerald"]{
+  --bg:#051a0a;--card:rgba(8,30,12,0.85);--accent:#00C853;--accent2:#00E676;--text:#E8FFEC;--dim:#2A6A3A;--mid:#4A8A5A;--border:rgba(0,200,83,0.2)
+}
 [data-theme="white_fire"]{
   --bg:#F5E6E0;--card:rgba(255,245,240,0.85);--accent:#E05A2A;--accent2:#CC5500;--text:#2A0A05;--dim:#8A5A4A;--mid:#6A3A2A;--border:rgba(200,80,40,0.2)
 }
@@ -47,6 +53,12 @@ LOGIN_HTML = r"""<!DOCTYPE html>
 }
 [data-theme="white_ruby"]{
   --bg:#F5D4E8;--card:rgba(248,235,240,0.85);--accent:#9B2D6E;--accent2:#C44A8A;--text:#2A051A;--dim:#8A4A6A;--mid:#6A2A4A;--border:rgba(155,45,110,0.2)
+}
+[data-theme="white_crimson"]{
+  --bg:#FFE8EC;--card:rgba(255,240,242,0.85);--accent:#DC143C;--accent2:#E83050;--text:#2A0508;--dim:#8A2A3A;--mid:#6A1A2A;--border:rgba(220,20,60,0.2)
+}
+[data-theme="white_emerald"]{
+  --bg:#E8FFEC;--card:rgba(240,255,242,0.85);--accent:#00C853;--accent2:#00E676;--text:#050A08;--dim:#2A6A3A;--mid:#1A4A2A;--border:rgba(0,200,83,0.2)
 }
 
 body.rgb-mode{background:linear-gradient(135deg,#1a0505,#050a1a,#1a0a05,#0a051a,#1a0505) !important;background-size:400% 400% !important;animation:rgbBG 4s ease infinite !important}
@@ -131,18 +143,22 @@ input:focus+.ic{color:var(--accent2)}
         <span class="dot" style="background:linear-gradient(135deg,#0099CC,#33CCFF)" onclick="applyTheme('ocean')" title="تم آبی اقیانوسی تیره"></span>
         <span class="dot" style="background:linear-gradient(135deg,#2E8B57,#4CAF50)" onclick="applyTheme('forest')" title="تم سبز جنگلی تیره"></span>
         <span class="dot" style="background:linear-gradient(135deg,#9B2D6E,#C44A8A)" onclick="applyTheme('ruby')" title="تم بنفش یاقوتی تیره"></span>
+        <span class="dot" style="background:linear-gradient(135deg,#DC143C,#FF2040)" onclick="applyTheme('crimson')" title="تم قرمز سرخی تیره"></span>
+        <span class="dot" style="background:linear-gradient(135deg,#00C853,#00E676)" onclick="applyTheme('emerald')" title="تم سبز زمردی تیره"></span>
         <span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)" onclick="applyTheme('white_fire')" title="تم آتشین روشن"></span>
         <span class="dot" style="background:linear-gradient(135deg,#F5ECD7,#E8D5CC)" onclick="applyTheme('white_gold')" title="تم طلایی روشن"></span>
         <span class="dot" style="background:linear-gradient(135deg,#D4EEFF,#B8D8EE)" onclick="applyTheme('white_ocean')" title="تم آبی اقیانوسی روشن"></span>
         <span class="dot" style="background:linear-gradient(135deg,#D4F5D4,#B8E8B8)" onclick="applyTheme('white_forest')" title="تم سبز جنگلی روشن"></span>
         <span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)" onclick="applyTheme('white_ruby')" title="تم بنفش یاقوتی روشن"></span>
+        <span class="dot" style="background:linear-gradient(135deg,#FFE8EC,#F5D0D8)" onclick="applyTheme('white_crimson')" title="تم قرمز سرخی روشن"></span>
+        <span class="dot" style="background:linear-gradient(135deg,#E8FFEC,#D0F5D8)" onclick="applyTheme('white_emerald')" title="تم سبز زمردی روشن"></span>
       </span>
     </div>
   </div>
 </div>
 <script>
 let currentTheme = localStorage.getItem('eagle-theme') || 'dark_fire';
-const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
+const themeList = ['dark_fire','gold','ocean','forest','ruby','crimson','emerald','white_fire','white_gold','white_ocean','white_forest','white_ruby','white_crimson','white_emerald'];
 
 function applyTheme(theme){
     currentTheme = theme;
@@ -256,6 +272,30 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --t1:#F5D4E8;--t2:#B05A8A;--t3:#8A4A6A;
   --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(155,45,110,0.05);
 }
+[data-theme="crimson"] {
+  --bg:#1a0505;--bg2:#2a0808;--bg3:#3a0a0a;
+  --card:rgba(30,8,8,0.75);--card-b:rgba(220,20,60,0.2);--card-bh:rgba(220,20,60,0.4);
+  --accent:#DC143C;--accent2:#FF2040;--accent-d:rgba(220,20,60,0.1);
+  --green:#A86B7A;--green-bg:rgba(168,107,122,0.08);--green-t:#C48A9A;
+  --red:#EF4444;--red-bg:rgba(239,68,68,0.08);--red-t:#F87171;
+  --amber:#DC143C;--amber-bg:rgba(220,20,60,0.08);--amber-t:#FF2040;
+  --pink:#DC143C;--pink-bg:rgba(220,20,60,0.08);
+  --purple:#DC143C;--purple-bg:rgba(220,20,60,0.08);
+  --t1:#FFE8EC;--t2:#B03A4A;--t3:#8A2A3A;
+  --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(220,20,60,0.05);
+}
+[data-theme="emerald"] {
+  --bg:#051a0a;--bg2:#082a10;--bg3:#0a3a16;
+  --card:rgba(8,30,12,0.75);--card-b:rgba(0,200,83,0.2);--card-bh:rgba(0,200,83,0.4);
+  --accent:#00C853;--accent2:#00E676;--accent-d:rgba(0,200,83,0.1);
+  --green:#00C853;--green-bg:rgba(0,200,83,0.08);--green-t:#00E676;
+  --red:#CD5C5C;--red-bg:rgba(205,92,92,0.08);--red-t:#E89696;
+  --amber:#00C853;--amber-bg:rgba(0,200,83,0.08);--amber-t:#00E676;
+  --pink:#00C853;--pink-bg:rgba(0,200,83,0.08);
+  --purple:#00C853;--purple-bg:rgba(0,200,83,0.08);
+  --t1:#E8FFEC;--t2:#4A8A5A;--t3:#2A6A3A;
+  --shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(0,200,83,0.05);
+}
 [data-theme="white_fire"] {
   --bg:#F5E6E0;--bg2:#E8D5CC;--bg3:#F0D5C8;
   --card:rgba(255,245,240,0.7);--card-b:rgba(200,80,40,0.14);--card-bh:rgba(200,80,40,0.3);
@@ -314,6 +354,30 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   --pink:#9B2D6E;--pink-bg:rgba(155,45,110,0.06);
   --purple:#9B2D6E;--purple-bg:rgba(155,45,110,0.06);
   --t1:#2A051A;--t2:#6A2A4A;--t3:#8A4A6A;
+  --shadow:0 8px 32px rgba(0,0,0,0.06);
+}
+[data-theme="white_crimson"] {
+  --bg:#FFE8EC;--bg2:#F5D0D8;--bg3:#F0D4D8;
+  --card:rgba(255,240,242,0.7);--card-b:rgba(220,20,60,0.14);--card-bh:rgba(220,20,60,0.3);
+  --accent:#DC143C;--accent2:#E83050;--accent-d:rgba(220,20,60,0.06);
+  --green:#A86B7A;--green-bg:rgba(168,107,122,0.06);--green-t:#7A4A5A;
+  --red:#DC2626;--red-bg:rgba(220,38,38,0.06);--red-t:#991B1B;
+  --amber:#DC143C;--amber-bg:rgba(220,20,60,0.06);--amber-t:#E83050;
+  --pink:#DC143C;--pink-bg:rgba(220,20,60,0.06);
+  --purple:#DC143C;--purple-bg:rgba(220,20,60,0.06);
+  --t1:#2A0508;--t2:#6A1A2A;--t3:#8A2A3A;
+  --shadow:0 8px 32px rgba(0,0,0,0.06);
+}
+[data-theme="white_emerald"] {
+  --bg:#E8FFEC;--bg2:#D0F5D8;--bg3:#D8F5E0;
+  --card:rgba(240,255,242,0.7);--card-b:rgba(0,200,83,0.14);--card-bh:rgba(0,200,83,0.3);
+  --accent:#00C853;--accent2:#00E676;--accent-d:rgba(0,200,83,0.06);
+  --green:#00C853;--green-bg:rgba(0,200,83,0.06);--green-t:#008A3A;
+  --red:#CD5C5C;--red-bg:rgba(205,92,92,0.06);--red-t:#993A3A;
+  --amber:#00C853;--amber-bg:rgba(0,200,83,0.06);--amber-t:#00E676;
+  --pink:#00C853;--pink-bg:rgba(0,200,83,0.06);
+  --purple:#00C853;--purple-bg:rgba(0,200,83,0.06);
+  --t1:#050A08;--t2:#1A4A2A;--t3:#2A6A3A;
   --shadow:0 8px 32px rgba(0,0,0,0.06);
 }
 
@@ -484,7 +548,7 @@ select.fi{appearance:none;cursor:pointer}
 
 .theme-select-btn{display:flex;align-items:center;justify-content:center;gap:7px;background:var(--accent-d);color:var(--t2);border-radius:10px;padding:8px;font-size:11px;font-weight:500;font-family:inherit;border:1px solid var(--card-b);cursor:pointer;width:100%;transition:.2s;margin-bottom:7px}
 .theme-select-btn:hover{background:var(--card-b);color:var(--t1)}
-.theme-menu{display:none;position:absolute;bottom:100%;left:0;right:0;background:var(--card);backdrop-filter:blur(30px);border:1px solid var(--card-b);border-radius:10px;padding:6px;z-index:300;box-shadow:var(--shadow);margin-bottom:4px;max-height:250px;overflow-y:auto}
+.theme-menu{display:none;position:absolute;bottom:100%;left:0;right:0;background:var(--card);backdrop-filter:blur(30px);border:1px solid var(--card-b);border-radius:10px;padding:6px;z-index:300;box-shadow:var(--shadow);margin-bottom:4px;max-height:280px;overflow-y:auto}
 .theme-menu.show{display:block}
 .theme-menu-item{padding:7px 12px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.2s;color:var(--t2);font-size:12px}
 .theme-menu-item:hover{background:var(--accent-d);color:var(--t1)}
@@ -617,11 +681,15 @@ select.fi{appearance:none;cursor:pointer}
         <div class="theme-menu-item" onclick="selectTheme('ocean')"><span class="dot" style="background:linear-gradient(135deg,#0099CC,#33CCFF)"></span> آبی اقیانوسی تیره</div>
         <div class="theme-menu-item" onclick="selectTheme('forest')"><span class="dot" style="background:linear-gradient(135deg,#2E8B57,#4CAF50)"></span> سبز جنگلی تیره</div>
         <div class="theme-menu-item" onclick="selectTheme('ruby')"><span class="dot" style="background:linear-gradient(135deg,#9B2D6E,#C44A8A)"></span> بنفش یاقوتی تیره</div>
+        <div class="theme-menu-item" onclick="selectTheme('crimson')"><span class="dot" style="background:linear-gradient(135deg,#DC143C,#FF2040)"></span> قرمز سرخی تیره</div>
+        <div class="theme-menu-item" onclick="selectTheme('emerald')"><span class="dot" style="background:linear-gradient(135deg,#00C853,#00E676)"></span> سبز زمردی تیره</div>
         <div class="theme-menu-item" onclick="selectTheme('white_fire')"><span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)"></span> آتشین روشن</div>
         <div class="theme-menu-item" onclick="selectTheme('white_gold')"><span class="dot" style="background:linear-gradient(135deg,#F5ECD7,#E8D5CC)"></span> طلایی روشن</div>
         <div class="theme-menu-item" onclick="selectTheme('white_ocean')"><span class="dot" style="background:linear-gradient(135deg,#D4EEFF,#B8D8EE)"></span> آبی اقیانوسی روشن</div>
         <div class="theme-menu-item" onclick="selectTheme('white_forest')"><span class="dot" style="background:linear-gradient(135deg,#D4F5D4,#B8E8B8)"></span> سبز جنگلی روشن</div>
         <div class="theme-menu-item" onclick="selectTheme('white_ruby')"><span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)"></span> بنفش یاقوتی روشن</div>
+        <div class="theme-menu-item" onclick="selectTheme('white_crimson')"><span class="dot" style="background:linear-gradient(135deg,#FFE8EC,#F5D0D8)"></span> قرمز سرخی روشن</div>
+        <div class="theme-menu-item" onclick="selectTheme('white_emerald')"><span class="dot" style="background:linear-gradient(135deg,#E8FFEC,#D0F5D8)"></span> سبز زمردی روشن</div>
       </div>
     </div>
     <button class="rgb-btn off" id="rgb-btn" onclick="toggleRGB()"><i class="ti ti-color-swatch"></i> <span id="rgb-label">تم RGB</span></button>
@@ -705,18 +773,22 @@ select.fi{appearance:none;cursor:pointer}
 
 <script>
 let currentTheme = localStorage.getItem('eagle-theme') || 'dark_fire';
-const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
+const themeList = ['dark_fire','gold','ocean','forest','ruby','crimson','emerald','white_fire','white_gold','white_ocean','white_forest','white_ruby','white_crimson','white_emerald'];
 const themeNames = {
     'dark_fire':'🔥 آتشین تیره',
     'gold':'👑 طلایی تیره',
     'ocean':'🌊 آبی اقیانوسی تیره',
     'forest':'🌲 سبز جنگلی تیره',
     'ruby':'💎 بنفش یاقوتی تیره',
+    'crimson':'❤️ قرمز سرخی تیره',
+    'emerald':'💚 سبز زمردی تیره',
     'white_fire':'🔥 آتشین روشن',
     'white_gold':'👑 طلایی روشن',
     'white_ocean':'🌊 آبی اقیانوسی روشن',
     'white_forest':'🌲 سبز جنگلی روشن',
-    'white_ruby':'💎 بنفش یاقوتی روشن'
+    'white_ruby':'💎 بنفش یاقوتی روشن',
+    'white_crimson':'❤️ قرمز سرخی روشن',
+    'white_emerald':'💚 سبز زمردی روشن'
 };
 
 function applyTheme(theme) {
@@ -1276,11 +1348,15 @@ def get_sub_page_html(uuid: str, link: dict) -> str:
 [data-theme="ocean"]{{--bg:#0a1a2a;--card:rgba(10,25,45,0.75);--accent:#0099CC;--accent2:#33CCFF;--text:#D4EEFF;--dim:#3A7A9A;--mid:#5AA8C8;--border:rgba(0,153,204,0.15)}}
 [data-theme="forest"]{{--bg:#081a0a;--card:rgba(10,30,12,0.75);--accent:#2E8B57;--accent2:#4CAF50;--text:#D4F5D4;--dim:#3A7A3A;--mid:#5AA85A;--border:rgba(46,139,87,0.15)}}
 [data-theme="ruby"]{{--bg:#1a0a12;--card:rgba(30,10,20,0.75);--accent:#9B2D6E;--accent2:#C44A8A;--text:#F5D4E8;--dim:#8A4A6A;--mid:#B05A8A;--border:rgba(155,45,110,0.15)}}
+[data-theme="crimson"]{{--bg:#1a0505;--card:rgba(30,8,8,0.75);--accent:#DC143C;--accent2:#FF2040;--text:#FFE8EC;--dim:#8A2A3A;--mid:#B03A4A;--border:rgba(220,20,60,0.15)}}
+[data-theme="emerald"]{{--bg:#051a0a;--card:rgba(8,30,12,0.75);--accent:#00C853;--accent2:#00E676;--text:#E8FFEC;--dim:#2A6A3A;--mid:#4A8A5A;--border:rgba(0,200,83,0.15)}}
 [data-theme="white_fire"]{{--bg:#F5E6E0;--card:rgba(255,245,240,0.75);--accent:#E05A2A;--accent2:#CC5500;--text:#2A0A05;--dim:#8A5A4A;--mid:#6A3A2A;--border:rgba(200,80,40,0.15)}}
 [data-theme="white_gold"]{{--bg:#F5ECD7;--card:rgba(255,248,235,0.75);--accent:#D4AF37;--accent2:#C49A2A;--text:#2A1A05;--dim:#8A7A4A;--mid:#6A5A2A;--border:rgba(212,175,55,0.15)}}
 [data-theme="white_ocean"]{{--bg:#D4EEFF;--card:rgba(235,248,255,0.75);--accent:#0099CC;--accent2:#0077AA;--text:#052A3A;--dim:#3A7A9A;--mid:#2A5A7A;--border:rgba(0,153,204,0.15)}}
 [data-theme="white_forest"]{{--bg:#D4F5D4;--card:rgba(235,248,235,0.75);--accent:#2E8B57;--accent2:#1A6A3A;--text:#052A0A;--dim:#3A7A3A;--mid:#2A5A2A;--border:rgba(46,139,87,0.15)}}
 [data-theme="white_ruby"]{{--bg:#F5D4E8;--card:rgba(248,235,240,0.75);--accent:#9B2D6E;--accent2:#C44A8A;--text:#2A051A;--dim:#8A4A6A;--mid:#6A2A4A;--border:rgba(155,45,110,0.15)}}
+[data-theme="white_crimson"]{{--bg:#FFE8EC;--card:rgba(255,240,242,0.75);--accent:#DC143C;--accent2:#E83050;--text:#2A0508;--dim:#8A2A3A;--mid:#6A1A2A;--border:rgba(220,20,60,0.15)}}
+[data-theme="white_emerald"]{{--bg:#E8FFEC;--card:rgba(240,255,242,0.75);--accent:#00C853;--accent2:#00E676;--text:#050A08;--dim:#2A6A3A;--mid:#1A4A2A;--border:rgba(0,200,83,0.15)}}
 
 @keyframes fireBG{{0%{{background-position:0% 50%}}25%{{background-position:50% 0%}}50%{{background-position:100% 50%}}75%{{background-position:50% 100%}}100%{{background-position:0% 50%}}}}
 @keyframes flameFlicker{{0%{{opacity:0.6;transform:scale(1) rotate(0deg)}}25%{{opacity:0.8;transform:scale(1.02) rotate(2deg)}}50%{{opacity:0.5;transform:scale(0.98) rotate(-1deg)}}75%{{opacity:0.9;transform:scale(1.01) rotate(1deg)}}100%{{opacity:0.6;transform:scale(1) rotate(0deg)}}}}
@@ -1431,6 +1507,16 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
             بنفش یاقوتی تیره
             <span class="check">✓</span>
         </div>
+        <div class="menu-item" data-theme="crimson" onclick="selectTheme('crimson')">
+            <span class="dot" style="background:linear-gradient(135deg,#DC143C,#FF2040)"></span>
+            قرمز سرخی تیره
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="emerald" onclick="selectTheme('emerald')">
+            <span class="dot" style="background:linear-gradient(135deg,#00C853,#00E676)"></span>
+            سبز زمردی تیره
+            <span class="check">✓</span>
+        </div>
         <div style="border-top:1px solid var(--border);margin:4px 8px"></div>
         <div class="menu-item" data-theme="white_fire" onclick="selectTheme('white_fire')">
             <span class="dot" style="background:linear-gradient(135deg,#F5E6E0,#E8D5CC)"></span>
@@ -1455,6 +1541,16 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
         <div class="menu-item" data-theme="white_ruby" onclick="selectTheme('white_ruby')">
             <span class="dot" style="background:linear-gradient(135deg,#F5D4E8,#E8C4D8)"></span>
             بنفش یاقوتی روشن
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="white_crimson" onclick="selectTheme('white_crimson')">
+            <span class="dot" style="background:linear-gradient(135deg,#FFE8EC,#F5D0D8)"></span>
+            قرمز سرخی روشن
+            <span class="check">✓</span>
+        </div>
+        <div class="menu-item" data-theme="white_emerald" onclick="selectTheme('white_emerald')">
+            <span class="dot" style="background:linear-gradient(135deg,#E8FFEC,#D0F5D8)"></span>
+            سبز زمردی روشن
             <span class="check">✓</span>
         </div>
     </div>
@@ -1502,18 +1598,22 @@ body{{font-family:'Vazirmatn',sans-serif;min-height:100vh;display:flex;align-ite
 <script>
 // ===== تنظیمات تم =====
 let currentTheme = localStorage.getItem('eagle-sub-theme') || 'dark_fire';
-const themeList = ['dark_fire','gold','ocean','forest','ruby','white_fire','white_gold','white_ocean','white_forest','white_ruby'];
+const themeList = ['dark_fire','gold','ocean','forest','ruby','crimson','emerald','white_fire','white_gold','white_ocean','white_forest','white_ruby','white_crimson','white_emerald'];
 const themeNames = {{
     'dark_fire':'🔥 آتشین تیره',
     'gold':'👑 طلایی تیره',
     'ocean':'🌊 آبی اقیانوسی تیره',
     'forest':'🌲 سبز جنگلی تیره',
     'ruby':'💎 بنفش یاقوتی تیره',
+    'crimson':'❤️ قرمز سرخی تیره',
+    'emerald':'💚 سبز زمردی تیره',
     'white_fire':'🔥 آتشین روشن',
     'white_gold':'👑 طلایی روشن',
     'white_ocean':'🌊 آبی اقیانوسی روشن',
     'white_forest':'🌲 سبز جنگلی روشن',
-    'white_ruby':'💎 بنفش یاقوتی روشن'
+    'white_ruby':'💎 بنفش یاقوتی روشن',
+    'white_crimson':'❤️ قرمز سرخی روشن',
+    'white_emerald':'💚 سبز زمردی روشن'
 }};
 
 function applyTheme(theme) {{
